@@ -1,0 +1,12 @@
+:root{
+    --primary-color: #FF7F7F;
+}
+.logo_name{
+    color: var(--primary-color);
+}
+.primary-color-letter{
+    color: var(--primary-color);
+}
+input[type="checkbox"]:checked + .w-5 .tick-icon {
+    display: block;
+}
