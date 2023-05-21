@@ -17,7 +17,7 @@
         <img src="{{asset('images/browse_all_thumbnail.png')}}" alt="Browse thumbnail" class="w-[100%]">
         <p class="caption absolute text-white text-4xl font-bold">Explore Project With <span
                 class="logo_name">ShareSquare</span></p>
-        <div class="items-center justify-between flex absolute shadow-lg border rounded-[10px] w-3/5 bottom-[-10%] p-8 bg-white"
+        <div class="items-center justify-between flex absolute shadow-lg border rounded-[10px] w-3/5 bottom-[-10%] p-8 bg-white z-10"
             style="">
             <div class="relative w-2/6">
                 <input type="text"
@@ -442,7 +442,8 @@
             </div>
         </div>
     </div>
-    <div href="#" id="test">Hello</div>
+    <div id="modalBackground" class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 items-center hidden">
+    </div>
     @vite('resources/js/panha.js')
 </body>
 </html>

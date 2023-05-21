@@ -15,11 +15,13 @@ $(document).ready(function (){
             $(this).find('.under-dropdown').removeClass('hidden')
             /*other dropdown*/
             $('.under-dropdown').not($thisUnderDropDown).addClass('hidden')
-
+            $('#modalBackground').removeClass('hidden')
             /*change color other dropdown if they open*/
             hiddenDropDown($otherDropDown)
         }else{
             hiddenDropDown($(this))
+            $('#modalBackground').addClass('hidden')
+
         }
     })
     $('.under-dropdown').on('click', function (e){
