@@ -19,3 +19,6 @@ Route::get('/', function () {
 Route::get('/browse', function () {
     return view('browse');
 });
+Route::get('/create-campaign/cash-type', function () {
+    return view('campaign_cash_type');
+});

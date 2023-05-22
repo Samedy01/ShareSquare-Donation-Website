@@ -1,5 +1,5 @@
 :root{
-    --primary-color: #FF7F7F;
+    --primary-color: #FF4238;
 }
 .logo_name{
     color: var(--primary-color);
@@ -9,4 +9,16 @@
 }
 input[type="checkbox"]:checked + .w-5 .tick-icon {
     display: block;
+}
+input[type="checkbox"]:checked + .w-8 .tick-icon {
+    display: block;
+}
+.right-side::-webkit-scrollbar, .item_list_block::-webkit-scrollbar {
+    width: 0.5rem;
+    background-color: #eaeaea;
+    border-radius: 0.5rem;
+}
+.right-side::-webkit-scrollbar-thumb, .item_list_block::-webkit-scrollbar-thumb {
+    background-color: lightgrey;
+    border-radius: 0.5rem;
 }

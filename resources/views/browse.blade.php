@@ -10,7 +10,7 @@
     @vite('resources/css/app.css')
     @vite('resources/css/panha.css')
     @vite('resources/js/jquery-3.6.1.min.js')
-    <title>Document</title>
+    <title>Browse campaign</title>
 </head>
 <body class="container border mx-auto">
     <div class="flex justify-center items-center relative mt-4 mb-16">
