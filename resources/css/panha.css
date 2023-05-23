@@ -13,6 +13,9 @@ input[type="checkbox"]:checked + .w-5 .tick-icon {
 input[type="checkbox"]:checked + .w-8 .tick-icon {
     display: block;
 }
+input[type="radio"]:checked + .w-8 .tick-icon {
+    display: block;
+}
 .right-side::-webkit-scrollbar, .item_list_block::-webkit-scrollbar {
     width: 0.5rem;
     background-color: #eaeaea;

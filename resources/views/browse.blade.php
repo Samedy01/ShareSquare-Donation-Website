@@ -312,7 +312,7 @@
         <h1 class="text-4xl font-bold mt-5">Your Result</h1>
     </div>
     <div class="w-3/4 mx-auto">
-        {{--one card campaing--}}
+        {{--one card campaing (still active)--}}
         <div class="w-[100%] my-5 border rounded-[10px] shadow p-4 grid grid-cols-4 gap-2">
             <div class="col-span-1">
                 <img src="{{asset('images/thumbnails/campaign_thumnail.png')}}" class="w-[100%]">
@@ -372,7 +372,7 @@
 
             </div>
         </div>
-        {{--one card campaing--}}
+        {{--one card campaign (Goal reach)--}}
         <div class="w-[100%] my-5 border rounded-[10px] shadow p-4 grid grid-cols-4 gap-2">
             <div class="col-span-1">
                 <img src="{{asset('images/thumbnails/campaign_thumnail.png')}}" class="w-[100%]">

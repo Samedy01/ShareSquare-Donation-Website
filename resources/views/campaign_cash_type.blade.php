@@ -46,7 +46,7 @@
         {{--Right side--}}
         <div class=" col-span-3 max-h-[88vh] overflow-auto right-side pr-2 pl-2">
             {{--1st form: About--}}
-            <div class="mb-[100px] form" id="form_step_1" data-status="1">
+            <div class="mb-[100px] form hidden" id="form_step_1" data-status="1">
                 <h1 class="text-2xl font-bold">About</h1>
                 <div class="flex flex-col mt-4">
                     <label for="campaign_title" class="font-bold">Title</label>
@@ -99,37 +99,90 @@
                 </div>
             </div>
             {{--2nd form: Donation options--}}
-            <div class="mb-[100px] hidden form" id="form_step_2" data-status="0">
+            <div class="mb-[100px] form" id="form_step_2" data-status="0">
                 <h1 class="text-3xl font-bold">Donation Option</h1>
                 <div class="mt-4">
+                    <p class="font-bold">Are you donating items or raising?</p>
+                    <label for="donating" class="mt-3 flex w-[60%] py-3 px-5 rounded shadow-sm border hover:border-red-500 campaign_type hover:cursor-pointer">
+                        {{--normal image--}}
+                        <img
+                            src="{{asset('images/svgs/donating.svg')}}"
+                            alt="triangle with all three sides equal"
+                            class="icon"
+                            height="50"
+                            width="50" />
+                        {{--image active when checked--}}
+                        <img
+                            src="{{asset('images/svgs/donating_active.svg')}}"
+                            alt="triangle with all three sides equal"
+                            height="50"
+                            class="hidden icon_active"
+                            width="50" />
+                        <div class="flex flex-col justify-between ml-3">
+                            <div class="font-bold">Donating</div>
+                            <div class="text-gray-500">Online donation with ABA, ACELEDA, etc</div>
+                        </div>
+                        <input type="radio" class="hidden" id="donating" name="campaign_type" value="donating">
+                    </label>
+                    <label for="raising" class="mt-3 flex w-[60%] py-3 px-5 rounded shadow-sm border  hover:border-red-500 campaign_type hover:cursor-pointer">
+                        <img
+                            src="{{asset('images/svgs/raising.svg')}}"
+                            alt="triangle with all three sides equal"
+                            height="50"
+                            class="icon"
+                            width="50" />
+                        <img
+                            src="{{asset('images/svgs/raising_active.svg')}}"
+                            alt="triangle with all three sides equal"
+                            height="50"
+                            class="icon_active hidden"
+                            width="50" />
+
+                        <div class="flex flex-col justify-between ml-3">
+                            <div class="font-bold">Raising</div>
+                            <div class="text-gray-500">Raising cash and/or items for the campaign</div>
+                        </div>
+                        <input type="radio" class="hidden" id="raising" name="campaign_type" value="raising">
+                    </label>
+                </div>
+                {{--Select the type of donation--}}
+                <div class="mt-4">
                     <p class="font-bold">Select the type of donation</p>
-                    <label for="cash-input" class="mt-3 flex w-[60%] py-3 px-5 rounded shadow-sm border hover:border-red-500">
-                        <svg width="50" height="50" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="40" height="40" rx="5" fill="#FF4238"/>
-                            <g clip-path="url(#clip0_286_1194)">
-                                <path d="M19.9291 14.5717V11.3574M19.9291 14.5717C18.1506 14.5717 16.7148 14.5717 16.7148 16.7146C16.7148 19.9289 23.1434 19.9289 23.1434 23.1431C23.1434 25.286 21.7077 25.286 19.9291 25.286M19.9291 14.5717C21.7077 14.5717 23.1434 15.386 23.1434 16.7146M16.7148 23.1431C16.7148 24.7503 18.1506 25.286 19.9291 25.286M19.9291 25.286V28.5003" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M19.9286 33.8571C27.6211 33.8571 33.8571 27.6211 33.8571 19.9286C33.8571 12.236 27.6211 6 19.9286 6C12.236 6 6 12.236 6 19.9286C6 27.6211 12.236 33.8571 19.9286 33.8571Z" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
-                            </g>
-                            <defs>
-                                <clipPath id="clip0_286_1194">
-                                    <rect width="30" height="30" fill="red" transform="translate(5 5)"/>
-                                </clipPath>
-                            </defs>
-                        </svg>
+                    <label for="cash-input" class="mt-3 flex w-[60%] py-3 px-5 rounded shadow-sm border hover:border-red-500 donation_option hover:cursor-pointer">
+                        <img
+                            src="{{asset('images/svgs/cash.svg')}}"
+                            alt="triangle with all three sides equal"
+                            height="50"
+                            class="icon"
+                            width="50" />
+                        <img
+                            src="{{asset('images/svgs/cash_active.svg')}}"
+                            alt="triangle with all three sides equal"
+                            height="50"
+                            width="50"
+                            class="icon_active hidden"
+                        />
                         <div class="flex flex-col justify-between ml-3">
                             <div class="font-bold">Cash</div>
-                            <div class="text-gray-500">Online donation with ABA, ACLEDA, etc</div>
+                            <div class="text-gray-500">Online donation with ABA, ACELEDA, etc</div>
                         </div>
                         <input type="radio" class="hidden" id="cash-input" name="donate-option" value="cash">
                     </label>
-                    <label for="cashOrItem-input" class="mt-3 flex w-[60%] py-3 px-5 rounded shadow-sm border  hover:border-red-500">
-                        <svg width="50" height="50" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M8.75 27.5C9.08152 27.5 9.39946 27.3683 9.63388 27.1339C9.8683 26.8995 10 26.5815 10 26.25C10 25.9185 9.8683 25.6005 9.63388 25.3661C9.39946 25.1317 9.08152 25 8.75 25C8.41848 25 8.10054 25.1317 7.86612 25.3661C7.6317 25.6005 7.5 25.9185 7.5 26.25C7.5 26.5815 7.6317 26.8995 7.86612 27.1339C8.10054 27.3683 8.41848 27.5 8.75 27.5Z" fill="#FF4238" stroke="#FF4238" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M31.25 14.1903V25.8078C31.2501 25.9417 31.2143 26.0732 31.1464 26.1886C31.0784 26.304 30.9809 26.3991 30.8637 26.464L20.3638 32.2965C20.2524 32.3583 20.1273 32.3907 20 32.3907C19.8727 32.3907 19.7476 32.3583 19.6362 32.2965L9.13625 26.464C9.01915 26.3991 8.92157 26.304 8.85364 26.1886C8.78572 26.0732 8.74994 25.9417 8.75 25.8078V14.1903C8.75016 14.0566 8.78605 13.9254 8.85396 13.8102C8.92187 13.695 9.01933 13.6001 9.13625 13.5353L19.6362 7.70154C19.7476 7.63981 19.8727 7.60742 20 7.60742C20.1273 7.60742 20.2524 7.63981 20.3638 7.70154L30.8637 13.5353C30.9807 13.6001 31.0781 13.695 31.146 13.8102C31.214 13.9254 31.2498 14.0566 31.25 14.1903Z" stroke="#FF4238" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M9.41016 14.1157L19.6352 19.7957C19.7466 19.8577 19.872 19.8902 19.9995 19.8902C20.127 19.8902 20.2525 19.8577 20.3639 19.7957L30.6252 14.0957M20.0002 31.2482V19.9982" stroke="#FF4238" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M20.4 11.5V10M20.4 11.5C19.6253 11.5 19 11.5 19 12.5C19 14 21.8 14 21.8 15.5C21.8 16.5 21.1747 16.5 20.4 16.5M20.4 11.5C21.1747 11.5 21.8 11.88 21.8 12.5M19 15.5C19 16.25 19.6253 16.5 20.4 16.5M20.4 16.5V18" stroke="#FF4238" stroke-linecap="round" stroke-linejoin="round"/>
-                            <rect x="0.5" y="0.5" width="39" height="39" rx="4.5" stroke="#FF4238"/>
-                        </svg>
+                    <label for="cashOrItem-input" class="mt-3 flex w-[60%] py-3 px-5 rounded shadow-sm border  hover:border-red-500 donation_option hover:cursor-pointer">
+                        <img
+                            src="{{asset('images/svgs/cash-item.svg')}}"
+                            alt="triangle with all three sides equal"
+                            height="50"
+                            width="50"
+                            class="icon"
+                        />
+                        <img
+                            src="{{asset('images/svgs/cash-item_active.svg')}}"
+                            alt="triangle with all three sides equal"
+                            height="50"
+                            width="50"
+                            class="icon_active hidden"
+                        />
 
                         <div class="flex flex-col justify-between ml-3">
                             <div class="font-bold">Both Cash and Item</div>
@@ -138,13 +191,14 @@
                         <input type="radio" class="hidden" id="cashOrItem-input" name="donate-option" value="cashOrItem">
                     </label>
                 </div>
+                {{--Choose type of payment--}}
                 <div class="mt-4">
                     <p class="font-bold">Chose payment method</p>
                     <p class="text-gray-400">You can choose more than one</p>
                     {{--ABA option--}}
-                    <label class="shadow relative items-center mb-1 mt-2 hover:cursor-pointer border inline-block h-[200px] w-40 hover:border-red-500 rounded-[10px]">
-                        <input type="checkbox" class="hidden">
-                        <span class="absolute w-8 h-8 border-2 border-gray-200 rounded-[50%] bg-white flex items-center justify-center transition-colors duration-200 right-2 top-2">
+                    <label for="aba_method" class="paymentOption shadow relative items-center mb-1 mt-2 hover:cursor-pointer border inline-block h-[200px] w-40 hover:border-red-500 rounded-[10px]">
+                        <input type="radio" class="hidden" id="aba_method" name="paymentOption" value="aba">
+                        <span class="tick-border absolute w-8 h-8 border-2 border-gray-200 rounded-[50%] bg-white flex items-center justify-center transition-colors duration-200 right-2 top-2">
                                 <span class="tick-icon hidden text-red-500">
                                   <svg class="w-6 h-6" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M1 4.75L4.5 8.25L11 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
@@ -156,13 +210,13 @@
                             <div class="my-1 h-10 w-20">
                                 <img src="{{asset('images/ABA logo.png')}}">
                             </div>
-                            <div class="my-1">hello</div>
+                            <div class="my-1">ABA</div>
                             <div class="text-gray-400 my-1">Donate with ABA</div>
                         </div>
                     </label>
-                    <label class="ml-3 shadow relative items-center mb-1 mt-2 hover:cursor-pointer border inline-block h-[200px] w-40 hover:border-red-500 rounded-[10px]">
-                        <input type="checkbox" class="hidden">
-                        <span class="absolute w-8 h-8 border-2 border-gray-200 rounded-[50%] bg-white flex items-center justify-center transition-colors duration-200 right-2 top-2">
+                    <label for="aceleda_method" class="paymentOption ml-3 shadow relative items-center mb-1 mt-2 hover:cursor-pointer border inline-block h-[200px] w-40 hover:border-red-500 rounded-[10px]">
+                        <input type="radio" class="hidden" id="aceleda_method" name="paymentOption" value="aceleda">
+                        <span class="tick-border absolute w-8 h-8 border-2 border-gray-200 rounded-[50%] bg-white flex items-center justify-center transition-colors duration-200 right-2 top-2">
                                 <span class="tick-icon hidden text-red-500">
                                   <svg class="w-6 h-6" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M1 4.75L4.5 8.25L11 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
@@ -174,7 +228,7 @@
                             <div class="my-1 h-10 w-20">
                                 <img src="{{asset('images/ACLEDA.png')}}">
                             </div>
-                            <div class="my-1">hello</div>
+                            <div class="my-1">Aceleda</div>
                             <div class="text-gray-400 my-1">Donate with Aceleda</div>
                         </div>
                     </label>
@@ -192,6 +246,77 @@
                         <span>Add Photos/Videos</span>
                     </a>
                     <a href="#" class="underline text-gray-400">See the sample</a>
+                </div>
+                {{--In form 2st , show this div if the campaign is both donation/raising--}}
+                <div class="mt-4">
+                    <p class="font-bold">Delivery option</p>
+                    <p class="text-gray-400">Choose one option on how you would donate your item</p>
+                    {{--Delivery options--}}
+                    <label for="drop-off" class="shadow relative items-center mb-1 mt-2 hover:cursor-pointer border inline-block h-[200px] w-40 hover:border-red-500 rounded-[10px] deliveryOption">
+                        <input type="checkbox" class="hidden" id="drop-off" name="deliveryOption" value="drop-off">
+                        <span class="tick-border absolute w-8 h-8 border-2 border-gray-200 rounded bg-white flex items-center justify-center transition-colors duration-200 right-2 top-2">
+                                <span class="tick-icon hidden text-red-500">
+                                  <svg class="w-6 h-6" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 4.75L4.5 8.25L11 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                          stroke-linejoin="round"/>
+                                  </svg>
+                                </span>
+                            </span>
+                        <div class="text-gray-700 h-full flex justify-center items-center flex-col">
+                            <div class="my-1 h-auto w-20">
+                                <img src="{{asset('images/svgs/drop-off.svg')}}">
+                            </div>
+                            <div class="my-1">Drop Off</div>
+                            <div class="text-gray-400 my-1 text-center">Location to drop off the item</div>
+                        </div>
+                    </label>
+                    <label for="delivery" class="ml-3 shadow relative items-center mb-1 mt-2 hover:cursor-pointer border inline-block h-[200px] w-40 hover:border-red-500 rounded-[10px] deliveryOption">
+                        <input type="checkbox" class="hidden" id="delivery" name="deliveryOption" value="delivery">
+                        <span class="tick-border absolute w-8 h-8 border-2 border-gray-200 rounded bg-white flex items-center justify-center transition-colors duration-200 right-2 top-2">
+                                <span class="tick-icon hidden text-red-500">
+                                  <svg class="w-6 h-6" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 4.75L4.5 8.25L11 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                          stroke-linejoin="round"/>
+                                  </svg>
+                                </span>
+                            </span>
+                        <div class="text-gray-700 h-full flex justify-center items-center flex-col">
+                            <div class="my-1 h-auto w-20 object-cover">
+                                <img src="{{asset('images/svgs/delivery.svg')}}">
+                            </div>
+                            <div class="my-1">Delivery</div>
+                            <div class="text-gray-400 my-1 text-center">Delivery option to deliver the items</div>
+                        </div>
+                    </label>
+                </div>
+                <div class="mt-4">
+                    <p class="font-bold">Pick up location</p>
+                    <div class="w-2/3 py-3 px-5 bg-gray-100 rounded relative mt-3">
+                        <h2 class="text-2xl font-bold">CADT - Innovation Center</h2>
+                        <p class="text-xs text-gray-400">2nd Bridge Prek Leap, National Road Number 6, Phnom Penh, 12252</p>
+                        <div class="absolute flex flex-col top-0 h-full right-3 justify-center">
+                            <div class=" flex ">
+                                <a href="#" class="flex w-5 h-5 justify-center items-center p-3 bg-white mr-2 shadow rounded"><i class="fa fa-edit block"></i></a>
+                                <a href="#" class="flex w-5 h-5 justify-center items-center p-3 bg-white shadow rounded"><i class="fa fa-trash block"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="primary-color-letter mt-3 block">
+                        <i class="fa fa-plus-circle"></i>
+                        <span>Add Location</span>
+                    </a>
+                </div>
+                <div class="flex flex-col mt-4">
+                    <p class="font-bold">Add Pick-Up Note</p>
+                    <label for="campaign_title" class="">
+                        <textarea id="campaign_purpose" class="w-full border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent" placeholder="Add pick-up note"></textarea>
+                    </label>
+                </div>
+                <div class="flex flex-col mt-4">
+                    <p class="font-bold">Add Delivery Note</p>
+                    <label for="campaign_title" class="">
+                        <textarea id="campaign_purpose" class="w-full border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent" placeholder="Add delivery note"></textarea>
+                    </label>
                 </div>
                 <div class="mt-10">
                     <a href="#form_step_1" class="inline-block bg-white border-red-500 border py-2 px-16 rounded-[10px] hover:shadow previousform">

@@ -65,6 +65,67 @@ $(document).ready(function (){
         /*change status to pending for this form*/
         labelStatusThisAndPrevious(thisFormId, targetForm)
     })
+    $('input[name="campaign_type"]').on('change',function(){
+        if($(this).is(':checked')) {
+            let checkedLabelElement = $(this).closest('label.campaign_type');
+            let checkedValue = $(this).val();
+            // console.log('Checked value: ' + checkedValue);
+            /*remove all css from all label*/
+            let allLabelCampaignType = $('label.campaign_type')
+            allLabelCampaignType.removeClass('border-red-500 bg-red-50')
+            allLabelCampaignType.find('img.icon_active').addClass('hidden')
+            allLabelCampaignType.find('img.icon').removeClass('hidden')
+            /*add active to checked element*/
+            checkedLabelElement.addClass('border-red-500 bg-red-50')
+            checkedLabelElement.find('img.icon').addClass('hidden')
+            checkedLabelElement.find('img.icon_active').removeClass('hidden')
+        }
+    })
+    $('input[name="donate-option"]').on('change',function(){
+        if($(this).is(':checked')) {
+            let checkedLabelElement = $(this).closest('label.donation_option');
+            let checkedValue = $(this).val();
+            // console.log('Checked value: ' + checkedValue);
+            /*remove all css from all label*/
+            let allLabelDonationOption = $('label.donation_option')
+            allLabelDonationOption.removeClass('border-red-500 bg-red-50')
+            allLabelDonationOption.find('img.icon_active').addClass('hidden')
+            allLabelDonationOption.find('img.icon').removeClass('hidden')
+            /*add active to checked element*/
+            checkedLabelElement.addClass('border-red-500 bg-red-50')
+            checkedLabelElement.find('img.icon').addClass('hidden')
+            checkedLabelElement.find('img.icon_active').removeClass('hidden')
+        }
+    })
+    $('input[name="paymentOption"]').on('change',function(){
+        if($(this).is(':checked')) {
+            let checkedLabelElement = $(this).closest('label.paymentOption');
+            let checkedValue = $(this).val();
+            console.log('Checked value: ' + checkedValue);
+            /*remove all css from all label*/
+            let allLabelPaymentOption = $('label.paymentOption')
+            allLabelPaymentOption.find('span.tick-border').addClass('border-gray-200').removeClass('border-red-500')
+            /*add active to checked element*/
+            checkedLabelElement.find('span.tick-border').removeClass('border-gray-200').addClass('border-red-500')
+        }
+    })
+    $('input[name="deliveryOption"]').on('change',function(){
+        let allLabelDeliveryOption = $('label.deliveryOption')
+        if($(this).is(':checked')) {
+            let checkedLabelElement = $(this).closest('label.deliveryOption');
+            let checkedValue = $(this).val();
+            console.log('Checked value: ' + checkedValue);
+            /*remove all css from all label*/
+            // allLabelDeliveryOption.find('span.tick-border').addClass('border-gray-200').removeClass('border-red-500')
+            /*add active to checked element*/
+            checkedLabelElement.find('span.tick-border').removeClass('border-gray-200').addClass('border-red-500')
+        }
+        else{
+            allLabelDeliveryOption.find('span.tick-border').addClass('border-gray-200').removeClass('border-red-500')
+
+        }
+    })
+
     function labelStatusThisAndPrevious(thisFormId, targetFormId){
         let targetLabelEle = $('.label-form-number[data-for-label="'+targetFormId+'"]')
         let thisLabelEle = $('.label-form-number[data-for-label="'+thisFormId+'"]')
