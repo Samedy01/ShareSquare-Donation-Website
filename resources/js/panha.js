@@ -66,6 +66,10 @@ $(document).ready(function (){
         labelStatusThisAndPrevious(thisFormId, targetForm)
     })
     $('input[name="campaign_type"]').on('change',function(){
+
+        let $unCheckedInput = $('input[name="campaign_type"]:not(:checked)')
+        let $checkedInput = $('input[name="campaign_type"]:checked')
+
         if($(this).is(':checked')) {
             let checkedLabelElement = $(this).closest('label.campaign_type');
             let checkedValue = $(this).val();
@@ -80,14 +84,25 @@ $(document).ready(function (){
             checkedLabelElement.find('img.icon').addClass('hidden')
             checkedLabelElement.find('img.icon_active').removeClass('hidden')
         }
+        targetForm('show', $checkedInput)
+        targetForm('hide', $unCheckedInput)
     })
-    $('input[name="donate-option"]').on('change',function(){
+    function raisingOptionForm(status){
+        let raisingOptionForm = $('#raising_option_form')
+        if(status === 'show'){
+            raisingOptionForm.removeClass('hidden')
+        }else if(status === 'hide'){
+            raisingOptionForm.addClass('hidden')
+        }
+    }
+    $('input[name="raising-option"]').on('change',function(){
+        console.log('change')
         if($(this).is(':checked')) {
-            let checkedLabelElement = $(this).closest('label.donation_option');
+            let checkedLabelElement = $(this).closest('label.raising_option');
             let checkedValue = $(this).val();
-            // console.log('Checked value: ' + checkedValue);
+            console.log('Checked value: ' + checkedValue);
             /*remove all css from all label*/
-            let allLabelDonationOption = $('label.donation_option')
+            let allLabelDonationOption = $('label.raising_option')
             allLabelDonationOption.removeClass('border-red-500 bg-red-50')
             allLabelDonationOption.find('img.icon_active').addClass('hidden')
             allLabelDonationOption.find('img.icon').removeClass('hidden')
@@ -95,8 +110,50 @@ $(document).ready(function (){
             checkedLabelElement.addClass('border-red-500 bg-red-50')
             checkedLabelElement.find('img.icon').addClass('hidden')
             checkedLabelElement.find('img.icon_active').removeClass('hidden')
+
+            /* show additional form when selecting*/
+            choosePaymentMethodOption('show')
+            accountNumberForm('show')
+            addQrCodePayForm('show')
+            if(checkedValue === 'cashOrItem'){
+                deliveryOptionForm('show')
+            }else if(checkedValue === 'cash'){
+                deliveryOptionForm('hide')
+            }
         }
     })
+    function deliveryOptionForm(status){
+        let $deliveryOptionForm = $('#delivery_option_form')
+        if(status === 'show'){
+            $deliveryOptionForm.removeClass('hidden')
+        }else if(status === 'hide'){
+            $deliveryOptionForm.addClass('hidden')
+        }
+    }
+    function addQrCodePayForm(status){
+        let $addQrCodePayForm = $('#add_qr_code_pay_form')
+        if(status === 'show'){
+            $addQrCodePayForm.removeClass('hidden')
+        }else if(status === 'hide'){
+            $addQrCodePayForm.addClass('hidden')
+        }
+    }
+    function choosePaymentMethodOption(status){
+        let paymentOptionForm = $('#payment_option_form')
+        if(status === 'show'){
+            paymentOptionForm.removeClass('hidden')
+        }else if(status === 'hide'){
+            paymentOptionForm.addClass('hidden')
+        }
+    }
+    function accountNumberForm(status){
+        let accountNumberForm = $('#account_number_form')
+        if(status === 'show'){
+            accountNumberForm.removeClass('hidden')
+        }else if(status === 'hide'){
+            accountNumberForm.addClass('hidden')
+        }
+    }
     $('input[name="paymentOption"]').on('change',function(){
         if($(this).is(':checked')) {
             let checkedLabelElement = $(this).closest('label.paymentOption');
@@ -110,21 +167,45 @@ $(document).ready(function (){
         }
     })
     $('input[name="deliveryOption"]').on('change',function(){
-        let allLabelDeliveryOption = $('label.deliveryOption')
+        /*get the elements that are not checked*/
+        let $unCheckedInput = $('input[name="deliveryOption"]:not(:checked)')
+        let $checkedInput = $('input[name="deliveryOption"]:checked')
+        let unCheckedLabelEle = $unCheckedInput.closest('label.deliveryOption')
+        unCheckedLabelEle.find('span.tick-border').addClass('border-gray-200 bg-white').removeClass('border-red-500 bg-red-50')
+        unCheckedLabelEle.removeClass('border-red-500 bg-red-50')
         if($(this).is(':checked')) {
             let checkedLabelElement = $(this).closest('label.deliveryOption');
             let checkedValue = $(this).val();
-            console.log('Checked value: ' + checkedValue);
+            // console.log('Checked value: ' + checkedValue);
             /*remove all css from all label*/
-            // allLabelDeliveryOption.find('span.tick-border').addClass('border-gray-200').removeClass('border-red-500')
             /*add active to checked element*/
-            checkedLabelElement.find('span.tick-border').removeClass('border-gray-200').addClass('border-red-500')
+            checkedLabelElement.find('span.tick-border').removeClass('border-gray-200 bg-white').addClass('border-red-500 bg-red-50')
+            checkedLabelElement.addClass('border-red-500 bg-red-50')
         }
-        else{
-            allLabelDeliveryOption.find('span.tick-border').addClass('border-gray-200').removeClass('border-red-500')
 
-        }
+        //show the note target for each data-target-open attr
+        $checkedInput.each(function (){
+            console.log($(this))
+            targetForm('show', $(this))
+        })
+        $unCheckedInput.each(function (){
+            targetForm('hide', $(this))
+        })
     })
+    function targetForm(status, inputEle){
+        let targetEleIdsString = inputEle.data('target-open')
+        let targetFormEleIds = targetEleIdsString.split(',')
+        if(status === 'hide'){
+            $.each(targetFormEleIds, function (index, targetNoted){
+                $(targetNoted).addClass('hidden')
+            })
+        }else if(status === 'show'){
+            console.log(targetFormEleIds)
+            $.each(targetFormEleIds, function (index, targetNoted){
+                $(targetNoted).removeClass('hidden')
+            })
+        }
+    }
 
     function labelStatusThisAndPrevious(thisFormId, targetFormId){
         let targetLabelEle = $('.label-form-number[data-for-label="'+targetFormId+'"]')
