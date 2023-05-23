@@ -20,3 +20,7 @@ Route::get('/', function () {
 Route::get('/test_tailwind', function () {
     return view('test_tailwind');
 });
+
+Route::get('/donations/campaign_profile', function () {
+    return view('donations.campaign_profile');
+});
