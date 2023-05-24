@@ -541,7 +541,6 @@
                               data-target="#result_from_create_campaign">View Campaign</span>
                 </a>
             </div>
-
         </div>
 
     </div>
