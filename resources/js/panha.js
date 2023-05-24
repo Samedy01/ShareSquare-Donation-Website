@@ -1,12 +1,12 @@
-$(document).ready(function (){
+$(document).ready(function () {
 
     /*Browse campaign*/
-    $('#test').on('click',function (){
+    $('#test').on('click', function () {
         console.log('Hello')
     })
-    $('.campaign-filter').on('click',function (){
+    $('.campaign-filter').on('click', function () {
         let isDropDown = $(this).data('dropdown');
-        if(!isDropDown){
+        if (!isDropDown) {
             let $thisParent = $(this).parent();
             let $thisUnderDropDown = $(this).find('.under-dropdown')
             let $otherDropDown = $thisParent.find('.campaign-filter').not(this)
@@ -20,7 +20,7 @@ $(document).ready(function (){
             $('#modalBackground').removeClass('hidden')
             /*change color other dropdown if they open*/
             hiddenDropDown($otherDropDown)
-        }else{
+        } else {
             hiddenDropDown($(this))
             $('#modalBackground').addClass('hidden')
 
@@ -29,17 +29,17 @@ $(document).ready(function (){
     $('.under-dropdown').on('click', function (e) {
         e.stopPropagation();
     })
-    function hiddenDropDown(element){
+    function hiddenDropDown(element) {
         element.removeClass('text-red-500')
         element.find('i.icon-dropdown').addClass('text-gray-400 fa-chevron-right')
         element.find('i.icon-dropdown').removeClass('text-red-500 fa-chevron-down')
         element.data('dropdown', 0)
         element.find('.under-dropdown').addClass('hidden')
     }
-    labelStatus(1,'form_step_1')
+    labelStatus(1, 'form_step_1')
     // labelStatus(1,'form_step_2')
     /*Create campaign - cash type*/
-    $('.nextform').on('click',function (){
+    $('.nextform').on('click', function () {
         let targetForm = $(this).attr('href')
         let thisFormId = $(this).closest('.form').attr('id')
         // console.log(targetForm)
