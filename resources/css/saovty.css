@@ -1,0 +1,6 @@
+input[type="checkbox"]:checked + .w-8 .tick-icon {
+    display: block;
+}
+input[type="radio"]:checked + .w-8 .tick-icon {
+    display: block;
+}
