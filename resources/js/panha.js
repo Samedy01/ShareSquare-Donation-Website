@@ -269,4 +269,175 @@ $(document).ready(function () {
             labelEle.find('.text-label-form').removeClass('text-red-500').addClass('text-green-500')
         }
     }
+
+
+    const fileTempl = $("#file-template")[0];
+    const imageTempl = $("#image-template")[0];
+    const empty = $("#empty")[0];
+
+    let FILES = {};
+
+    function addFile(target, file) {
+        const isImage = file.type.match("image.*");
+        const objectURL = URL.createObjectURL(file);
+
+        const clone = isImage
+            ? $(imageTempl.content).clone(true)
+            : $(fileTempl.content).clone(true);
+
+        clone.find("h1").text(file.name);
+        clone.find("li").attr("id", objectURL);
+        clone.find(".delete").attr("data-target", objectURL);
+        clone.find(".size").text(file.size > 1024
+            ? file.size > 1048576
+                ? Math.round(file.size / 1048576) + "mb"
+                : Math.round(file.size / 1024) + "kb"
+            : file.size + "b");
+
+        if (isImage) {
+            clone.find("img").attr({
+                src: objectURL,
+                alt: file.name
+            });
+        }
+
+        empty.classList.add("hidden");
+        console.log(clone)
+        console.log(target)
+
+        $(target).prepend(clone);
+
+        FILES[objectURL] = file;
+    }
+
+    const gallery = $("#gallery")[0];
+    const overlay = $("#overlay")[0];
+
+    $("#AddPhotoToTitle").click(function() {
+        $("#hidden-input-images-title").click();
+    });
+
+    $("#hidden-input-images-title").on("change", function(e) {
+        for (const file of e.target.files) {
+            console.log(file)
+            addFile(gallery, file);
+        }
+    });
+
+    const hasFiles = function({ dataTransfer: { types = [] } }) {
+        return types.indexOf("Files") > -1;
+    };
+
+    let counter = 0;
+
+    function dropHandler(ev) {
+        ev.preventDefault();
+        for (const file of ev.originalEvent.dataTransfer.files) {
+            addFile(gallery, file);
+            overlay.classList.remove("draggedover");
+            counter = 0;
+        }
+    }
+
+    function dragEnterHandler(e) {
+        e.preventDefault();
+        if (!hasFiles(e)) {
+            return;
+        }
+        ++counter && overlay.classList.add("draggedover");
+    }
+
+    function dragLeaveHandler(e) {
+        1 > --counter && overlay.classList.remove("draggedover");
+    }
+
+    function dragOverHandler(e) {
+        if (hasFiles(e)) {
+            e.preventDefault();
+        }
+    }
+
+    $("#gallery").on("click", ".delete", function() {
+        const ou = $(this).data("target");
+        const espacedOu = $.escapeSelector(ou);
+        console.log(espacedOu)
+        $("#" + espacedOu).remove();
+        gallery.children.length === 1 && empty.classList.remove("hidden");
+        delete FILES[ou];
+    });
+
+    $("#submit").click(function() {
+        alert(`Submitted Files:\n${JSON.stringify(FILES)}`);
+        console.log(FILES);
+    });
+
+    $("#cancel").click(function() {
+        while (gallery.children.length > 0) {
+            gallery.lastChild.remove();
+        }
+        FILES = {};
+        empty.classList.remove("hidden");
+        gallery.append(empty);
+    });
+
+
+    /*Add photo to Summary*/
+    $('.addPhotoToAnyTitle').on('click',function (){
+        let targetInputId = $(this).data('input-target');
+        console.log('hello')
+        $(targetInputId).click()
+    })
+
+
+    $(".inputForMultipleImage").on("change", function(e) {
+        console.log('hi')
+        /*find imageInputWrapper class*/
+        let $parentDiv = $(this).closest('.oneSubTitle');
+        let imageInputWrapper = $parentDiv.find('.imageInputWrapper');
+        const thisGallery = imageInputWrapper[0];
+        for (const file of e.target.files) {
+            console.log(file)
+            addFile(thisGallery, file);
+        }
+    });
+    $(".imageInputWrapper").on("click", ".delete", function() {
+        let thisGallery = $(this)// $(this)[0];
+        const ou = $(this).data("target");
+        const espacedOu = $.escapeSelector(ou);
+        // console.log(espacedOu)
+        $("#" + espacedOu).remove();
+        thisGallery.children.length === 1 && empty.classList.remove("hidden");
+        delete FILES[ou];
+    });
+
+    let subtitleCounter = 1; // Counter variable for unique IDs
+
+    $("#addNewSubtitle").click(function() {
+        // Clone the template element
+        let template = `
+            <div class="flex flex-col mt-4">
+                <label for="campaign_title-${subtitleCounter}" class="font-bold">Title</label>
+                <input type="text" id="campaign_title-${subtitleCounter}"
+                       class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent"
+                       placeholder="Your campaign title"
+                       name="campaign_title-${subtitleCounter}"
+                       >
+            </div>
+            <div class="flex flex-col mt-4 oneSubTitle newSubtitleTemplate">
+                <label for="campaign_description-${subtitleCounter}" class="font-bold">Description</label>
+                <textarea id="campaign_description-${subtitleCounter}"
+                          class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent"
+                          placeholder="What is the purpose of your campaign"></textarea>
+                <a href="#" class="primary-color-letter mt-3 addPhotoToAdditionalTitle" data-input-target="#hidden-input-images-for-description-${subtitleCounter}">
+                    <i class="fa fa-plus-circle"></i>
+                    <span>Add Photos/Videos</span>
+                </a>
+                <input id="hidden-input-images-for-description-${subtitleCounter}" type="file" multiple class="hidden inputForMultipleImage">
+                <ul class="flex flex-1 flex-wrap -m-1 imageInputWrapper">
+
+                </ul>
+            </div>
+        `;
+        $("#additionalSubtitle").append(template);
+    });
 })

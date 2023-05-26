@@ -19,7 +19,7 @@ Route::get('/', function () {
 Route::get('/browse', function () {
     return view('browse');
 });
-Route::get('/create-campaign/cash-type', function () {
+Route::get('/create-new-campaign', function () {
     return view('campaign_cash_type');
 });
 
@@ -29,4 +29,7 @@ Route::get('/test_tailwind', function () {
 
 Route::get('/donations/campaign_profile', function () {
     return view('donations.campaign_profile');
+});
+Route::get('/testUpload', function () {
+    return view('tests.testuploadfile');
 });

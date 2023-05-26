@@ -35,7 +35,7 @@
                     class="border p-3 rounded-[50%] w-5 h-5 flex items-center justify-center bg-gray-200 form-label-outline">
                     <i class="fa fa-check text-white hidden"></i><span class="text-gray-500 num-label-form">2</span>
                 </div>
-                <div class="ml-3 text-label-form">Fundraising Goal</div>
+                <div class="ml-3 text-label-form">Campaign Option</div>
             </div>
             <hr>
             <div class="text-center flex items-center my-5 label-form-number" data-for-label="form_step_3">
@@ -43,7 +43,7 @@
                     class="border p-3 rounded-[50%] w-5 h-5 flex items-center justify-center bg-gray-200 form-label-outline">
                     <i class="fa fa-check text-white hidden"></i><span class="text-gray-500 num-label-form">3</span>
                 </div>
-                <div class="ml-3 text-label-form">Donation Option</div>
+                <div class="ml-3 text-label-form">Campaign Goal</div>
             </div>
             <hr>
             <div class="text-center flex items-center my-5 label-form-number" data-for-label="form_step_4">
@@ -60,69 +60,6 @@
         {{--1st form: About--}}
         <div class="mb-[100px] form" id="form_step_1" data-status="1">
             <h1 class="text-2xl font-bold">About</h1>
-            <div class="flex flex-col mt-4">
-                <label for="campaign_title" class="font-bold">Title</label>
-                <input type="text" id="campaign_title"
-                       class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent"
-                       placeholder="Your campaign title">
-                <a href="#" class="primary-color-letter mt-3">
-                    <i class="fa fa-plus-circle"></i>
-                    <span>Add Photos/Videos</span>
-                </a>
-            </div>
-            <div class="flex flex-col mt-4">
-                <label for="campaign_title" class="font-bold">Summary</label>
-                <textarea id="campaign_summary_1"
-                          class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent"
-                          placeholder="Your campaign description"></textarea>
-                <a href="#" class="primary-color-letter mt-3">
-                    <i class="fa fa-plus-circle"></i>
-                    <span>Add Photos/Videos</span>
-                </a>
-            </div>
-            <div class="flex flex-col mt-4">
-                <label for="campaign_title" class="font-bold">Purpose</label>
-                <textarea id="campaign_purpose"
-                          class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent"
-                          placeholder="What is the purpose of your campaign"></textarea>
-                <a href="#" class="primary-color-letter mt-3">
-                    <i class="fa fa-plus-circle"></i>
-                    <span>Add Photos/Videos</span>
-                </a>
-            </div>
-            <div class="flex flex-col mt-4">
-                <label for="campaign_title" class="font-bold">Goal</label>
-                <textarea id="campaign_purpose"
-                          class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent"
-                          placeholder="What is the purpose of your campaign"></textarea>
-                <a href="#" class="primary-color-letter mt-3">
-                    <i class="fa fa-plus-circle"></i>
-                    <span>Add Photos/Videos</span>
-                </a>
-            </div>
-            <div class="mt-4">
-                <a href="#" class="inline-block bg-gray-200 py-2 px-5 rounded-[10px]">
-                    <span class="">Add New Subtitle</span>
-                </a>
-            </div>
-            <div class="flex flex-col mt-4">
-                <label for="campaign_title" class="font-bold">Category</label>
-                <select id="campaign_purpose"
-                        class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent">
-                    <option class="" value="1">Education</option>
-                    <option class="" value="2">Health</option>
-                </select>
-            </div>
-            <div class="mt-10">
-                <a data-target="#form_step_2" href="#form_step_2"
-                   class="nextform inline-block bg-red-500 py-2 px-16 rounded-[10px]">
-                    <span class="text-white">Next</span>
-                </a>
-            </div>
-        </div>
-        {{--2nd form: Donation options / campaign option --}}
-        <div class="mb-[100px] form hidden" id="form_step_2" data-status="0">
-            <h1 class="text-3xl font-bold">Donation Option</h1>
             <div class="mt-4 " id="campaign_option_form">
                 <p class="font-bold">Are you donating items or raising?</p>
                 <label for="donating"
@@ -171,6 +108,92 @@
                            data-target-open="#raising_option_form">
                 </label>
             </div>
+            <div class="flex flex-col mt-4">
+                <label for="campaign_title" class="font-bold">Title</label>
+                <input type="text" id="campaign_title"
+                       class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent"
+                       placeholder="Your campaign title">
+                <a id="AddPhotoToTitle" href="#" class="primary-color-letter mt-3">
+                    <i class="fa fa-plus-circle"></i>
+                    <span>Add Photos/Videos</span>
+                </a>
+                <input id="hidden-input-images-title" type="file" multiple class="hidden inputForMultipleImage">
+                <ul id="gallery" class="flex flex-1 flex-wrap -m-1">
+                    <li id="empty" class="h-full w-full text-center flex flex-col justify-center items-center">
+                        <img class="mx-auto w-32 hidden" src="https://user-images.githubusercontent.com/507615/54591670-ac0a0180-4a65-11e9-846c-e55ffce0fe7b.png" alt="no data" />
+                        <span class="text-small text-gray-500 hidden">No files selected</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="flex flex-col mt-4 oneSubTitle">
+                <label for="campaign_title" class="font-bold">Summary</label>
+                <textarea id="campaign_summary_1"
+                          class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent"
+                          placeholder="Your campaign description"></textarea>
+                <a id="AddPhotoToSummary" href="#" class="primary-color-letter mt-3 addPhotoToAnyTitle" data-input-target="#hidden-input-images-for-summary">
+                    <i class="fa fa-plus-circle"></i>
+                    <span>Add Photos/Videos</span>
+                </a>
+                <input id="hidden-input-images-for-summary" type="file" multiple class="hidden inputForMultipleImage">
+                <ul class="flex flex-1 flex-wrap -m-1 imageInputWrapper">
+
+                </ul>
+            </div>
+            <div class="flex flex-col mt-4 oneSubTitle">
+                <label for="campaign_title" class="font-bold">Purpose</label>
+                <textarea id="campaign_purpose"
+                          class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent"
+                          placeholder="What is the purpose of your campaign"></textarea>
+                <a href="#" class="primary-color-letter mt-3 addPhotoToAnyTitle" data-input-target="#hidden-input-images-for-purpose">
+                    <i class="fa fa-plus-circle"></i>
+                    <span>Add Photos/Videos</span>
+                </a>
+                <input id="hidden-input-images-for-purpose" type="file" multiple class="hidden inputForMultipleImage">
+                <ul class="flex flex-1 flex-wrap -m-1 imageInputWrapper">
+
+                </ul>
+            </div>
+            <div class="flex flex-col mt-4 oneSubTitle">
+                <label for="campaign_title" class="font-bold">Goal</label>
+                <textarea id="campaign_purpose"
+                          class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent"
+                          placeholder="What is the purpose of your campaign"></textarea>
+                <a href="#" class="primary-color-letter mt-3 addPhotoToAnyTitle" data-input-target="#hidden-input-images-for-goal">
+                    <i class="fa fa-plus-circle"></i>
+                    <span>Add Photos/Videos</span>
+                </a>
+                <input id="hidden-input-images-for-goal" type="file" multiple class="hidden inputForMultipleImage">
+                <ul class="flex flex-1 flex-wrap -m-1 imageInputWrapper">
+
+                </ul>
+            </div>
+            {{--DIV for adding new subtitle to--}}
+            <div id="additionalSubtitle" class="">
+            </div>
+            <div class="mt-4">
+                <a id="addNewSubtitle" href="#" class="inline-block bg-gray-200 py-2 px-5 rounded-[10px]">
+                    <span class="">Add New Subtitle</span>
+                </a>
+            </div>
+            <div class="flex flex-col mt-4">
+                <label for="campaign_title" class="font-bold">Category</label>
+                <select id="campaign_purpose"
+                        class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent">
+                    <option class="" value="1">Education</option>
+                    <option class="" value="2">Health</option>
+                </select>
+            </div>
+            <div class="mt-10">
+                <a data-target="#form_step_2" href="#form_step_2"
+                   class="nextform inline-block bg-red-500 py-2 px-16 rounded-[10px]">
+                    <span class="text-white">Next</span>
+                </a>
+            </div>
+        </div>
+        {{--2nd form: Donation options / campaign option --}}
+        <div class="mb-[100px] form hidden" id="form_step_2" data-status="0">
+            <h1 class="text-3xl font-bold">Donation Option</h1>
+
             {{--Donating item campaing option--}}
             <div class="mt-4 hidden" id="donate_option_form">
                 <p class="font-bold">Type Of Donation</p>
@@ -545,6 +568,81 @@
 
     </div>
 </section>
+
+<!-- using two similar templates for simplicity in js code -->
+<template id="file-template">
+    <li class="block p-1 w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 xl:w-1/8 h-24">
+        <article tabindex="0" class="group w-full h-full rounded-md focus:outline-none focus:shadow-outline elative bg-gray-100 cursor-pointer relative shadow-sm">
+            <img alt="upload preview" class="img-preview hidden w-full h-full sticky object-cover rounded-md bg-fixed" />
+
+            <section class="flex flex-col rounded-md text-xs break-words w-full h-full z-20 absolute top-0 py-2 px-3">
+                <h1 class="flex-1 group-hover:text-blue-800"></h1>
+                <div class="flex">
+              <span class="p-1 text-blue-800">
+                <i>
+                  <svg class="fill-current w-4 h-4 ml-auto pt-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path d="M15 2v5h5v15h-16v-20h11zm1-2h-14v24h20v-18l-6-6z" />
+                  </svg>
+                </i>
+              </span>
+                    <p class="p-1 size text-xs text-gray-700"></p>
+                    <button class="delete ml-auto focus:outline-none hover:bg-gray-300 p-1 rounded-md text-gray-800">
+                        <svg class="pointer-events-none fill-current w-4 h-4 ml-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path class="pointer-events-none" d="M3 6l3 18h12l3-18h-18zm19-4v2h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.316c0 .901.73 2 1.631 2h5.711z" />
+                        </svg>
+                    </button>
+                </div>
+            </section>
+        </article>
+    </li>
+</template>
+
+<template id="image-template">
+    <li class="block p-1 w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 xl:w-1/8 h-24">
+        <article tabindex="0" class="group hasImage w-full h-full rounded-md focus:outline-none focus:shadow-outline bg-gray-100 cursor-pointer relative text-transparent hover:text-white shadow-sm">
+            <img alt="upload preview" class="img-preview w-full h-full sticky object-cover rounded-md bg-fixed" />
+
+            <section class="flex flex-col rounded-md text-xs break-words w-full h-full z-20 absolute top-0 py-2 px-3">
+                <h1 class="flex-1"></h1>
+                <div class="flex">
+              <span class="p-1">
+                <i>
+                  <svg class="fill-current w-4 h-4 ml-auto pt-" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path d="M5 8.5c0-.828.672-1.5 1.5-1.5s1.5.672 1.5 1.5c0 .829-.672 1.5-1.5 1.5s-1.5-.671-1.5-1.5zm9 .5l-2.519 4-2.481-1.96-4 5.96h14l-5-8zm8-4v14h-20v-14h20zm2-2h-24v18h24v-18z" />
+                  </svg>
+                </i>
+              </span>
+
+                    <p class="p-1 size text-xs"></p>
+                    <button class="delete ml-auto focus:outline-none hover:bg-gray-300 p-1 rounded-md">
+                        <svg class="pointer-events-none fill-current w-4 h-4 ml-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path class="pointer-events-none" d="M3 6l3 18h12l3-18h-18zm19-4v2h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.316c0 .901.73 2 1.631 2h5.711z" />
+                        </svg>
+                    </button>
+                </div>
+            </section>
+        </article>
+    </li>
+</template>
+
+{{--Template for new subtitle--}}
+<template  id="newSubTitleTemplate" >
+    <div class="flex flex-col mt-4 oneSubTitle hidden newSubtitleTemplate">
+        <label for="campaign_title-" class="font-bold">Title</label>
+        <textarea id="campaign_title-"
+                  class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent"
+                  placeholder="What is the purpose of your campaign"></textarea>
+        <a href="#" class="primary-color-letter mt-3 addPhotoToAdditionalTitle" data-input-target="#hidden-input-images-for-title-">
+            <i class="fa fa-plus-circle"></i>
+            <span>Add Photos/Videos</span>
+        </a>
+        <input id="hidden-input-images-for-title-" type="file" multiple class="hidden inputForMultipleImage">
+        <ul class="flex flex-1 flex-wrap -m-1 imageInputWrapper">
+
+        </ul>
+    </div>
+</template>
+
 @vite('resources/js/panha.js')
 </body>
 </html>
