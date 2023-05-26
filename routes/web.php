@@ -13,6 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', function () {
+    return view('Notification\followers');
+});
+Route::get('/new_notification', function () {
+    return view('Notification\following');
+});
+Route::get('/new_notification', function () {
+    return view('Notification\new_ntf');
+});
+Route::get('/setting', function () {
+    return view('setting');
+});
+Route::get('/done_donated', function () {
     return view('Item_Donation\done_donated');
 });
 Route::get('/item_donation', function () {
