@@ -25,3 +25,9 @@ input[type="radio"]:checked + .w-8 .tick-icon {
     background-color: lightgrey;
     border-radius: 0.5rem;
 }
+#previewImage {
+    max-height: 150px;
+}
+.previewImage {
+    max-height: 150px;
+}

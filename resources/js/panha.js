@@ -136,12 +136,23 @@ $(document).ready(function () {
             accountNumberForm('show')
             addQrCodePayForm('show')
             if (checkedValue === 'cashOrItem') {
+                itemCategorySelectedForm('show')
                 deliveryOptionForm('show')
             } else if (checkedValue === 'cash') {
+                itemCategorySelectedForm('hide')
                 deliveryOptionForm('hide')
             }
         }
     })
+    function itemCategorySelectedForm(status) {
+        let $itemCategorySelectedForm = $('#item_category_form')
+        if (status === 'show') {
+            $itemCategorySelectedForm.removeClass('hidden')
+        } else if (status === 'hide') {
+            $('#item_category').val('');
+            $itemCategorySelectedForm.addClass('hidden')
+        }
+    }
 
     function deliveryOptionForm(status) {
         let $deliveryOptionForm = $('#delivery_option_form')
@@ -390,13 +401,13 @@ $(document).ready(function () {
 
 
     $(".inputForMultipleImage").on("change", function(e) {
-        console.log('hi')
+        // console.log('hi')
         /*find imageInputWrapper class*/
         let $parentDiv = $(this).closest('.oneSubTitle');
         let imageInputWrapper = $parentDiv.find('.imageInputWrapper');
         const thisGallery = imageInputWrapper[0];
         for (const file of e.target.files) {
-            console.log(file)
+            // console.log(file)
             addFile(thisGallery, file);
         }
     });
@@ -415,29 +426,173 @@ $(document).ready(function () {
     $("#addNewSubtitle").click(function() {
         // Clone the template element
         let template = `
-            <div class="flex flex-col mt-4">
-                <label for="campaign_title-${subtitleCounter}" class="font-bold">Title</label>
-                <input type="text" id="campaign_title-${subtitleCounter}"
-                       class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent"
-                       placeholder="Your campaign title"
-                       name="campaign_title-${subtitleCounter}"
-                       >
-            </div>
-            <div class="flex flex-col mt-4 oneSubTitle newSubtitleTemplate">
-                <label for="campaign_description-${subtitleCounter}" class="font-bold">Description</label>
-                <textarea id="campaign_description-${subtitleCounter}"
-                          class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent"
-                          placeholder="What is the purpose of your campaign"></textarea>
-                <a href="#" class="primary-color-letter mt-3 addPhotoToAdditionalTitle" data-input-target="#hidden-input-images-for-description-${subtitleCounter}">
-                    <i class="fa fa-plus-circle"></i>
-                    <span>Add Photos/Videos</span>
-                </a>
-                <input id="hidden-input-images-for-description-${subtitleCounter}" type="file" multiple class="hidden inputForMultipleImage">
-                <ul class="flex flex-1 flex-wrap -m-1 imageInputWrapper">
+            <div>
+                <div class="flex flex-col mt-4">
+                    <label for="campaign_title-${subtitleCounter}" class="font-bold">Title</label>
+                    <input type="text" id="campaign_title-${subtitleCounter}"
+                           class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent"
+                           placeholder="Your campaign title"
+                           name="campaign_title-${subtitleCounter}"
+                           >
+                </div>
+                <div class="flex flex-col mt-4 oneSubTitle newSubtitleTemplate">
+                    <label for="campaign_description-${subtitleCounter}" class="font-bold">Description</label>
+                    <textarea id="campaign_description-${subtitleCounter}"
+                              class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent"
+                              placeholder="What is the purpose of your campaign"></textarea>
+                    <a href="#" class="primary-color-letter mt-3 addPhotoToAdditionalTitle" data-input-target="#hidden-input-images-for-description-${subtitleCounter}">
+                        <i class="fa fa-plus-circle"></i>
+                        <span>Add Photos/Videos</span>
+                    </a>
+                    <input id="hidden-input-images-for-description-${subtitleCounter}" type="file" multiple class="hidden inputForMultipleImage">
+                    <ul class="flex flex-1 flex-wrap -m-1 imageInputWrapper">
 
-                </ul>
+                    </ul>
+                </div>
+
             </div>
         `;
+        // console.log(template)
+
         $("#additionalSubtitle").append(template);
+
+        subtitleCounter++;
+    })
+    let $additionalSubtitle = $('#additionalSubtitle');
+    $additionalSubtitle.on('click','.addPhotoToAdditionalTitle',function (){
+        let targetInputId = $(this).data('input-target');
+        console.log('hello')
+        $(targetInputId).click()
+    })
+    $additionalSubtitle.on("change", '.inputForMultipleImage', function(e) {
+        console.log('hi');
+        let $parentDiv = $(this).closest('.oneSubTitle');
+        let imageInputWrapper = $parentDiv.find('.imageInputWrapper');
+        console.log($parentDiv)
+        const thisGallery = imageInputWrapper[0];
+        for (const file of e.target.files) {
+            console.log(file);
+            addFile(thisGallery, file);
+        }
     });
+    $additionalSubtitle.on("click", ".imageInputWrapper .delete", function() {
+        let thisGallery = $(this)// $(this)[0];
+        const ou = $(this).data("target");
+        const espacedOu = $.escapeSelector(ou);
+        // console.log(espacedOu)
+        $("#" + espacedOu).remove();
+        thisGallery.children.length === 1 && empty.classList.remove("hidden");
+        delete FILES[ou];
+    });
+
+
+    let countNewContact = 1;
+    /*Add additional contact*/
+    $('#addNewContactInfo').on('click',function() {
+        // Clone the template element
+        console.log('Hello')
+        let templateContact = `
+                <div class="mt-4">
+                    <p class="font-bold">New contact ${countNewContact} (optional)</p>
+                    <label for="campaign-contact-title-${countNewContact}" class="">
+                        <input name="campaign-contact-title-${countNewContact}" placeholder="Contact title (Ex: Instagram)" type="text"
+                               id="campaign-contact-title-${countNewContact}"
+                               class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent w-full">
+                    </label>
+                    <label for="campaign-contact-detail-${countNewContact}" class="">
+                        <input name="campaign-contact-detail-${countNewContact}" placeholder="Enter contact link" type="text"
+                               id="campaign-contact-detail-${countNewContact}"
+                               class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent w-full">
+                    </label>
+                </div>
+        `;
+        // console.log(templateContact)
+        $("#additionalContactWrapper").append(templateContact);
+        countNewContact++;
+    })
+
+
+    /*Upload Identity Card*/
+    // Handle file input change event
+    function previewImage(input) {
+        if (input.files && input.files[0]) {
+            let reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#previewMessage').addClass('hidden');
+                $('#previewImage').attr('src', e.target.result).removeClass('hidden');
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $('#imageIDCardInput').on('change',function() {
+        let fileInput = this;
+        if (fileInput.files && fileInput.files[0]) {
+            // Show image preview
+            $('#previewContainer').removeClass('bg-gray-100').addClass('bg-white');
+            previewImage(fileInput);
+            // $('#uploadButton').addClass('hidden');
+            $('#submitButton').removeClass('hidden');
+        } else {
+            // Hide image preview if no file is selected
+            $('#previewMessage').removeClass('hidden');
+            $('#previewImage').addClass('hidden');
+            $('#previewContainer').removeClass('bg-white').addClass('bg-gray-100');
+            $('#uploadButton').removeClass('hidden');
+            $('#submitButton').addClass('hidden');
+        }
+    });
+
+    /*Image preview for Thumbnail Input*/
+    $('#imageThumbnailInput').on('change',function() {
+        let fileInput = this;
+        //find uploadContainer first
+        let $uploadContainer = $(this).closest('.uploadContainer')
+        let $previewContainer = $uploadContainer.find('.previewContainer');
+        let $previewMessage = $uploadContainer.find('.previewMessage')
+        let $previewImage = $uploadContainer.find('.previewImage')
+        if (fileInput.files && fileInput.files[0]) {
+            // Show image preview
+            $previewContainer.removeClass('bg-gray-100').addClass('bg-white');
+            previewAnImage(fileInput,$uploadContainer);
+        } else {
+            // Hide image preview if no file is selected
+            $previewMessage.removeClass('hidden');
+            $previewImage.addClass('hidden');
+            $previewContainer.removeClass('bg-white').addClass('bg-gray-100');
+        }
+    });
+
+    $('.image_input_with_preview').on('change',function() {
+        let fileInput = this;
+        //find uploadContainer first
+        let $uploadContainer = $(this).closest('.uploadContainer')
+        let $previewContainer = $uploadContainer.find('.previewContainer');
+        let $previewMessage = $uploadContainer.find('.previewMessage')
+        let $previewImage = $uploadContainer.find('.previewImage')
+        if (fileInput.files && fileInput.files[0]) {
+            // Show image preview
+            $previewContainer.removeClass('bg-gray-100').addClass('bg-white');
+            previewAnImage(fileInput,$uploadContainer);
+        } else {
+            // Hide image preview if no file is selected
+            $previewMessage.removeClass('hidden');
+            $previewImage.addClass('hidden');
+            $previewContainer.removeClass('bg-white').addClass('bg-gray-100');
+        }
+    });
+    function previewAnImage(input, parent) {
+        let $previewMessage = parent.find('.previewMessage')
+        let $previewImage = parent.find('.previewImage')
+        if (input.files && input.files[0]) {
+            let reader = new FileReader();
+
+            reader.onload = function(e) {
+                $previewMessage.addClass('hidden');
+                $previewImage.attr('src', e.target.result).removeClass('hidden');
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 })

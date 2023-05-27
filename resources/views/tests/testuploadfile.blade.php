@@ -34,6 +34,21 @@
     </style>
 </head>
 <body>
+
+<form runat="server">
+    <input accept="image/*" type='file' id="imgInp" />
+    <img id="blah" src="#" alt="your image" />
+</form>
+<div class="flex flex-col items-center mt-8">
+    <input type="file" id="image-input" class="hidden" accept="image/*">
+    <label for="image-input" class="mb-4 py-2 px-4 rounded-md bg-blue-500 text-white cursor-pointer hover:bg-blue-600">
+        Choose Image
+    </label>
+    <div id="image-preview" class="hidden mt-4">
+        <img id="preview-image" src="#" alt="Preview Image" class="max-w-xs max-h-xs">
+    </div>
+</div>
+
 <div class="bg-gray-500 h-screen w-screen sm:px-8 md:px-16 sm:py-8">
     <main class="container mx-auto max-w-screen-lg h-full">
         <!-- file upload modal -->
@@ -141,7 +156,7 @@
     </li>
 </template>
 
-<script>
+{{--<script>
     const fileTempl = document.getElementById("file-template"),
         imageTempl = document.getElementById("image-template"),
         empty = document.getElementById("empty");
@@ -259,7 +274,41 @@
         gallery.append(empty);
     };
 
+</script>--}}
+<script>
+    imgInp.onchange = evt => {
+        const [file] = imgInp.files
+        if (file) {
+            blah.src = URL.createObjectURL(file)
+        }
+    }
 </script>
-
 </body>
+@vite('resources/js/jquery-3.6.1.min.js')
+<script type="text/javascript" src="{{mix('resources/js/jquery-3.6.1.min.js')}}">
+    $(document).ready(function() {
+        // Trigger file input click when label is clicked
+        $("label[for='image-input']").click(function() {
+            console.log('hello')
+            $("#image-input").click();
+        });
+
+        // Show image preview when a file is selected
+        $("#image-input").change(function() {
+            var file = this.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $("#preview-image").attr("src", e.target.result);
+                    $("#image-preview").removeClass("hidden");
+                }
+                reader.readAsDataURL(file);
+            } else {
+                $("#preview-image").attr("src", "#");
+                $("#image-preview").addClass("hidden");
+            }
+        });
+    });
+
+</script>
 </html>
