@@ -33,3 +33,6 @@ Route::get('/donations/campaign_profile', function () {
 Route::get('/testUpload', function () {
     return view('tests.testuploadfile');
 });
+Route::get('/testGoogleMap', function () {
+    return view('tests.testGoogleMap');
+});
