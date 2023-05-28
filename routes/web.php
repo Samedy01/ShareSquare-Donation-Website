@@ -12,16 +12,16 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/', function () {
+Route::get('/followers', function () {
     return view('Notification\followers');
 });
-Route::get('/new_notification', function () {
+Route::get('/following', function () {
     return view('Notification\following');
 });
 Route::get('/new_notification', function () {
     return view('Notification\new_ntf');
 });
-Route::get('/setting', function () {
+Route::get('/', function () {
     return view('setting');
 });
 Route::get('/done_donated', function () {
