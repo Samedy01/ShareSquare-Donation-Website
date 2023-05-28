@@ -445,7 +445,6 @@
 
         <div
             class="grid grid-cols-1 grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 items-center justify-between w-full gap-5 md:gap-5 lg:gap-5 mb-5">
-
             <a href="#"
                class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100  md:flex-row ">
 
@@ -481,8 +480,8 @@
 
                         <div>
                             <div class="w-full mb-1 bg-gray-200 rounded-full">
-                                <div class="bg-mainColor text-xs font-medium text-white text-center p-0.5 leading-none rounded-full"
-                                     style="width: 45%"> 50%</div>
+                                <div class="w-[50%] bg-mainColor text-xs font-medium text-white text-center p-0.5 leading-none rounded-full"
+                                     > 50%</div>
                             </div>
                             <div class="flex justify-between mb-1">
                                 <div class="flex items-center">
@@ -496,59 +495,50 @@
                             </div>
                         </div>
 
-                        <div class="flex flex-col justify-between gap-3">
-                            <div class="grid grid-cols-3" role="group">
-                                <div class="col-span-1 flex">
-                                    <button type="button"
-                                            class="w-full inline-flex justify-center items-center px-4 py-2 text-sm font-medium text-textColorWithLightBg bg-transparent border border-gray-200 rounded-l-lg">
-                                        <svg aria-hidden="true" class="w-4 h-4 mr-2 fill-current" fill="currentColor"
-                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                                            <path
-                                                d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464H398.7c-8.9-63.3-63.3-112-129-112H178.3c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3z" />
-                                        </svg>
-                                        <div class="flex inline-block">
-                                            <span class="font-bold mx-1">1K</span>
-                                            <span> View</span>
-                                        </div>
+                        <div class="flex flex-wrap justify-between gap-3">
+                            <div class=" inline-flex" role="group">
+                                <button type="button"
+                                        class="inline-flex justify-center items-center px-4 py-2 text-sm font-medium text-textColorWithLightBg bg-transparent border border-gray-200 rounded-l-lg">
+                                    <svg aria-hidden="true" class="w-4 h-4 mr-2 fill-current" fill="currentColor"
+                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                        <path
+                                            d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464H398.7c-8.9-63.3-63.3-112-129-112H178.3c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3z" />
+                                    </svg>
+                                    <div class="flex inline-block">
+                                        <span class="font-bold mx-1">1K</span>
+                                        <span> View</span>
+                                    </div>
 
-                                    </button>
-                                </div>
-                                <div class="col-span-1 flex">
-                                    <button type="button"
-                                            class="w-full inline-flex items-center px-4 py-2 text-sm font-medium text-textColorWithLightBg bg-transparent border-t border-b border-gray-200">
-                                        <div class="flex justify-center items-center mx-auto">
-                                            <svg aria-hidden="true" class="w-4 h-4 mr-2 fill-current" fill="currentColor"
-                                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                                <path
-                                                    d="M307 34.8c-11.5 5.1-19 16.6-19 29.2v64H176C78.8 128 0 206.8 0 304C0 417.3 81.5 467.9 100.2 478.1c2.5 1.4 5.3 1.9 8.1 1.9c10.9 0 19.7-8.9 19.7-19.7c0-7.5-4.3-14.4-9.8-19.5C108.8 431.9 96 414.4 96 384c0-53 43-96 96-96h96v64c0 12.6 7.4 24.1 19 29.2s25 3 34.4-5.4l160-144c6.7-6.1 10.6-14.7 10.6-23.8s-3.8-17.7-10.6-23.8l-160-144c-9.4-8.5-22.9-10.6-34.4-5.4z" />
-                                            </svg>
-                                            <div class="flex inline-block justify-center">
-                                                <span class="font-bold mx-1">25</span>
-                                                <span class=""> Share</span>
-                                            </div>
-                                        </div>
+                                </button>
+                                <button type="button"
+                                        class="inline-flex items-center px-4 py-2 text-sm font-medium text-textColorWithLightBg bg-transparent border-t border-b border-gray-200">
+                                    <svg aria-hidden="true" class="w-4 h-4 mr-2 fill-current" fill="currentColor"
+                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                        <path
+                                            d="M307 34.8c-11.5 5.1-19 16.6-19 29.2v64H176C78.8 128 0 206.8 0 304C0 417.3 81.5 467.9 100.2 478.1c2.5 1.4 5.3 1.9 8.1 1.9c10.9 0 19.7-8.9 19.7-19.7c0-7.5-4.3-14.4-9.8-19.5C108.8 431.9 96 414.4 96 384c0-53 43-96 96-96h96v64c0 12.6 7.4 24.1 19 29.2s25 3 34.4-5.4l160-144c6.7-6.1 10.6-14.7 10.6-23.8s-3.8-17.7-10.6-23.8l-160-144c-9.4-8.5-22.9-10.6-34.4-5.4z" />
+                                    </svg>
+                                    <div class="flex inline-block">
+                                        <span class="font-bold mx-1">25</span>
+                                        <span> Share</span>
+                                    </div>
 
-                                    </button>
-                                </div>
+                                </button>
+                                <button type="button"
+                                        class="inline-flex items-center px-4 py-2 text-sm font-medium text-textColorWithLightBg bg-transparent border border-gray-200 rounded-r-md">
+                                    <svg aria-hidden="true" class="w-4 h-4 mr-2 fill-current" fill="currentColor"
+                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
 
-                                <div class="col-span-1">
-                                    <button type="button"
-                                            class="w-full inline-flex items-center px-4 py-2 text-sm font-medium text-textColorWithLightBg bg-transparent border border-gray-200 rounded-r-md">
-                                        <svg aria-hidden="true" class="w-4 h-4 mr-2 fill-current" fill="currentColor"
-                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-
-                                            <path
-                                                d="M464 256A208 208 0 1 1 48 256a208 208 0 1 1 416 0zM0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM232 120V256c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2V120c0-13.3-10.7-24-24-24s-24 10.7-24 24z" />
-                                        </svg>
-                                        <span class="font-bold mx-1">36</span>
-                                        <span>Day Left</span>
+                                        <path
+                                            d="M464 256A208 208 0 1 1 48 256a208 208 0 1 1 416 0zM0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM232 120V256c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2V120c0-13.3-10.7-24-24-24s-24 10.7-24 24z" />
+                                    </svg>
+                                    <span class="font-bold mx-1">36</span>
+                                    <span>Day Left</span>
 
 
-                                    </button>
-                                </div>
+                                </button>
                             </div>
-                            <div class="inline-flex" role="group">
-                                <button type="button" class="py-3 px-8 border rounded-xl bg-red-500 text-white hover:bg-red-700 hover:cursor-pointer w-full md:w-auto lg:w-auto">Donation Now</button>
+                            <div class="inline-flex w-full" role="group">
+                                <button class="px-8 py-3 border rounded-xl bg-red-500 hover:bg-red-700 text-white w-full md:w-1/2 lg:w-1/2">Donate Now</button>
                             </div>
                         </div>
                     </div>
@@ -589,8 +579,8 @@
 
                         <div>
                             <div class="w-full mb-1 bg-gray-200 rounded-full">
-                                <div class="bg-mainColor text-xs font-medium text-white text-center p-0.5 leading-none rounded-full"
-                                     style="width: 45%"> 50%</div>
+                                <div class="w-[50%] bg-mainColor text-xs font-medium text-white text-center p-0.5 leading-none rounded-full"
+                                    > 50%</div>
                             </div>
                             <div class="flex justify-between mb-1">
                                 <div class="flex items-center">
