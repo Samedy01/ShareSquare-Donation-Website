@@ -16,31 +16,31 @@
 <body class="container border mx-auto">
     <div class="flex justify-center items-center relative mt-4 mb-16">
         <img src="{{asset('images/browse_all_thumbnail.png')}}" alt="Browse thumbnail" class="w-[100%]">
-        <p class="caption absolute text-white text-4xl font-bold">Explore Project With <span
+        <p class="caption absolute text-white text-xl md:text-4xl font-bold">Explore Project With <span
                 class="logo_name">ShareSquare</span></p>
-        <div class="border items-center md:flex justify-between absolute shadow-lg rounded-[10px] w-[90%] md:w-3/5 bottom-[-50%] p-3 md:p-8 bg-white z-10"
+        <div class="border items-center md:flex justify-between absolute shadow-lg rounded-[10px] w-[90%] md:w-3/5 bottom-[-50%] md:bottom-[-10%] p-3 md:p-8 bg-white z-10"
             style="">
-            <div class="relative">
+            <div class="relative md:w-1/2">
                 <input type="text"
-                       class="text-sm w-[100%] pl-10 pr-4 md:py-5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                       class="text-sm md:text-base w-[100%] pl-10 pr-4 md:py-5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
                        placeholder="Search">
                 <span class="absolute inset-y-0 left-0 pl-3 flex items-center">
-                        <i class="text-sm fas fa-search text-gray-400"></i>
+                        <i class="text-sm md:text-base fas fa-search text-gray-400"></i>
                     </span>
             </div>
-            <div class="flex mt-4 md:mt-0 justify-between">
+            <div class="flex mt-4 md:mt-0 justify-between ">
                 {{--dropdown on theme type--}}
-                <div data-dropdown="0" class="mr-2 text-sm hover:cursor-pointer campaign-filter relative" id="themeFilter">
+                <div data-dropdown="0" class=" mr-2 md:mr-0 text-sm md:text-base hover:cursor-pointer campaign-filter relative" id="themeFilter">
                     Theme
                     <span>
-                        <i class="fa fa-chevron-right ml-1 md:ml-6 text-gray-400 icon-dropdown"></i>
+                        <i class="fa fa-chevron-right ml-1 md:ml-4 text-gray-400 icon-dropdown"></i>
                     </span>
                     {{--dropdown for theme--}}
                     <div class="absolute shadow left-0 w-[250px] mt-2 p-2 rounded bg-white under-dropdown hidden">
                         <div class="relative w-full">
                             <input type="text"
-                                   class="w-[100%] pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                   placeholder="Search">
+                                   class="w-[100%] pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-mainColor focus:border-transparent text-primaryTextColor"
+                                   placeholder="Search Category">
                             <span class="absolute inset-y-0 left-0 pl-3 flex items-center">
                         <i class="fas fa-search text-gray-400"></i>
                     </span>
@@ -120,10 +120,10 @@
                     </div>
                 </div>
                 {{--dropdown on donation type--}}
-                <div data-dropdown="0" class="mr-2 text-sm hover:cursor-pointer campaign-filter relative">
+                <div data-dropdown="0" class="mr-2 md:ml-6 text-sm md:text-base hover:cursor-pointer campaign-filter relative">
                     Type of donation
                     <span>
-                    <i class="fa fa-chevron-right ml-r md:ml-6 text-gray-400  icon-dropdown"></i>
+                    <i class="fa fa-chevron-right ml-r md:ml-4 text-gray-400  icon-dropdown"></i>
                 </span>
                     <div class="absolute shadow left-0 w-40 mt-2 p-2 rounded bg-white under-dropdown hidden">
                         <label class="flex items-center mb-1 hover:cursor-pointer">
@@ -153,10 +153,10 @@
                     </div>
                 </div>
                 {{--dropdown on filter type--}}
-                <div data-dropdown="0"  class="text-sm hover:cursor-pointer campaign-filter">
+                <div data-dropdown="0"  class="text-sm md:ml-6 md:text-base hover:cursor-pointer campaign-filter">
                     Filter
                     <span>
-                    <i class="fa fa-chevron-right md:ml-6 ml-1 text-gray-400 icon-dropdown"></i>
+                    <i class="fa fa-chevron-right md:ml-4 ml-1 text-gray-400 icon-dropdown"></i>
                 </span>
                     <div class="absolute shadow right-0 w-[200px] mt-2 p-2 rounded bg-white under-dropdown hidden">
                         <label class="flex items-center mb-1 hover:cursor-pointer">
@@ -222,8 +222,8 @@
             <div class="grid grid-cols-7 gap-0">
                 <div class="border-r md:p-3 p-1 col-span-2">
                     {{--Donation Themes--}}
-                    <p class="filter-title text-gray-400 text-sm">Campaign Theme</p>
-                    <div class="mt-3 text-sm">
+                    <p class="filter-title text-gray-400 text-sm md:text-base">Campaign Theme</p>
+                    <div class="mt-3 text-sm md:text-base">
                         <label class="flex items-center mb-1 hover:cursor-pointer">
                             <input type="checkbox" class="hidden">
                             <span class="w-5 h-5 border-2 border-gray-200 rounded bg-white flex items-center justify-center transition-colors duration-200">
@@ -252,8 +252,8 @@
                     </div>
                 </div>
                 <div class="border-r md:p-3 p-1 col-span-2">
-                    <p class="filter-title text-gray-400 text-sm">Type of donation</p>
-                    <div class="mt-3 text-sm">
+                    <p class="filter-title text-gray-400 text-sm md:text-base">Type of donation</p>
+                    <div class="mt-3 text-sm md:text-base">
                         <label class="flex items-center mb-1 hover:cursor-pointer">
                             <input type="checkbox" class="hidden">
                             <span class="w-5 h-5 border-2 border-gray-200 rounded bg-white flex items-center justify-center transition-colors duration-200">
@@ -281,9 +281,9 @@
                     </div>
                 </div>
                 <div class="md:p-3 p-1 col-span-3">
-                    <p class="filter-title text-gray-400 text-sm">Campaign <br> filter</p>
-                    <div class="mt-3 text-sm">
-                        <label class="flex mb-1 hover:cursor-pointer items-start text-sm">
+                    <p class="filter-title text-gray-400 text-sm md:text-base">Campaign <br class="md:hidden"> filter</p>
+                    <div class="mt-3 text-sm md:text-base">
+                        <label class="flex mb-1 hover:cursor-pointer items-start">
                             <input type="checkbox" class="hidden">
                             <span class="w-5 h-5 border-2 border-gray-200 rounded bg-white flex items-center justify-center transition-colors duration-200">
                                 <span class="tick-icon hidden text-red-500">
@@ -295,7 +295,7 @@
                             </span>
                             <span class="md:ml-5 ml-1 text-gray-700">Top Funded Project</span>
                         </label>
-                        <label class="flex mb-1 hover:cursor-pointer items-start text-sm">
+                        <label class="flex mb-1 hover:cursor-pointer items-start">
                             <input type="checkbox" class="hidden">
                             <span class="w-5 h-5 border-2 border-gray-200 rounded bg-white flex items-center justify-center transition-colors duration-200">
                                 <span class="tick-icon hidden text-red-500">
@@ -319,7 +319,7 @@
         {{--one card campaign (Goal reach)--}}
         <div class="grid grid-cols-1 grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 items-center justify-between w-full gap-5 md:gap-5 lg:gap-5 mb-5">
             {{--one card in active--}}
-            <a href="#" class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100  md:flex-row ">
+            <a href="#" class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100  md:flex-row hover:drop-shadow-xl transition">
 
                 <div class="border bg-white rounded-lg shadow-lg flex flex-col md:flex-row inline-block">
                     <div class="overflow-hidden">
@@ -418,7 +418,7 @@
                 </div>
             </a>
             {{--one card campaign (Goal reach)--}}
-            <a href="#" class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100  md:flex-row ">
+            <a href="#" class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100  md:flex-row hover:drop-shadow-xl transition">
 
                 <div class="border bg-white rounded-lg shadow-lg flex flex-col md:flex-row inline-block">
                     <div class="overflow-hidden">

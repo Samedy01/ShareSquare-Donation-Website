@@ -37,6 +37,8 @@ export default {
       'xl': '1.25rem', // Extra-large font size
       '2xl': '1.5rem', // Double extra-large font size
       // ...add more custom font sizes as needed
+      '3xl': '1.875rem',
+      '4xl': '2.25rem',
     },
   },
   plugins: [
