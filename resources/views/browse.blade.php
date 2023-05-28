@@ -8,8 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
     @vite('resources/css/app.css')
+    @vite('resources/js/app.js')
     @vite('resources/css/panha.css')
-    @vite('resources/js/jquery-3.6.1.min.js')
+{{--    @vite('resources/js/jquery-3.6.1.min.js')--}}
     <title>Browse campaign</title>
 </head>
 <body class="container border mx-auto">

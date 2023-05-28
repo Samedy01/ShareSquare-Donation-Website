@@ -10,9 +10,9 @@
     {{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/datepicker.min.js"></script>--}}
     @vite('resources/css/app.css')
     @vite('resources/css/panha.css')
-    @vite('resources/js/jquery-3.6.1.min.js')
+    @vite('resources/js/app.js')
     @vite('resources/js/datepicker.js')
-    @vite('node_modules/flowbite/dist/flowbite.min.js')
+{{--    @vite('resources/flowbite.min.js')--}}
     <title>Create Campaign cash type</title>
 </head>
 <body>
@@ -67,7 +67,7 @@
 
             </div>--}}
             {{--1st form: About--}}
-            <div class="mb-[100px] form hidden" id="form_step_1" data-status="1">
+            <div class="mb-[100px] form" id="form_step_1" data-status="1">
                 <h1 class="text-2xl font-bold">About</h1>
                 <div class="mt-4 " id="campaign_option_form">
                     <p class="font-bold">Are you donating items or raising?</p>
@@ -230,7 +230,7 @@
                 </div>
             </div>
             {{--2nd form: Campaign options / campaign option --}}
-            <div class="mb-[100px] form" id="form_step_2" data-status="0">
+            <div class="mb-[100px] form hidden" id="form_step_2" data-status="0">
                 <h1 class="text-3xl font-bold">Donation Option</h1>
 
                 {{--Donating item campaing option--}}
@@ -454,7 +454,7 @@
                     </label>
                 </div>
                 {{--TODO pickup location--}}
-                <div class="mt-4" id="pickup_location_form">
+                <div class="mt-4 hidden" id="pickup_location_form">
                     <p class="font-bold">Pick up location</p>
                     <div class="w-2/3 py-3 px-5 bg-gray-100 rounded relative mt-3">
                         <h2 class="text-2xl font-bold">CADT - Innovation Center</h2>

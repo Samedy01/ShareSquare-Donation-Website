@@ -10,6 +10,8 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/panha.js',
                 'resources/js/jquery-3.6.1.min.js',
+                'node_modules/flowbite/dist/flowbite.min.js',
+                'resources/js/datepicker.js',
             ],
             refresh: true,
         }),
