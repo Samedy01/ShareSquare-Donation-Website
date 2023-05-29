@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ItemCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,3 +37,7 @@ Route::get('/testUpload', function () {
 Route::get('/testGoogleMap', function () {
     return view('tests.testGoogleMap');
 });
+
+Route::resource('item_categories', ItemCategoryController::class);
+
+//Route::post('')
