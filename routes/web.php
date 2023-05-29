@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemCategoryController;
+use App\Http\Controllers\CampaignCategoryController;
+use App\Http\Controllers\CampaignController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,9 +22,9 @@ Route::get('/', function () {
 Route::get('/browse', function () {
     return view('browse');
 });
-Route::get('/create-new-campaign', function () {
-    return view('campaign_cash_type');
-});
+//Route::get('/create-new-campaign', function () {
+//    return view('campaigns.create');
+//});
 
 Route::get('/test_tailwind', function () {
     return view('test_tailwind');
@@ -39,5 +41,7 @@ Route::get('/testGoogleMap', function () {
 });
 
 Route::resource('item_categories', ItemCategoryController::class);
+Route::resource('campaign_categories', CampaignCategoryController::class);
+Route::resource('campaigns', CampaignController::class);
 
 //Route::post('')

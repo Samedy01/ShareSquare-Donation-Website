@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CampaignCategory;
+use App\Models\ItemCategory;
 use Illuminate\Http\Request;
 
 class CampaignCategoryController extends Controller
@@ -11,7 +13,8 @@ class CampaignCategoryController extends Controller
      */
     public function index()
     {
-        //
+        $campaignCategories = CampaignCategory::all();
+        return view('campaign_categories.index',compact('campaignCategories'));
     }
 
     /**
@@ -19,7 +22,7 @@ class CampaignCategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('campaign_categories.create');
     }
 
     /**
@@ -27,7 +30,13 @@ class CampaignCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:20',
+            'is_enabled' => 'required|boolean',
+        ]);
+        CampaignCategory::create($request->all());
+
+        return redirect()->route('campaign_categories.index')->with('success', 'Campaign category created successfully.');
     }
 
     /**
@@ -41,24 +50,33 @@ class CampaignCategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(CampaignCategory $campaignCategory)
     {
-        //
+        return view('campaign_categories.edit', compact('campaignCategory'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, CampaignCategory $campaignCategory)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:20',
+            'is_enabled' => 'required|boolean',
+        ]);
+
+        $campaignCategory->update($request->all());
+
+        return redirect()->route('campaign_categories.index')->with('success', 'Campaign category updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(CampaignCategory $campaignCategory)
     {
-        //
+        $campaignCategory->delete();
+
+        return redirect()->route('campaign_categories.index')->with('success', 'Campaign category deleted successfully.');
     }
 }

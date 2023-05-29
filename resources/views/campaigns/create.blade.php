@@ -57,7 +57,8 @@
         </div>
     </div>
     {{--Right side--}}
-    <form class=" col-span-3 max-h-[88vh] overflow-auto right-side pr-2 pl-2">
+    <form method="POST" action="{{ route('campaigns.store') }}" class=" col-span-3 max-h-[88vh] overflow-auto right-side pr-2 pl-2" enctype="multipart/form-data">
+        @csrf
         <div class="">
             {{--<div class="test_append bg-red-500 rounded shadow-lg hover:cursor-pointer">
                 Hello
@@ -132,7 +133,7 @@
                                 </div>
                             </div>
                             <div class="flex">
-                                <input type="file" id="imageThumbnailInput" name="id_card_image" class="hidden">
+                                <input type="file" id="imageThumbnailInput" name="id_card_image" class="">
                                 <label for="imageThumbnailInput" id="uploadButton" class="flex items-center justify-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded cursor-pointer">
                                     <i class="fas fa-cloud-upload-alt mr-2"></i>
                                     <span>Select Image</span>
@@ -216,10 +217,13 @@
                 </div>
                 <div class="flex flex-col mt-4">
                     <label for="campaign_category" class="font-bold">Campaign Category</label>
-                    <select id="campaign_category"
+                    <select id="campaign_category" name="campaign_category"
                             class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent">
-                        <option name="campaign-category" class="" value="1">Education</option>
-                        <option name="campaign-category" class="" value="2">Health</option>
+                        <option class="" value="" selected>---- Choose one category ---</option>
+
+                        @foreach($campaignCategories as $campaignCategory)
+                            <option class="" value="{{ $campaignCategory->id }}">{{ $campaignCategory->name }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="mt-10">
@@ -227,6 +231,8 @@
                        class="nextform inline-block bg-red-500 py-2 px-16 rounded-[10px]">
                         <span class="text-white">Next</span>
                     </a>
+                    <button type="submit" class="bg-blue-500 rounded p-3">Submit</button>
+
                 </div>
             </div>
             {{--2nd form: Campaign options / campaign option --}}
@@ -639,6 +645,7 @@
                        class="inline-block bg-red-500 py-2 px-16 rounded-[10px] hover:shadow-lg nextform submit">
                         <span class="text-white" data-target="#result_from_create_campaign">Submit</span>
                     </a>
+
                 </div>
             </div>
             {{--5th success create--}}
