@@ -19,46 +19,28 @@ use App\Http\Controllers\MyProfileController;
 |
 */
 
+
 // Default
-Route::get('/', function () {
-    return view('welcome');
+
+
+
+
+// Pech
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
-
-
-
-
-
-
-
-
-// Vortey
-// My Profile Controller
-Route::get('/profile/overview', [MyProfileController::class, 'overview'])->name('overview');
-
-Route::get('/profile/mycampaign', [MyProfileController::class, 'myCampaign'])->name('mycampaign');
-
-Route::get('/profile/history', [MyProfileController::class, 'history'])->name('history');
-
-Route::get('/profile/following', [MyProfileController::class, 'following'])->name('following');
-
-Route::get('/profile/follower', [MyProfileController::class, 'follower'])->name('follower');
-
-Route::get('/profile/editprofile', [MyProfileController::class, 'editprofile'])->name('editprofile');
-
-
-
-
-
-
-
-
-
-// Samedy
 
 Route::get('/donations/campaign_profile', function () {
     return view('donations.campaign_profile');
 });
+
+require __DIR__.'/auth.php';
 
 
 
@@ -117,24 +99,76 @@ Route::post('/campaigns/{user_id}/update/{campaign_id}')->name('campaigns.update
 
 
 
+// Vortey
+// My Profile Controller
+Route::get('/profile/overview', [MyProfileController::class, 'overview'])->name('overview');
+
+Route::get('/profile/mycampaign', [MyProfileController::class, 'myCampaign'])->name('mycampaign');
+
+Route::get('/profile/history', [MyProfileController::class, 'history'])->name('history');
+
+Route::get('/profile/following', [MyProfileController::class, 'following'])->name('following');
+
+Route::get('/profile/follower', [MyProfileController::class, 'follower'])->name('follower');
+
+Route::get('/profile/editprofile', [MyProfileController::class, 'editprofile'])->name('editprofile');
 
 
 
 
 
-// Pech
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
+
+
+// Samedy
 Route::get('/donations/campaign_profile', function () {
     return view('donations.campaign_profile');
 });
 
-require __DIR__.'/auth.php';
+
+
+
+// Saovty
+Route::get('/followers', function () {
+    return view('Notification\followers');
+});
+Route::get('/following', function () {
+    return view('Notification\following');
+});
+Route::get('/new_notification', function () {
+    return view('Notification\new_ntf');
+});
+Route::get('/', function () {
+    return view('setting');
+});
+Route::get('/done_donated', function () {
+    return view('Item_Donation\done_donated');
+});
+Route::get('/item_donation', function () {
+    return view('Item_Donation\item_donation');
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
