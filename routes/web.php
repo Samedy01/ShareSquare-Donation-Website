@@ -5,6 +5,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ItemCategoryController;
 use App\Http\Controllers\CampaignCategoryController;
 use App\Http\Controllers\CampaignController;
+// Vortey
+use App\Http\Controllers\MyProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,10 +20,33 @@ use App\Http\Controllers\CampaignController;
 */
 
 // Default
-
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+
+
+
+
+
+
+
+// Vortey
+// My Profile Controller
+Route::get('/profile/overview', [MyProfileController::class, 'overview'])->name('overview');
+
+Route::get('/profile/mycampaign', [MyProfileController::class, 'myCampaign'])->name('mycampaign');
+
+Route::get('/profile/history', [MyProfileController::class, 'history'])->name('history');
+
+Route::get('/profile/following', [MyProfileController::class, 'following'])->name('following');
+
+Route::get('/profile/follower', [MyProfileController::class, 'follower'])->name('follower');
+
+Route::get('/profile/editprofile', [MyProfileController::class, 'editprofile'])->name('editprofile');
+
+
 
 
 
