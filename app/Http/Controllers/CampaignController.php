@@ -35,9 +35,9 @@ class CampaignController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $user_id, string $campaign_id)
     {
-        //
+        return view('campaigns.show');
     }
 
     /**

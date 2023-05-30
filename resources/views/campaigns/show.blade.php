@@ -12,7 +12,7 @@
 <body>
     <div class="campaign-profile donation px-14">
         <div class="pb-12">
-            <div class="donation-title text-5xl pr-36">Building Decent School For Chhuk Village in Kompot</div>
+            <div class="donation-title text-4xl pr-36">Building Decent School For Chhuk Village in Kompot</div>
             <div class="h-8"></div>
             <div class="donation-subtitle text-3xl">
                 <p class="donation-less-focus-text">

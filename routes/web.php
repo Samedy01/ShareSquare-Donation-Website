@@ -83,7 +83,7 @@ Route::get('/campaigns')->name('campaigns.index'); // all campaigns
 
 Route::get('/campaigns/{user_id}')->name('campaigns.user.index'); // all campaings of a user
 
-Route::get('/campaigns/{user_id}/show/{campaign_id}')->name('campaigns.show'); // show the details of a campaign (campaign profile)
+Route::get('/campaigns/{user_id}/show/{campaign_id}', [CampaignController::class, 'show'])->name('campaigns.show'); // show the details of a campaign (campaign profile)
 
 Route::get('/campaigns/{user_id}/create')->name('campaigns.create'); // the campaign form
 
