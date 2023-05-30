@@ -131,22 +131,22 @@ Route::get('/donations/campaign_profile', function () {
 
 // Saovty
 Route::get('/followers', function () {
-    return view('Notification\followers');
+    return view('Notification.followers');
 });
 Route::get('/following', function () {
-    return view('Notification\following');
+    return view('Notification.following');
 });
 Route::get('/new_notification', function () {
-    return view('Notification\new_ntf');
+    return view('Notification.new_ntf');
 });
 Route::get('/', function () {
     return view('setting');
 });
 Route::get('/done_donated', function () {
-    return view('Item_Donation\done_donated');
+    return view('Item_Donation.done_donated');
 });
 Route::get('/item_donation', function () {
-    return view('Item_Donation\item_donation');
+    return view('Item_Donation.item_donation');
 });
 
 
