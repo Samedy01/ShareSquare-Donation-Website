@@ -3,7 +3,7 @@
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
 
         <a href="https://flowbite.com/" class="flex items-center">
-            <img src="{{ asset('storage/sharesquare-logo.png')}}" alt="ShareSqure Logo" class="h-8 md:h-8 lg:h-14">
+            <img src="{{ asset('img/logo/sharesquare-logo.png')}}" alt="ShareSqure Logo" class="h-8 md:h-8 lg:h-14">
             <!-- Logo Text -->
             <div class="text-left">
                 <p class="text-mainColor font-bold text-sm md:text-sm lg:text-xl">ShareSquare</p>
