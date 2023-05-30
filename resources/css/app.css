@@ -34,13 +34,13 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: public-sans-regular;
+    font-family: public-sans-regular, serif;
 
 }
 
 .title {
     color: #333238;
-    font-family: public-sans-bold;
+    font-family: public-sans-bold, serif;
 }
 
 .title-color {
@@ -101,4 +101,9 @@
 
 .campaign-profile .more-focus {
     color: #333238;
+}
+
+/* Pech */
+.background-image {
+    width: 30px;
 }
