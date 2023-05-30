@@ -21,6 +21,6 @@ Route::get('/test_tailwind', function () {
     return view('test_tailwind');
 });
 
-Route::get('/donations/campaign_profile', function () {
+Route::get('/campaigns/{user_id}/show/{campaign_id}', function () {
     return view('donations.campaign_profile');
 });
