@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ItemCategoryController;
 use App\Http\Controllers\CampaignCategoryController;
 use App\Http\Controllers\CampaignController;
@@ -16,10 +17,19 @@ use App\Http\Controllers\CampaignController;
 |
 */
 
+// Default
+
 Route::get('/', function () {
     return view('welcome');
 });
 
+
+
+
+
+
+
+// Samedy
 
 Route::get('/donations/campaign_profile', function () {
     return view('donations.campaign_profile');
@@ -27,7 +37,11 @@ Route::get('/donations/campaign_profile', function () {
 
 
 
-// **** Panha ****
+
+
+
+
+// Panha
 Route::get('/browse', function () {
     return view('browse');
 });
@@ -73,3 +87,29 @@ Route::delete('/campaigns/{user_id}/{campaign_id}')->name('campaigns.destroy'); 
 Route::get('/campaigns/{user_id}/edit/{campaign_id}')->name('campaigns.edit'); // the campaign update form
 
 Route::post('/campaigns/{user_id}/update/{campaign_id}')->name('campaigns.update'); // update the campaign
+
+
+
+
+
+
+
+
+
+
+// Pech
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::get('/donations/campaign_profile', function () {
+    return view('donations.campaign_profile');
+});
+
+require __DIR__.'/auth.php';
