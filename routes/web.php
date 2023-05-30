@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ItemCategoryController;
+use App\Http\Controllers\CampaignCategoryController;
+use App\Http\Controllers\CampaignController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +19,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/browse', function () {
+    return view('browse');
+});
+//Route::get('/create-new-campaign', function () {
+//    return view('campaigns.create');
+//});
 
 Route::get('/test_tailwind', function () {
     return view('test_tailwind');
@@ -24,3 +33,15 @@ Route::get('/test_tailwind', function () {
 Route::get('/donations/campaign_profile', function () {
     return view('donations.campaign_profile');
 });
+Route::get('/testUpload', function () {
+    return view('tests.testuploadfile');
+});
+Route::get('/testGoogleMap', function () {
+    return view('tests.testGoogleMap');
+});
+
+Route::resource('item_categories', ItemCategoryController::class);
+Route::resource('campaign_categories', CampaignCategoryController::class);
+Route::resource('campaigns', CampaignController::class);
+
+//Route::post('')
