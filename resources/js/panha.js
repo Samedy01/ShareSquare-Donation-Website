@@ -38,7 +38,6 @@ $(document).ready(function () {
         element.find('.under-dropdown').addClass('hidden')
     }
     labelStatus(1, 'form_step_1')
-    // labelStatus(1,'form_step_2')
     /*Create campaign - cash type*/
     $('.nextform').on('click', function () {
         let targetForm = $(this).attr('href')
@@ -116,7 +115,7 @@ $(document).ready(function () {
         }
     }
 
-    $('input[name="raising-option"]').on('change', function () {
+    $('input[name="raising_option"]').on('change', function () {
         console.log('change')
         if ($(this).is(':checked')) {
             let checkedLabelElement = $(this).closest('label.raising_option');
@@ -191,7 +190,7 @@ $(document).ready(function () {
         }
     }
 
-    $('input[name="paymentOption"]').on('change', function () {
+    $('input[name="payment_option"]').on('change', function () {
         if ($(this).is(':checked')) {
             let checkedLabelElement = $(this).closest('label.paymentOption');
             let checkedValue = $(this).val();
@@ -439,13 +438,14 @@ $(document).ready(function () {
                 <div class="flex flex-col mt-4 oneSubTitle newSubtitleTemplate">
                     <label for="campaign_description-${subtitleCounter}" class="font-bold">Description</label>
                     <textarea id="campaign_description-${subtitleCounter}"
+                              name="campaign_description-${subtitleCounter}"
                               class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent"
                               placeholder="What is the purpose of your campaign"></textarea>
                     <a href="#" class="primary-color-letter mt-3 addPhotoToAdditionalTitle" data-input-target="#hidden-input-images-for-description-${subtitleCounter}">
                         <i class="fa fa-plus-circle"></i>
-                        <span>Add Photos/Videos</span>
+                        <span>Add Photos</span>
                     </a>
-                    <input id="hidden-input-images-for-description-${subtitleCounter}" type="file" multiple class="hidden inputForMultipleImage">
+                    <input name="multiple_image_for_title-${subtitleCounter}[]" id="hidden-input-images-for-description-${subtitleCounter}" type="file" multiple class="hidden inputForMultipleImage">
                     <ul class="flex flex-1 flex-wrap -m-1 imageInputWrapper">
 
                     </ul>
@@ -496,12 +496,12 @@ $(document).ready(function () {
                 <div class="mt-4">
                     <p class="font-bold">New contact ${countNewContact} (optional)</p>
                     <label for="campaign-contact-title-${countNewContact}" class="">
-                        <input name="campaign-contact-title-${countNewContact}" placeholder="Contact title (Ex: Instagram)" type="text"
+                        <input name="campaign_contact_title-${countNewContact}" placeholder="Contact title (Ex: Instagram)" type="text"
                                id="campaign-contact-title-${countNewContact}"
                                class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent w-full">
                     </label>
                     <label for="campaign-contact-detail-${countNewContact}" class="">
-                        <input name="campaign-contact-detail-${countNewContact}" placeholder="Enter contact link" type="text"
+                        <input name="campaign_contact_detail-${countNewContact}" placeholder="Enter contact link" type="text"
                                id="campaign-contact-detail-${countNewContact}"
                                class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent w-full">
                     </label>
@@ -556,7 +556,7 @@ $(document).ready(function () {
         if (fileInput.files && fileInput.files[0]) {
             // Show image preview
             $previewContainer.removeClass('bg-gray-100').addClass('bg-white');
-            previewAnImage(fileInput,$uploadContainer);
+                previewAnImage(fileInput,$uploadContainer);
         } else {
             // Hide image preview if no file is selected
             $previewMessage.removeClass('hidden');
@@ -596,4 +596,31 @@ $(document).ready(function () {
             reader.readAsDataURL(input.files[0]);
         }
     }
+
+    // submit the form as Ajax request
+    $('form#formCreateCampaign').submit(function (e){
+        e.preventDefault()
+        $('#letterSubmmit').addClass('hidden')
+        $('#submitLoading').removeClass('hidden')
+        let formData = new FormData(this);
+        // console.log(formData)
+        formData.append('_token', $('input[name="_token"]').val());
+        let xhr = $.ajax({
+            url: "store",
+            type: 'post',
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+        })
+
+        xhr.done(function (response){
+            console.log(response)
+            if(response.success){
+                labelStatus(2,'form_step_4')
+                $('#form_step_4').addClass('hidden')
+                $('#result_from_create_campaign').removeClass('hidden')
+            }
+        })
+    })
 })
