@@ -14,7 +14,19 @@ class CampaignController extends Controller
      */
     public function index()
     {
+        $campaigns = Campaign::all();
+        return view('campaigns.index', ['campaigns' => $campaigns]);
+    }
 
+    public function show($campaign_id) {
+        $campaign = Campaign::findOrFail($campaign_id);
+
+        $user = User::findOrFail($campaign->user_id);
+
+        return view('campaigns.show', [
+            'campaign' => $campaign,
+            'user' => $user,
+        ]);
     }
 
     /**
@@ -37,7 +49,7 @@ class CampaignController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $user_id, string $campaign_id)
+    public function show_user(string $user_id, string $campaign_id)
     {
         $campaign = Campaign::findOrFail($campaign_id);
 

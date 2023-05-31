@@ -24,9 +24,8 @@ use App\Http\Controllers\MyProfileController;
 
 
 
-
 // Pech
-Route::get('/dashboard', function () {
+Route::get('/', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -79,11 +78,13 @@ Route::resource('campaigns', CampaignController::class);
 
 // 
 // campaigns
-Route::get('/campaigns')->name('campaigns.index'); // all campaigns
+Route::get('/campaigns', [CampaignController::class, 'index'])->name('campaigns.index'); // all campaigns
+
+Route::get('/campaigns/show/{campaign_id}', [CampaignController::class, 'show'])->name('campaigns.show');
 
 Route::get('/campaigns/{user_id}')->name('campaigns.user.index'); // all campaings of a user
 
-Route::get('/campaigns/{user_id}/show/{campaign_id}', [CampaignController::class, 'show'])->name('campaigns.show'); // show the details of a campaign (campaign profile)
+Route::get('/campaigns/{user_id}/show/{campaign_id}', [CampaignController::class, 'show_user'])->name('campaigns.user.show'); // show the details of a campaign (campaign profile)
 
 Route::get('/campaigns/{user_id}/create')->name('campaigns.create'); // the campaign form
 
@@ -101,9 +102,9 @@ Route::post('/campaigns/{user_id}/update/{campaign_id}')->name('campaigns.update
 
 // Vortey
 // My Profile Controller
-Route::get('/profile/overview', [MyProfileController::class, 'overview'])->name('overview');
+Route::get('/profile/overview', [MyProfileController::class, 'overview'])->name('profile.overview');
 
-Route::get('/profile/mycampaign', [MyProfileController::class, 'myCampaign'])->name('mycampaign');
+Route::get('/profile/mycampaign/{user_id}', [MyProfileController::class, 'myCampaign'])->name('mycampaign');
 
 Route::get('/profile/history', [MyProfileController::class, 'history'])->name('history');
 
@@ -139,7 +140,7 @@ Route::get('/following', function () {
 Route::get('/new_notification', function () {
     return view('Notification.new_ntf');
 });
-Route::get('/', function () {
+Route::get('/setting', function () {
     return view('setting');
 });
 Route::get('/done_donated', function () {

@@ -10,8 +10,10 @@
         <!-- Spacing -->
         <div class="md:ml-5"></div>
         <div class="ml-5 mt-4 md:mt-0 md:ml-5 space-y-3 ">
-            <div class="text-center lg:text-left font-bold text-xl">User Name</div>
-            <div class="text-center lg:text-left text-base text-promptTextColor">Email -
+
+            {{-- Edited by Samedy --}}
+            <div class="text-center lg:text-left font-bold text-xl">{{Auth::user()->name}}</div>
+            <div class="text-center lg:text-left text-base text-promptTextColor">{{Auth::user()->email}} -
                 Member since
                 March 14, 2023
             </div>
@@ -19,7 +21,7 @@
                 <a href="{{ route('editprofile') }}"
                     class="{{ request()->is('profile/editprofile')}} inline-flex items-center text-center px-4 py-2 text-sm text-white bg-mainColor hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg sm:w-auto text-center">Edit
                     Profile</a>
-                <a href="{{ route('overview') }}"
+                <a href="{{ route('profile.overview') }}"
                     class="{{ request()->is('profile/overview')}}inline-flex items-center text-center px-4 py-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-mainColor focus:z-10 focus:ring-4 focus:ring-gray-200">Share
                     Profile</a>
                 {{-- <button type="button"
@@ -41,7 +43,7 @@
     <div class="border-b border-gray-100">
         <ul
             class="flex flex-wrap -mb-px text-sm font-medium text-center text-promptTextColor justify-center items-center">
-            <a href="{{ route('overview') }}"
+            <a href="{{ route('profile.overview') }}"
                 class="inline-flex p-4 border-b-2 rounded-t-lg  {{ request()->is('profile/overview') ? 'text-mainColor border-mainColor' : 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group' }}"
                 aria-current="{{ Request::is('profile/overview') ? 'page' : '' }}">
                 <svg aria-hidden="true"
@@ -55,7 +57,7 @@
             </a>
             {{-- class="inline-flex p-4 text-mainColor border-b-2 border-mainColor rounded-t-lg active group" --}}
             <li class="mr-2">
-                <a href="{{ route('mycampaign')}}"
+                <a href="{{ route('mycampaign', ['user_id' => Auth::user()->id])}}"
                     class="inline-flex p-4 border-b-2 rounded-t-lg  {{ request()->is('profile/mycampaign') ? 'text-mainColor border-mainColor' : 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group' }}"
                     aria-current="page">
                     <svg aria-hidden="true"

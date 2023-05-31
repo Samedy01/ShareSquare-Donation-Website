@@ -1,5 +1,5 @@
 <?php
-
+// Samedy
 namespace Database\Seeders;
 
 use App\Models\Campaign;
@@ -30,10 +30,106 @@ class CampaignSeeder extends Seeder
                 
                 Furthermore, a well-built school can serve as a community center and a hub for social activities. This can help bring people together and promote a sense of community and unity. It can also attract other resources and development projects to the area, further improving the standard of living for the people in Chhuk Village.",
 
-                'image_thumbnail_path' => 'campaign_thumnail.png',
+                'goal' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum odit obcaecati voluptas esse quam quia iusto voluptatem neque fugiat tempore repudiandae, iste atque, libero ullam vitae quos, quo accusantium fuga.',
+
+                'image_thumbnail_path' => 'leaves_img.webp',
             ],
 
-            // [],
+            [
+                'user_id' => 1,
+
+                'title' => "Building Decent School in Kompot",
+
+                'summary' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum obcaecati vero quod doloremque qui cupiditate cumque! Iure, fugiat reiciendis saepe odio sit dolor. Necessitatibus, dignissimos aut maxime nobis quasi non!',
+
+                'purpose' => "By building a decent school for the children in Chhuk Village, the campaign aims to provide a better education environment that will benefit the children and the community in the long run. With a proper school infrastructure, the children will have a safer and more conducive learning environment, which can help improve their academic performance and overall well-being.
+
+                In the long term, the campaign's impact can extend beyond the classroom and benefit the wider community. With better education opportunities, the children will have greater opportunities to pursue their dreams and contribute positively to their community. This can lead to a more educated and empowered generation that is better equipped to tackle the challenges of the future.",
+
+                'goal' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum odit obcaecati voluptas esse quam quia iusto voluptatem neque fugiat tempore repudiandae, iste atque, libero ullam vitae quos, quo accusantium fuga.',
+
+                'image_thumbnail_path' => 'leaves_img.webp',
+            ],
+
+            [
+                'user_id' => 1,
+
+                'title' => "Building Decent School in Kompot",
+
+                'summary' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum obcaecati vero quod doloremque qui cupiditate cumque! Iure, fugiat reiciendis saepe odio sit dolor. Necessitatibus, dignissimos aut maxime nobis quasi non!',
+
+                'purpose' => "By building a decent school for the children in Chhuk Village, the campaign aims to provide a better education environment that will benefit the children and the community in the long run. With a proper school infrastructure, the children will have a safer and more conducive learning environment, which can help improve their academic performance and overall well-being.
+
+                In the long term, the campaign's impact can extend beyond the classroom and benefit the wider community. With better education opportunities, the children will have greater opportunities to pursue their dreams and contribute positively to their community. This can lead to a more educated and empowered generation that is better equipped to tackle the challenges of the future.",
+
+                'goal' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum odit obcaecati voluptas esse quam quia iusto voluptatem neque fugiat tempore repudiandae, iste atque, libero ullam vitae quos, quo accusantium fuga.',
+
+                'image_thumbnail_path' => 'leaves_img.webp',
+            ],
+
+            [
+                'user_id' => 1,
+
+                'title' => "Building Decent School in Kompot",
+
+                'summary' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum obcaecati vero quod doloremque qui cupiditate cumque! Iure, fugiat reiciendis saepe odio sit dolor. Necessitatibus, dignissimos aut maxime nobis quasi non!',
+
+                'purpose' => "By building a decent school for the children in Chhuk Village, the campaign aims to provide a better education environment that will benefit the children and the community in the long run. With a proper school infrastructure, the children will have a safer and more conducive learning environment, which can help improve their academic performance and overall well-being.
+
+                In the long term, the campaign's impact can extend beyond the classroom and benefit the wider community. With better education opportunities, the children will have greater opportunities to pursue their dreams and contribute positively to their community. This can lead to a more educated and empowered generation that is better equipped to tackle the challenges of the future.",
+
+                'goal' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum odit obcaecati voluptas esse quam quia iusto voluptatem neque fugiat tempore repudiandae, iste atque, libero ullam vitae quos, quo accusantium fuga.',
+
+                'image_thumbnail_path' => 'leaves_img.webp',
+            ],
+
+            [
+                'user_id' => 2,
+
+                'title' => "User 2 Campaign",
+
+                'summary' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum obcaecati vero quod doloremque qui cupiditate cumque! Iure, fugiat reiciendis saepe odio sit dolor. Necessitatibus, dignissimos aut maxime nobis quasi non!',
+
+                'purpose' => "By building a decent school for the children in Chhuk Village, the campaign aims to provide a better education environment that will benefit the children and the community in the long run. With a proper school infrastructure, the children will have a safer and more conducive learning environment, which can help improve their academic performance and overall well-being.
+
+                In the long term, the campaign's impact can extend beyond the classroom and benefit the wider community. With better education opportunities, the children will have greater opportunities to pursue their dreams and contribute positively to their community. This can lead to a more educated and empowered generation that is better equipped to tackle the challenges of the future.",
+
+                'goal' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum odit obcaecati voluptas esse quam quia iusto voluptatem neque fugiat tempore repudiandae, iste atque, libero ullam vitae quos, quo accusantium fuga.',
+
+                'image_thumbnail_path' => 'leaves_img.webp',
+            ],
+
+            [
+                'user_id' => 2,
+
+                'title' => "User 2 Campaign",
+
+                'summary' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum obcaecati vero quod doloremque qui cupiditate cumque! Iure, fugiat reiciendis saepe odio sit dolor. Necessitatibus, dignissimos aut maxime nobis quasi non!',
+
+                'purpose' => "By building a decent school for the children in Chhuk Village, the campaign aims to provide a better education environment that will benefit the children and the community in the long run. With a proper school infrastructure, the children will have a safer and more conducive learning environment, which can help improve their academic performance and overall well-being.
+
+                In the long term, the campaign's impact can extend beyond the classroom and benefit the wider community. With better education opportunities, the children will have greater opportunities to pursue their dreams and contribute positively to their community. This can lead to a more educated and empowered generation that is better equipped to tackle the challenges of the future.",
+
+                'goal' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum odit obcaecati voluptas esse quam quia iusto voluptatem neque fugiat tempore repudiandae, iste atque, libero ullam vitae quos, quo accusantium fuga.',
+
+                'image_thumbnail_path' => 'leaves_img.webp',
+            ],
+
+            [
+                'user_id' => 2,
+
+                'title' => "User 2 Campaign",
+
+                'summary' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum obcaecati vero quod doloremque qui cupiditate cumque! Iure, fugiat reiciendis saepe odio sit dolor. Necessitatibus, dignissimos aut maxime nobis quasi non!',
+
+                'purpose' => "By building a decent school for the children in Chhuk Village, the campaign aims to provide a better education environment that will benefit the children and the community in the long run. With a proper school infrastructure, the children will have a safer and more conducive learning environment, which can help improve their academic performance and overall well-being.
+
+                In the long term, the campaign's impact can extend beyond the classroom and benefit the wider community. With better education opportunities, the children will have greater opportunities to pursue their dreams and contribute positively to their community. This can lead to a more educated and empowered generation that is better equipped to tackle the challenges of the future.",
+
+                'goal' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum odit obcaecati voluptas esse quam quia iusto voluptatem neque fugiat tempore repudiandae, iste atque, libero ullam vitae quos, quo accusantium fuga.',
+
+                'image_thumbnail_path' => 'leaves_img.webp',
+            ],
             // [],
             // [],
             // [],

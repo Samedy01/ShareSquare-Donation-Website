@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Campaign;
 use Illuminate\Http\Request;
 
 class MyProfileController extends Controller
@@ -12,8 +13,10 @@ class MyProfileController extends Controller
         return view('profile.overview');
     }
 
-    public function myCampaign(){
-        return view('profile.mycampaign');
+    public function myCampaign($user_id){
+        $my_campaigns = Campaign::where('user_id', $user_id)->get();
+
+        return view('profile.mycampaign', ['my_campaigns' => $my_campaigns]);
     }
 
     public function history(){

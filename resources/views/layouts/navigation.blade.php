@@ -46,7 +46,7 @@
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
 {{--                Add Profile Icon--}}
-                <a href="https://flowbite.com/" class="flex items-center">
+                <a href="{{route('profile.overview')}}" class="flex items-center">
                     <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown" data-dropdown-placement="bottom-start" class="w-10 h-10 rounded-full cursor-pointer" src="{{ asset('images/login.jpg')}}" alt="User dropdown">
                     {{--                    <img class="w-8 h-8 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="{{ asset('images/logo.jpg')}}" alt="Bordered avatar">--}}
                 </a>
@@ -65,7 +65,7 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
+                        <x-dropdown-link :href="route('profile.overview')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
