@@ -12,18 +12,18 @@
 <body>
     <div class="campaign-profile donation px-14">
         <div class="pb-12">
-            <div class="donation-title text-4xl pr-36">Building Decent School For Chhuk Village in Kompot</div>
+            <div class="donation-title text-4xl pr-36">{{$campaign->title}}</div>
             <div class="h-8"></div>
             <div class="donation-subtitle text-3xl">
                 <p class="donation-less-focus-text">
-                    Created by <span class="donation-more-focus-text">Ly Sovortey</span> • 7 May 2022
+                    Created by <span class="donation-more-focus-text">{{$user->name}}</span> • 7 May 2022
                 </p>
             </div>
         </div>
 
         <div class="tmp bg-green-200 rounded-md clearfix">
             <div class="float-left w-3/5 bg-yellow-300">
-                <img src="/img/donation/campaign_img.png" class="rounded-xl w-full" alt="">
+                <img src="/images/thumbnails/{{$campaign->image_thumbnail_path}}" class="rounded-xl" alt="">
                 <div class="p-8">
                     Under Image Content
                 </div>
@@ -115,19 +115,18 @@
         <div class="donation-details">
 
             @php
-                $items = [
-                    'Overview', 'Introduction', 'Challenge', 'Solution', 'Long-Term Impact', 'Contact Information'
-                ];   
+                $campaign_display = [
+                    'Summary' => $campaign->summary,
+                    'Purpose' => $campaign->purpose,
+                    'Goal' => $campaign->goal,
+                ];
             @endphp
 
-            @foreach($items as $item)
+
+            @foreach ($campaign_display as $key=>$value)
                 <div class="item pb-16">
-                    <div class="title text-4xl pb-12">
-                        {{ $item }}
-                    </div>
-                    <div class="content">
-                        Our campaign "Building Decent School For Chhuk Village in Kompot" aims to provide a better learning environment for children in the Chhuk Village of Kompot. This village lacks access to a proper school building, leaving the children to study in overcrowded and unsafe classrooms. Our goal is to raise enough funds to construct a new school building that is safe, comfortable, and conducive to learning. By providing a decent school, we hope to improve the quality of education for the children in this village and give them a brighter future. We believe that every child deserves access to education and a chance to succeed, and with your support, we can make this a reality for the children of Chhuk Village.
-                    </div>
+                    <div class="title text-4xl pb-12">{{$key}}</div>
+                    <div class="content">{{$value}}</div>
                 </div>
             @endforeach
 

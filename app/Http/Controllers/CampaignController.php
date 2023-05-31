@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Campaign;
 use App\Models\CampaignCategory;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CampaignController extends Controller
@@ -37,7 +39,14 @@ class CampaignController extends Controller
      */
     public function show(string $user_id, string $campaign_id)
     {
-        return view('campaigns.show');
+        $campaign = Campaign::findOrFail($campaign_id);
+
+        $user = User::findOrFail($campaign->user_id);
+
+        return view('campaigns.show', [
+            'campaign' => $campaign,
+            'user' => $user,
+        ]);
     }
 
     /**
