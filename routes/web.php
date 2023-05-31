@@ -76,7 +76,7 @@ Route::resource('campaigns', CampaignController::class);
 
 
 
-// 
+//
 // campaigns
 Route::get('/campaigns', [CampaignController::class, 'index'])->name('campaigns.index'); // all campaigns
 
@@ -86,9 +86,9 @@ Route::get('/campaigns/{user_id}')->name('campaigns.user.index'); // all campain
 
 Route::get('/campaigns/{user_id}/show/{campaign_id}', [CampaignController::class, 'show_user'])->name('campaigns.user.show'); // show the details of a campaign (campaign profile)
 
-Route::get('/campaigns/{user_id}/create')->name('campaigns.create'); // the campaign form
+//Route::get('/campaigns/{user_id}/create')->name('campaigns.create'); // the campaign form
 
-Route::post('/campaigns/{user_id}')->name('campaigns.store'); // post a campaign
+//Route::post('/campaigns/{user_id}')->name('campaigns.store'); // post a campaign
 
 Route::delete('/campaigns/{user_id}/{campaign_id}')->name('campaigns.destroy'); // delete a campaign
 
@@ -96,7 +96,8 @@ Route::get('/campaigns/{user_id}/edit/{campaign_id}')->name('campaigns.edit'); /
 
 Route::post('/campaigns/{user_id}/update/{campaign_id}')->name('campaigns.update'); // update the campaign
 
-
+//Route::post('/campaigns/store',[CampaignController::class, 'store'])->name('create');
+Route::post('/campaigns/store', [CampaignController::class,'store'])->name('campaigns.store');
 
 
 
