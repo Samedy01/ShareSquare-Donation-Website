@@ -9,6 +9,7 @@ use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\MyProfileController;
 use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SearchController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -155,6 +156,7 @@ Route::get('/item_donation', function () {
 Route::get('/manage-campaign-list',[CampaignController::class,'manage']);
 Route::post('stripe',[StripePaymentController::class,'paymentStripe'])->name('donate_cash.paymentstripe');
 Route::get('stripe/paymentRequest',[StripePaymentController::class,'paymentRequest'])->name('paystripe');
+Route::get('/search',[SearchController::class,'searchUsersAndCampaigns'])->name('search');
 
 
 

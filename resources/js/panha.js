@@ -655,4 +655,61 @@ $(document).ready(function () {
             }
         })
     })
+
+    /*Search campaign or user*/
+    $('#searchCampaignOrUser').on('input',function (){
+        let input = $(this).val()
+        // console.log(input.trim().length === 0);
+        $('#resultWrapper').empty();
+
+        $('#searchResultWrapper').removeClass('hidden')
+        $('#loadingDot').removeClass('hidden')
+        $('#noResultSearch').addClass('hidden')
+
+        if(input.trim().length === 0){
+            $('#searchResultWrapper').addClass('hidden')
+            return;
+        }
+        let xhr = $.ajax({
+            url: "/search?keyword="+input,
+            method: 'get',
+        })
+
+        xhr.done(function (response){
+            $('#loadingDot').addClass('hidden')
+            console.log(response)
+            // console.log(response.result === null)
+            if(response.result === null){
+                $('#noResultSearch').removeClass('hidden')
+                return;
+            }
+            let elements = '';
+            $.each(response.result, function (index,object){
+                let element = '';
+                if(object.type === 'campaign'){
+                    element = `
+                        <a href="/campaigns/show/${object.id}">
+                            <div class="flex border-b items-center py-2 hover:bg-gray-300 px-3 campaign_result">
+                                <img src="${object.image_path}" class="h-5 w-5 border object-cover rounded mr-2">
+                                <p class="line-clamp-1 text-xs md:text-base">${object.title}</p>
+                            </div>
+                        </a>
+                    `;
+                }else{
+                    element = `
+                            <a href="/user-profile">
+                                <div class="flex border-b items-center py-2 hover:bg-gray-300 px-3" id="userResult">
+                                    <img src="${object.image_path}" class="h-5 w-auto border object-cover rounded-[50%] mr-2">
+                                    <p class="md:text-base text-xs">${object.name}</p>
+                                </div>
+                            </a>
+                    `;
+                }
+                elements += element;
+            })
+            $('#resultWrapper').append(elements);
+        })
+
+    })
+
 })

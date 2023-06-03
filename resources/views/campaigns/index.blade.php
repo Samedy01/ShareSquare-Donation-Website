@@ -13,12 +13,41 @@
                 style="">
                 <div class="relative md:w-1/2">
                     <input type="text"
+                           name="searchCampaignOrUser"
                            class="text-sm md:text-base w-[100%] pl-10 pr-4 md:py-5 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-red-500 focus:border-transparent"
-                           placeholder="Search campaign or user">
+                           placeholder="Search campaign or user"
+                           id="searchCampaignOrUser"
+                    >
                     <span class="absolute inset-y-0 left-0 pl-3 flex items-center">
                         <i class="text-sm md:text-base fas fa-search text-gray-400"></i>
                     </span>
+                    <div class=" absolute w-full left-0 bg-white py-2 px-1 rounded rounded-b flex flex-col shadow hidden" id="searchResultWrapper">
+                        <div class="hidden loader-dots block relative w-20 h-5 mx-auto" id="loadingDot">
+                            <div class="absolute top-0 mt-1 w-2 h-2 rounded-full bg-mainColor"></div>
+                            <div class="absolute top-0 mt-1 w-2 h-2 rounded-full bg-mainColor"></div>
+                            <div class="absolute top-0 mt-1 w-2 h-2 rounded-full bg-mainColor"></div>
+                            <div class="absolute top-0 mt-1 w-2 h-2 rounded-full bg-mainColor"></div>
+                        </div>
+                        <div class="resultWrapper" id="resultWrapper">
+                            <a href="#" class="hidden">
+                                <div class="flex border-b items-center py-2 hover:bg-gray-300 px-3" id="userResult">
+                                    <img src="{{asset('/img/logo/sharesquare-logo.png')}}" class="h-5 w-auto border object-cover rounded-[50%] mr-2">
+                                    <p class="md:text-base text-xs">Vuthy Panha</p>
+                                </div>
+                            </a>
+                            <a href="#" class="hidden">
+                                <div class="flex border-b items-center py-2 hover:bg-gray-300 px-3" id="campaignResult">
+                                    <img src="{{asset('/img/qrcode_payments/campaign_thumnail_1685503136.png')}}" class="h-5 w-auto border object-cover rounded mr-2">
+                                    <p class="line-clamp-1 text-xs md:text-base">Building Decent School For Chhuk Village in Kompot</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="hidden border-b text-center py-2 hover:bg-gray-300 px-3 text-xs md:text-base" id="noResultSearch">
+                            No results
+                        </div>
+                    </div>
                 </div>
+
                 <div class=" mt-4 md:mt-0 justify-between hidden md:flex">
                     {{--dropdown on theme type--}}
                     <div data-dropdown="0"
