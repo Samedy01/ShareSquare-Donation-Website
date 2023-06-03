@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Campaign extends Model
 {
     use HasFactory;
-
+    use SoftDeletes;
     protected $fillable = [
         'user_id',
         'campaign_category_id',
@@ -49,4 +50,11 @@ class Campaign extends Model
         'is_delivery',
         'delivery_note',
     ];
+
+    public function campaignCategory(){
+        return $this->belongsTo(CampaignCategory::class,'campaign_category_id');
+    }
+    public function itemCategory(){
+        return $this->belongsTo(ItemCategory::class,'item_category_id');
+    }
 }

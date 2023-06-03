@@ -7,7 +7,8 @@ use App\Http\Controllers\CampaignCategoryController;
 use App\Http\Controllers\CampaignController;
 // Vortey
 use App\Http\Controllers\MyProfileController;
-
+use App\Http\Controllers\StripePaymentController;
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,9 +26,7 @@ use App\Http\Controllers\MyProfileController;
 
 
 // Pech
-Route::get('/', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/', [HomeController::class,'index'])->name('dashboard');//->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -60,8 +59,8 @@ Route::get('/test_tailwind', function () {
 });
 
 
-Route::get('/testUpload', function () {
-    return view('tests.testuploadfile');
+Route::get('/tests', function () {
+    return view('test');
 });
 Route::get('/testGoogleMap', function () {
     return view('tests.testGoogleMap');
@@ -86,11 +85,11 @@ Route::get('/campaigns/{user_id}')->name('campaigns.user.index'); // all campain
 
 Route::get('/campaigns/{user_id}/show/{campaign_id}', [CampaignController::class, 'show_user'])->name('campaigns.user.show'); // show the details of a campaign (campaign profile)
 
-//Route::get('/campaigns/{user_id}/create')->name('campaigns.create'); // the campaign form
+Route::get('/campaigns/create',[CampaignController::class,'create'])->middleware(['auth', 'verified'])->name('campaigns.create'); // the campaign form
 
 //Route::post('/campaigns/{user_id}')->name('campaigns.store'); // post a campaign
 
-Route::delete('/campaigns/{user_id}/{campaign_id}')->name('campaigns.destroy'); // delete a campaign
+Route::delete('/campaigns/destroy/{campaign_id}'); // delete a campaign
 
 Route::get('/campaigns/{user_id}/edit/{campaign_id}')->name('campaigns.edit'); // the campaign update form
 
@@ -152,8 +151,10 @@ Route::get('/item_donation', function () {
 });
 
 
-
-
+/*panha*/
+Route::get('/manage-campaign-list',[CampaignController::class,'manage']);
+Route::post('stripe',[StripePaymentController::class,'paymentStripe'])->name('donate_cash.paymentstripe');
+Route::get('stripe/paymentRequest',[StripePaymentController::class,'paymentRequest'])->name('paystripe');
 
 
 

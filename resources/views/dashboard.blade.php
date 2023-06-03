@@ -1,4 +1,4 @@
-<x-app-layout>
+{{--<x-app-layout>--}}
 {{--    <x-slot name="header">--}}
 {{--        <h2 class="font-semibold text-xl text-gray-800 leading-tight">--}}
 {{--            {{ __('Dashboard') }}--}}
@@ -17,6 +17,8 @@
 {{--    </div>--}}
 
     {{--Hero--}}
+@extends('layouts.layout')
+@section('contents')
     <section class="text-gray-600 body-font" style="background-image: url('{{ asset('images/charity-unsplash.jpg') }}'); background-size: cover; background-position: center;">
         <div class="py-2">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -40,7 +42,7 @@
                         <p class="mb-8 leading-relaxed">Smaller Text Goes Here</p>
                         <div class="flex justify-center">
                             <button class="inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg">Donate Now</button>
-                            <button class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">Create Campaign</button>
+                            <a href="{{route('campaigns.create')}}"><button class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">Create Campaign</button></a>
                         </div>
                     </div>
 
@@ -378,7 +380,6 @@
                 {{--                </button>--}}
             </div>
         </div>
-        </div>
     </section>
     {{--Footer--}}
     <footer class="text-gray-600 body-font">
@@ -422,5 +423,6 @@
     </span>
         </div>
     </footer>
-</x-app-layout>
+{{--</x-app-layout>--}}
+@endsection
 

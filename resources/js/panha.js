@@ -1,4 +1,4 @@
-
+// import 'select2';
 $(document).ready(function () {
 
     /*Browse campaign*/
@@ -18,12 +18,12 @@ $(document).ready(function () {
             $(this).find('.under-dropdown').removeClass('hidden')
             /*other dropdown*/
             $('.under-dropdown').not($thisUnderDropDown).addClass('hidden')
-            $('#modalBackground').removeClass('hidden')
+            // $('#modalBackground').removeClass('hidden')
             /*change color other dropdown if they open*/
             hiddenDropDown($otherDropDown)
         } else {
             hiddenDropDown($(this))
-            $('#modalBackground').addClass('hidden')
+            // $('#modalBackground').addClass('hidden')
 
         }
     })
@@ -202,10 +202,10 @@ $(document).ready(function () {
             checkedLabelElement.find('span.tick-border').removeClass('border-gray-200').addClass('border-red-500')
         }
     })
-    $('input[name="deliveryOption"]').on('change', function () {
+    $('input[name^="deliveryOption"]').on('change', function () {
         /*get the elements that are not checked*/
-        let $unCheckedInput = $('input[name="deliveryOption"]:not(:checked)')
-        let $checkedInput = $('input[name="deliveryOption"]:checked')
+        let $unCheckedInput = $('input[name^="deliveryOption"]:not(:checked)')
+        let $checkedInput = $('input[name^="deliveryOption"]:checked')
         let unCheckedLabelEle = $unCheckedInput.closest('label.deliveryOption')
         unCheckedLabelEle.find('span.tick-border').addClass('border-gray-200 bg-white').removeClass('border-red-500 bg-red-50')
         unCheckedLabelEle.removeClass('border-red-500 bg-red-50')
@@ -600,8 +600,8 @@ $(document).ready(function () {
     // submit the form as Ajax request
     $('form#formCreateCampaign').submit(function (e){
         e.preventDefault()
-        $('#letterSubmmit').addClass('hidden')
-        $('#submitLoading').removeClass('hidden')
+        /*$('#letterSubmmit').addClass('hidden')
+        $('#submitLoading').removeClass('hidden')*/
         let formData = new FormData(this);
         // console.log(formData)
         formData.append('_token', $('input[name="_token"]').val());
@@ -617,9 +617,41 @@ $(document).ready(function () {
         xhr.done(function (response){
             console.log(response)
             if(response.success){
-                labelStatus(2,'form_step_4')
+                /*labelStatus(2,'form_step_4')
                 $('#form_step_4').addClass('hidden')
-                $('#result_from_create_campaign').removeClass('hidden')
+                $('#result_from_create_campaign').removeClass('hidden')*/
+            }
+        })
+    })
+
+    /*filter wrapper*/
+    $('#clearFilter').on('click',function (){
+        console.log('filter clear')
+        $('#filterWrapper input[type="checkbox"]').prop('checked',false)
+    })
+
+
+/*submit payment with stripe*/
+    $('form#paymentForm').submit(function (e){
+        e.preventDefault()
+        /*$('#letterSubmmit').addClass('hidden')
+        $('#submitLoading').removeClass('hidden')*/
+        let formData = new FormData(this);
+        // console.log(formData)
+        formData.append('_token', $('input[name="_token"]').val());
+        let xhr = $.ajax({
+            url: "stripe/paymentRequest",
+            type: 'post',
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+        })
+
+        xhr.done(function (response){
+            console.log(response)
+            if(response.success){
+
             }
         })
     })
