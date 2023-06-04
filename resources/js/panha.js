@@ -421,7 +421,7 @@ $(document).ready(function () {
         delete FILES[ou];
     });
 
-    let subtitleCounter = 1; // Counter variable for unique IDs
+    let subtitleCounter = 0; // Counter variable for unique IDs
 
     $("#addNewSubtitle").click(function() {
         // Clone the template element
@@ -432,20 +432,19 @@ $(document).ready(function () {
                     <input type="text" id="campaign_title-${subtitleCounter}"
                            class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent"
                            placeholder="Your campaign title"
-                           name="campaign_title-${subtitleCounter}"
-                           >
+                           name="campaign_additional_title[]">
                 </div>
                 <div class="flex flex-col mt-4 oneSubTitle newSubtitleTemplate">
                     <label for="campaign_description-${subtitleCounter}" class="font-bold">Description</label>
                     <textarea id="campaign_description-${subtitleCounter}"
-                              name="campaign_description-${subtitleCounter}"
+                              name="campaign_additional_subtitle_description[]"
                               class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent"
                               placeholder="What is the purpose of your campaign"></textarea>
                     <a href="#" class="primary-color-letter mt-3 addPhotoToAdditionalTitle" data-input-target="#hidden-input-images-for-description-${subtitleCounter}">
                         <i class="fa fa-plus-circle"></i>
                         <span>Add Photos</span>
                     </a>
-                    <input name="multiple_image_for_title-${subtitleCounter}[]" id="hidden-input-images-for-description-${subtitleCounter}" type="file" multiple class="hidden inputForMultipleImage">
+                    <input name="multiple_image_for_additional_subtitle-${subtitleCounter}[]" id="hidden-input-images-for-description-${subtitleCounter}" type="file" multiple class="hidden inputForMultipleImage">
                     <ul class="flex flex-1 flex-wrap -m-1 imageInputWrapper">
 
                     </ul>
@@ -487,7 +486,7 @@ $(document).ready(function () {
     });
 
 
-    let countNewContact = 1;
+    let countNewContact = 0;
     /*Add additional contact*/
     $('#addNewContactInfo').on('click',function() {
         // Clone the template element
@@ -496,12 +495,12 @@ $(document).ready(function () {
                 <div class="mt-4">
                     <p class="font-bold">New contact ${countNewContact} (optional)</p>
                     <label for="campaign-contact-title-${countNewContact}" class="">
-                        <input name="campaign_contact_title-${countNewContact}" placeholder="Contact title (Ex: Instagram)" type="text"
+                        <input name="campaign_additional_contact_title[]" placeholder="Contact title (Ex: Instagram)" type="text"
                                id="campaign-contact-title-${countNewContact}"
                                class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent w-full">
                     </label>
                     <label for="campaign-contact-detail-${countNewContact}" class="">
-                        <input name="campaign_contact_detail-${countNewContact}" placeholder="Enter contact link" type="text"
+                        <input name="campaign_additional_contact_detail[]" placeholder="Enter contact link" type="text"
                                id="campaign-contact-detail-${countNewContact}"
                                class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent w-full">
                     </label>
@@ -510,6 +509,47 @@ $(document).ready(function () {
         // console.log(templateContact)
         $("#additionalContactWrapper").append(templateContact);
         countNewContact++;
+    })
+
+    $('#formAddNewLocation').on('submit', function (e){
+        e.preventDefault();
+        let $locationInputName = $('#location_name');
+        let $locationDescriptionInput = $('#location_description');
+        let locationName = $locationInputName.val();
+        let locationDescription = $locationDescriptionInput.val();
+
+
+        let templateLocation = `
+               <div class="w-2/3 py-3 px-5 bg-gray-100 rounded relative mt-3 locationWrapper">
+                        <h2 class="text-2xl font-bold">${locationName}</h2>
+                        <input type="text" name="location_name[]" class="hidden" value="${locationName}">
+                        <p class="text-xs text-gray-400">${locationDescription}</p>
+                        <input type="text" name="location_description[]" class="hidden" value="${locationDescription}">
+                        <input type="text" name="latitude[]" class="hidden" value="2.0132">
+                        <input type="text" name="longitude[]" class="hidden" value="">
+                        <div class="absolute flex flex-col top-0 h-full right-3 justify-center">
+                            <div class=" flex ">
+                                <a href="#"
+                                   class="flex w-5 h-5 justify-center items-center p-3 bg-white mr-2 shadow rounded"><i
+                                        class="fa fa-edit block"></i></a>
+                                <a href="#"
+                                   class="flex w-5 h-5 justify-center items-center p-3 bg-white shadow rounded"><i
+                                        class="fa fa-trash block"></i></a>
+                            </div>
+                        </div>
+               </div>
+        `;
+
+        $('#additionalLocationWrapper').append(templateLocation)
+        //reset input
+        $locationInputName.val('')
+        $locationDescriptionInput.val('')
+    })
+
+    $(document).on('click','.fa-trash',function (){
+        // find the wrapper parent
+        let $parent = $(this).closest('.locationWrapper')
+        $parent.remove();
     })
 
 
@@ -677,7 +717,7 @@ $(document).ready(function () {
 
         xhr.done(function (response){
             $('#loadingDot').addClass('hidden')
-            console.log(response)
+            // console.log(response)
             // console.log(response.result === null)
             if(response.result === null){
                 $('#noResultSearch').removeClass('hidden')

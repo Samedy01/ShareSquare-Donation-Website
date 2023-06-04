@@ -158,7 +158,9 @@ Route::post('stripe',[StripePaymentController::class,'paymentStripe'])->name('do
 Route::get('stripe/paymentRequest',[StripePaymentController::class,'paymentRequest'])->name('paystripe');
 Route::get('/search',[SearchController::class,'searchUsersAndCampaigns'])->name('search');
 
-
+Route::get('/test_map_box',function (){
+    return view('tests.testMapBox');
+});
 
 
 

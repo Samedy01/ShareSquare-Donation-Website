@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Campaign;
 use App\Models\CampaignCategory;
+use App\Models\CampaignDropOffLocation;
 use App\Models\CampaignImage;
 use App\Models\CampaignSubtitle;
 use App\Models\Image;
 use App\Models\ItemCategory;
 use App\Models\User;
+use App\Models\CampaignAdditionalContact;
+
 use Auth;
 use Illuminate\Cache\CacheManager;
 use Illuminate\Http\Request;
@@ -194,8 +197,7 @@ class CampaignController extends Controller
      */
     public function store(Request $request)
     {
-//        dd($request->all());
-
+        //dd($request->all());
 //        dd(isset($request['campaign_goal']) && !empty($request['campaign_goal']));
         $userId = Auth::user()->id;
         $campaign = new Campaign();
@@ -218,13 +220,12 @@ class CampaignController extends Controller
         $campaign->is_raising = false;
         if ($campaignType == 'raising') {
             $campaign->is_raising = true;
+            $campaign->is_cash = true;
             if ($request['raising_option'] == 'cash') {
-                $campaign->is_cash = true;
                 $campaign->is_item = false;
 
             } else {
                 // cash or item is all accpeted
-                $campaign->is_cash = true;
                 $campaign->is_item = true;
 
             }
@@ -250,6 +251,8 @@ class CampaignController extends Controller
         $campaign->start_date = date('Y-m-d', strtotime($request['start_date']));
         $campaign->end_date = date('Y-m-d', strtotime($request['end_date']));
         $campaign->raising_cash_amount_goal = $request['raising_or_donating_goal_amount'] * 100; //* 100 because we can display back by /100
+
+        //save contact
         $campaign->phone_number = $request['phone_number'];
         $campaign->email_address = $request['email_address'];
         $campaign->facebook = $request['facebook_link'];
@@ -273,24 +276,26 @@ class CampaignController extends Controller
         }
         // save QR code
         if ($request->hasFile('qr_code_image')) {
+            $qrCodeBasePath = 'img/qrcode_payments';
             if (!is_dir(public_path() . '/img/qrcode_payments')) ;
             {
                 @mkdir(public_path() . '/img/qrcode_payments');
             }
-            $targetPathImageQrCode = public_path() . '/img/qrcode_payments';
+            $targetPathImageQrCode = public_path() . '/'. $qrCodeBasePath;
             $imagesOfQrCode = $request->file('qr_code_image');
             $extension = $imagesOfQrCode->getClientOriginalExtension();
             $imageName = pathinfo($imagesOfQrCode->getClientOriginalName(), PATHINFO_FILENAME) . '_' . time() . '.' . $extension;
             $imagesOfQrCode->move($targetPathImageQrCode, $imageName);
-            $campaign->qr_code_payment_image_path = $targetPathImageQrCode . DIRECTORY_SEPARATOR . $imageName;
+            $campaign->qr_code_payment_image_path = $qrCodeBasePath . DIRECTORY_SEPARATOR . $imageName;
         }
         // save ID card
         if ($request->hasFile('id_card_image')) {
-            if (!is_dir(public_path() . '/img/user_idcard_images')) ;
+            $idCardBasePath = 'img/user_idcard_images';
+            if (!is_dir(public_path() . '/'.$idCardBasePath)) ;
             {
-                @mkdir(public_path() . '/img/user_idcard_images');
+                @mkdir(public_path() . '/'.$idCardBasePath);
             }
-            $targetPathIdCardImage = public_path() . '/img/user_idcard_images';
+            $targetPathIdCardImage = public_path() . '/'.$idCardBasePath;
             $imagesOfIdCard = $request->file('id_card_image');
             $extension = $imagesOfIdCard->getClientOriginalExtension();
             $imageName = pathinfo($imagesOfIdCard->getClientOriginalName(), PATHINFO_FILENAME) . '_' . time() . '.' . $extension;
@@ -300,7 +305,7 @@ class CampaignController extends Controller
 
             $idCard = Image::create([
                 'name' => ID_CARD,
-                'path' => $targetPathIdCardImage . DIRECTORY_SEPARATOR . $imageName
+                'path' => $idCardBasePath . DIRECTORY_SEPARATOR . $imageName
             ]);
             $user->id_card_image_id = $idCard->id;
             $user->save();
@@ -348,10 +353,82 @@ class CampaignController extends Controller
                 }
                 $subTitleCountOrder++;
             }
+            /*create subtitle addition record here*/
+            if(isset($request['campaign_additional_title']) && !empty($request['campaign_additional_title'])){
+                $campaignAdditionalSubtitles = $request['campaign_additional_title'];
+                $campaignAdditionalSubtitleDescriptions = $request['campaign_additional_subtitle_description'];
+                $subtitleAndDescriptions = [];
+                foreach ($campaignAdditionalSubtitles as $i => $campaignAdditionalSubtitle){
+                    if(!empty($campaignAdditionalSubtitle)){
+                        $tmpSubtitleAndItsDescription = [
+                            'name' => $campaignAdditionalSubtitle,
+                            'description' => $campaignAdditionalSubtitleDescriptions[$i]
+                        ];
+                        if($request->hasFile('multiple_image_for_additional_subtitle-'.$i)){
+                            $tmpSubtitleAndItsDescription['images'] = 'multiple_image_for_additional_subtitle-'.$i;
+                        }
+                        $subtitleAndDescriptions[] = $tmpSubtitleAndItsDescription;
+                    }
+                }
+                //dump($subtitleAndDescriptions);
+                foreach ($subtitleAndDescriptions as $subtitleAndDescription){
+                    $isAdditionalSubTitleSaved = $this->createSubTitleWithItsImage($request, $campaignSave->id, $subtitleAndDescription['name'], $subtitleAndDescription['description'], $subTitleCountOrder, $subtitleAndDescription['images']);
+                    //dump($isAdditionalSubTitleSaved);
+                    if($isAdditionalSubTitleSaved){
+                        $subTitleCountOrder++;
+                        $isSuccess = true;
+                    }else{
+                        $isSuccess = false;
+                        break;
+                    }
+                }
+            }
+
+            /*create additional contact record here*/
+            if(isset($request['campaign_additional_contact_title']) && !empty($request['campaign_additional_contact_title'])){
+                $campaignAdditionalContacts = $request['campaign_additional_contact_title'];
+                $campaignAdditionalContactDetails = $request['campaign_additional_contact_title'];
+                $additionalContactAndItsDetails = [];
+                foreach ($campaignAdditionalContacts as $i => $campaignAdditionalContact){
+                    if(!empty($campaignAdditionalContact)){
+                        $tmpContactAndItsDetail = [
+                            'campaign_id' => $campaignSave->id,
+                            'name' => $campaignAdditionalContact,
+                            'link_ref' => $campaignAdditionalContactDetails[$i]
+                        ];
+                        $additionalContactAndItsDetails[] = $tmpContactAndItsDetail;
+                    }
+                }
+                CampaignAdditionalContact::insert($additionalContactAndItsDetails);
+                //dump($additionalContactAndItsDetails);
+            }
+
+            /*create record of drop off location*/
+            if($campaignSave->is_drop_off){
+                if(isset($request['location_name']) && !empty($request['location_name'])){
+                    $locationNamesDropOff = $request['location_name'];
+                    $locationDescriptionsDropOff = $request['location_description'];
+                    $locationLatitudes = $request['latitude'];
+                    $locationLongitudes = $request['longitude'];
+                    $locationDropOffData = [];
+                    foreach ($locationNamesDropOff as $i => $locationNameDropOff){
+                        $tmpLocations = [
+                            'campaign_id' => $campaignSave->id,
+                            'location_name' => $locationNameDropOff,
+                            'location_description' => $locationDescriptionsDropOff[$i],
+                            'location_latitude' => $locationLatitudes[$i] == null ? null: floatval($locationLatitudes[$i]),
+                            'location_longitude' => $locationLongitudes[$i] == null ? null : floatval($locationLongitudes[$i])
+                        ];
+                        $locationDropOffData[] = $tmpLocations;
+                    }
+                    CampaignDropOffLocation::insert($locationDropOffData);
+                }
+            }
+
         } else {
             $isSuccess = false;
         }
-//        dump($campaign);
+        //dump($campaignSave->id);
 //        dd($request->all());
         return response()->json(['success' => $isSuccess, 'message' => 'Data saved successfully']);
     }
@@ -366,6 +443,7 @@ class CampaignController extends Controller
         $campaignSubTitleSave = CampaignSubtitle::create($campaignSubtitle->toArray());
         if ($campaignSubTitleSave) {
             // save its images
+            //dump($request->hasFile($multipleImageInputName));
             if ($request->hasFile($multipleImageInputName)) {
                 //dd(public_path().'/img/campaign_images');
                 if (!is_dir(public_path() . '/img/campaign_images')) ;
@@ -382,12 +460,13 @@ class CampaignController extends Controller
                     /*save image to Images table first*/
                     $image = new Image();
                     $image->name = $subTitleName;
-                    $image->path = $targetPathImageCampaignSubTitle . DIRECTORY_SEPARATOR . $imageName;
+                    $imageBasePath = 'img/campaign_images';
+                    $image->path = $imageBasePath . DIRECTORY_SEPARATOR . $imageName;
                     $imageSave = Image::create($image->toArray());
                     if ($imageSave) {
                         /*then save it to campaign image*/
                         $multipleImageForSubTitle = new CampaignImage();
-                        $multipleImageForSubTitle->campaign_subtitle_id = $campaignSaveID;
+                        $multipleImageForSubTitle->campaign_subtitle_id = $campaignSubTitleSave->id;
                         $multipleImageForSubTitle->image_id = $imageSave->id;
                         $multipleImageForSubTitle->image_path = $imageSave->path;
                         $multipleImageForSubTitle->ordered = $imageTitleOrderCount;
