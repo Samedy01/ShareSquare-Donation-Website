@@ -829,10 +829,16 @@
                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                required>
                     </div>
-                    <div class="flex justify-between">
-
+                    <div class="justify-between">
+                        <label for="location_geocodes"
+                               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Location
+                        </label>
+                        <div class="relative w-full border h-[300px]">
+                            <div id="map" class="absolute top-0 w-full left-0 bottom-0"></div>
+                        </div>
+                        <input class="hidden" type="text" name="latitude_input" id="latitude_input">
+                        <input class="hidden" type="text" name="longitude_input" id="longitude_input">
                     </div>
-
 
                     <button type="submit"
                             class="w-full text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -861,6 +867,85 @@
         </div>
     </div>
 </div>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoicGFuaGFna3AiLCJhIjoiY2xpaXozbXBoMDM2YTNnczVhaXFxdjhhOCJ9.4IzvuunZe8a3RNR4Qs9HlQ';
+    const map = new mapboxgl.Map({
+        container: 'map',
+// Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+        style: 'mapbox://styles/mapbox/streets-v12',
+        center: [-79.4512, 43.6568],
+        zoom: 8
+    });
 
+    /* Given a query in the form "lng, lat" or "lat, lng"
+    * returns the matching geographic coordinate(s)
+    * as search results in carmen geojson format,
+    * https://github.com/mapbox/carmen/blob/master/carmen-geojson.md */
+    const coordinatesGeocoder = function (query) {
+// Match anything which looks like
+// decimal degrees coordinate pair.
+        const matches = query.match(
+            /^[ ]*(?:Lat: )?(-?\d+\.?\d*)[, ]+(?:Lng: )?(-?\d+\.?\d*)[ ]*$/i
+        );
+        if (!matches) {
+            return null;
+        }
+
+        function coordinateFeature(lng, lat) {
+            return {
+                center: [lng, lat],
+                geometry: {
+                    type: 'Point',
+                    coordinates: [lng, lat]
+                },
+                place_name: 'Lat: ' + lat + ' Lng: ' + lng,
+                place_type: ['coordinate'],
+                properties: {},
+                type: 'Feature'
+            };
+        }
+
+        const coord1 = Number(matches[1]);
+        const coord2 = Number(matches[2]);
+        const geocodes = [];
+
+        if (coord1 < -90 || coord1 > 90) {
+// must be lng, lat
+            geocodes.push(coordinateFeature(coord1, coord2));
+        }
+
+        if (coord2 < -90 || coord2 > 90) {
+// must be lat, lng
+            geocodes.push(coordinateFeature(coord2, coord1));
+        }
+
+        if (geocodes.length === 0) {
+// else could be either lng, lat or lat, lng
+            geocodes.push(coordinateFeature(coord1, coord2));
+            geocodes.push(coordinateFeature(coord2, coord1));
+        }
+        console.log(geocodes[0].center[0]) // [0] = longitude , [1] = latitude
+        console.log(geocodes[0].center[1]) // [0] = longitude , [1] = latitude
+
+        document.getElementById("latitude_input").value = geocodes[0].center[1];
+        document.getElementById("longitude_input").value = geocodes[0].center[0];
+
+        return geocodes;
+    };
+
+    // Add the control to the map.
+    map.addControl(
+        new MapboxGeocoder({
+            accessToken: mapboxgl.accessToken,
+            localGeocoder: coordinatesGeocoder,
+            zoom: 15,
+            placeholder: 'Try: -40, 170',
+            mapboxgl: mapboxgl,
+            reverseGeocode: true
+        })
+    );
+</script>
 @vite('resources/js/panha.js')
 @endsection

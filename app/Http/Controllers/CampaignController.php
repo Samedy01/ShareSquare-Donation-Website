@@ -197,7 +197,7 @@ class CampaignController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
+//        dd($request->all());
 //        dd(isset($request['campaign_goal']) && !empty($request['campaign_goal']));
         $userId = Auth::user()->id;
         $campaign = new Campaign();

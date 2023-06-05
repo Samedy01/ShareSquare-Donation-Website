@@ -515,18 +515,20 @@ $(document).ready(function () {
         e.preventDefault();
         let $locationInputName = $('#location_name');
         let $locationDescriptionInput = $('#location_description');
+        let $latitude = $('#latitude_input');
+        let $longitude = $('#longitude_input');
         let locationName = $locationInputName.val();
         let locationDescription = $locationDescriptionInput.val();
-
-
+        let latitude = $latitude.val();
+        let longitude = $longitude.val();
         let templateLocation = `
                <div class="w-2/3 py-3 px-5 bg-gray-100 rounded relative mt-3 locationWrapper">
                         <h2 class="text-2xl font-bold">${locationName}</h2>
                         <input type="text" name="location_name[]" class="hidden" value="${locationName}">
                         <p class="text-xs text-gray-400">${locationDescription}</p>
                         <input type="text" name="location_description[]" class="hidden" value="${locationDescription}">
-                        <input type="text" name="latitude[]" class="hidden" value="2.0132">
-                        <input type="text" name="longitude[]" class="hidden" value="">
+                        <input type="text" name="latitude[]" class="hidden" value="${latitude}">
+                        <input type="text" name="longitude[]" class="hidden" value="${longitude}">
                         <div class="absolute flex flex-col top-0 h-full right-3 justify-center">
                             <div class=" flex ">
                                 <a href="#"
@@ -539,11 +541,12 @@ $(document).ready(function () {
                         </div>
                </div>
         `;
-
         $('#additionalLocationWrapper').append(templateLocation)
         //reset input
         $locationInputName.val('')
         $locationDescriptionInput.val('')
+        $longitude.val('')
+        $latitude.val('')
     })
 
     $(document).on('click','.fa-trash',function (){
