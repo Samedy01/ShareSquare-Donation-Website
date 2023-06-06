@@ -188,7 +188,7 @@ class CampaignController extends Controller
     {
 
         $campaignCategories = CampaignCategory::all();
-        $itemCategories = ItemCategory::all();
+        $itemCategories = ItemCategory::where('is_enabled','=',1)->get();
         return view('campaigns.create', compact('campaignCategories', 'itemCategories'));
     }
 
@@ -197,10 +197,11 @@ class CampaignController extends Controller
      */
     public function store(Request $request)
     {
-//        dd($request->all());
+        $campaign = new Campaign();
+//        debug($itemCategory);
+        //dd($request->all());
 //        dd(isset($request['campaign_goal']) && !empty($request['campaign_goal']));
         $userId = Auth::user()->id;
-        $campaign = new Campaign();
         //check the campaign if it is raise or donating
         $campaignType = $request['campaign_type'];
 
@@ -219,19 +220,38 @@ class CampaignController extends Controller
         $campaign->campaign_category_id = $request['campaign_category'];
         $campaign->is_raising = false;
         if ($campaignType == 'raising') {
-            $campaign->is_raising = true;
-            $campaign->is_cash = true;
+            $campaign->is_raising = false;
+            $campaign->is_cash = false;
             if ($request['raising_option'] == 'cash') {
-                $campaign->is_item = false;
+                $campaign->is_cash = true;
+                $campaign->payment_option = $request['payment_option'];
+                $campaign->payment_account_number = $request['payment_account_number'];
 
             } else {
-                // cash or item is all accpeted
+                // Item is accepted
                 $campaign->is_item = true;
+                /*check condition of item category here*/
+                $itemCategoryName = $request['item_category_name'];
+                /*check if this item name exit*/
+                $itemCategory = ItemCategory::where('name','=',$itemCategoryName)->first();
+                if($itemCategory){
+                    $campaign->item_category_id = $itemCategory->id;
+                    $campaign->item_category_name = $itemCategoryName;
+                    //dump($itemCategory);
+                }else{
+                    /*create new record to database item_categories*/
+                    $newItemCategory = new ItemCategory();
+                    $newItemCategory->name = $itemCategoryName;
+                    $newItemCategory->is_enabled = false;
+                    $newItemCategorySave = ItemCategory::create($newItemCategory->toArray());
+                    if($newItemCategorySave){
+                        $campaign->item_category_id = $newItemCategorySave->id;
+                        $campaign->item_category_name = $itemCategoryName;
 
+                    }
+                    //dump($newItemCategorySave);
+                }
             }
-            $campaign->payment_option = $request['payment_option'];
-            $campaign->payment_account_number = $request['payment_account_number'];
-
             if ($request['deliveryOption2']) { // drop-off
                 $campaign->is_delivery = true;
                 if (isset($request['delivery_note'])) {

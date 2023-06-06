@@ -52,15 +52,15 @@
             <div class="py-6 flex justify-between">
                 @php
                     $options = [
-                        ['text' => 'Share', 'icon' => 'fa fa-share'],
-                        ['text' => 'Care', 'icon' => 'fa fa-heart'],
-                        ['text' => 'Follow', 'icon' => 'fa fa-user-plus'],
+                        ['text' => 'Share', 'icon' => 'fa fa-share','class'=>'share-button'],
+                        ['text' => 'Care', 'icon' => 'far fa-heart','class'=>'love-button'],
+                        ['text' => 'Follow', 'icon' => 'fa fa-user-plus','class'=>'follow-button'],
                     ];
                 @endphp
                 @foreach ($options as $option)
-                    <div class="item">
+                    <div class="item {{$option['class']}} hover:cursor-pointer">
                         <div class="py-2 px-5 shadow bg-white rounded-xl text-center">
-                            <i class="dark-blue-grey {{$option['icon']}} h-5"></i>
+                            <i class="dark-blue-grey {{$option['icon']}} h-5 icon_button"></i>
                             <div class="h-1"></div>
                             <p class="title-color text-xl font-medium">{{$option['text']}}</p>
                         </div>
@@ -72,7 +72,7 @@
             <div class="">
                 <div class="title text-xl pb-3">Top Donors</div>
                 <div class="">
-                    
+
                 </div>
             </div>
         </div>
@@ -92,7 +92,7 @@
                 @if (!$loop->first)
                     @php
                         $focus = 'less-focus';
-                    @endphp 
+                    @endphp
                 @endif
                 <div class="item {{$focus}} inline-block float-left py-3 px-8 border-r text-xl font-medium">{{$tab}}</div>
             @endforeach
@@ -158,6 +158,7 @@
         </button>
     </div>
 </div>
+@vite('resources/js/panha.js')
 @endsection
 {{-- <!DOCTYPE html>
 <html lang="en">
@@ -166,11 +167,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/fontawesome.min.css" />  
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" />  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" />
     @vite('resources/css/app.css')
 </head>
 <body>
-    
+
 </body>
 </html> --}}

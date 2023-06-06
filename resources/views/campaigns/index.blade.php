@@ -502,6 +502,15 @@
                                     <div class=" inline-flex" role="group">
                                         <button type="button"
                                                 class="inline-flex justify-center items-center px-4 py-2 text-sm font-medium text-textColorWithLightBg bg-transparent border border-gray-200 rounded-l-lg">
+                                            <i class="far fa-heart mr-2 w-4 h-4"></i>
+                                            <div class="flex inline-block">
+                                                <span class="font-bold mx-1">{{$campaign->number_of_love}}</span>
+                                                <span> Love</span>
+                                            </div>
+
+                                        </button>
+                                        <button type="button"
+                                                class="inline-flex justify-center items-center px-4 py-2 text-sm font-medium text-textColorWithLightBg bg-transparent border border-gray-200">
                                             <svg aria-hidden="true" class="w-4 h-4 mr-2 fill-current"
                                                  fill="currentColor"
                                                  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">

@@ -51,7 +51,7 @@
         <div class="">
 
             {{--1st form: About--}}
-            <div class="mb-[100px] form hidden" id="form_step_1" data-status="1">
+            <div class="mb-[100px] form" id="form_step_1" data-status="1">
 
                 <h1 class="text-2xl font-bold">About</h1>
                 <div class="mt-4 " id="campaign_option_form">
@@ -229,7 +229,7 @@
                 </div>
             </div>
             {{--2nd form: Campaign options / campaign option --}}
-            <div class="mb-[100px] form" id="form_step_2" data-status="0">
+            <div class="mb-[100px] form hidden" id="form_step_2" data-status="0">
                 <h1 class="text-3xl font-bold">Donation Option</h1>
 
                 {{--Donating item campaing option--}}
@@ -253,7 +253,7 @@
                     </label>
                 </div>
                 {{--Select the type of raising of donation --}}
-                <div class="mt-4 hidden" id="raising_option_form">
+                <div class="mt-4 " id="raising_option_form">
                     <p class="font-bold">Select the type of donation</p>
                     <label for="cash-input"
                            class="mt-3 flex w-[60%] py-3 px-5 rounded shadow-sm border hover:border-red-500 raising_option hover:cursor-pointer">
@@ -294,24 +294,27 @@
                         />
 
                         <div class="flex flex-col justify-between ml-3">
-                            <div class="font-bold">Both Cash and Item</div>
-                            <div class="text-gray-500">Accept both cash and items</div>
+                            <div class="font-bold">Item</div>
+                            <div class="text-gray-500">Accept item for donation</div>
                         </div>
                         <input type="radio" class="hidden" id="cashOrItem-input" name="raising_option"
                                value="cashOrItem">
                     </label>
                 </div>
                 {{--Choose item category--}}
-                <div class="flex flex-col mt-4 hidden " id="item_category_form">
+                <fieldset id="item_category_form" class="hidden mt-4">
                     <label for="item_category" class="font-bold">Item Category</label>
-                    <select id="item_category" name="item_category_id"
-                            class="select2 border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent">
-                        <option class="" value="">Please selected item category</option>
-                        @foreach($itemCategories as $itemCategory)
-                            <option class="" value="{{ $itemCategory->id }}">{{ $itemCategory->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
+                    <input class="border py-5 px-7 w-[350px] h-[50px] rounded-lg border-black"  autocomplete="off" role="combobox" list="" id="item_category_name" name="item_category_name" placeholder="choose one item category or insert the new one">
+                    <!-- It's important that you keep the list attribute empty to hide the default dropdown icon and the browser's default datalist -->
+
+                    <div class="relative">
+                        <datalist role="listbox" id="itemCategoryList" class="border absolute z-10">
+                            @foreach($itemCategories as $itemCategory)
+                                <option class="hover:bg-gray-200" value="{{ $itemCategory->name }}">{{ $itemCategory->name }}</option>
+                            @endforeach
+                        </datalist>
+                    </div>
+                </fieldset>
                 {{--Choose type of payment--}}
                 <div class="mt-4 hidden" id="payment_option_form">
                     <p class="font-bold">Chose payment method</p>
@@ -473,9 +476,9 @@
                     </label>
                 </div>
                 {{--TODO pickup location--}}
-                <div class="mt-4" id="pickup_location_form"><!--don't forget to add hidden back-->
+                <div class="mt-4 hidden" id="pickup_location_form"><!--don't forget to add hidden back-->
                     <p class="font-bold">Pick up location</p>
-                    <div class="w-2/3 py-3 px-5 bg-gray-100 rounded relative mt-3 locationWrapper">
+                    <div class="w-2/3 py-3 px-5 bg-gray-100 rounded relative mt-3 locationWrapper hidden">
                         <h2 class="text-2xl font-bold">CADT - Innovation Center</h2>
                         <p class="text-xs text-gray-400">2nd Bridge Prek Leap, National Road Number 6, Phnom Penh,
                             12252</p>
@@ -532,7 +535,7 @@
                        class="inline-block bg-red-500 py-2 px-16 rounded-[10px] hover:shadow-lg nextform">
                         <span class="text-white" data-target="form_step_3">Next</span>
                     </a>
-                    <button type="submit" class="bg-blue-500 rounded p-3">Submit</button>
+{{--                    <button type="submit" class="bg-blue-500 rounded p-3">Submit</button>--}}
 
                 </div>
             </div>
@@ -840,7 +843,7 @@
                         <input class="hidden" type="text" name="longitude_input" id="longitude_input">
                     </div>
 
-                    <button type="submit"
+                    <button type="submit" data-modal-hide="authentication-modal"
                             class="w-full text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Add new Location
                     </button>

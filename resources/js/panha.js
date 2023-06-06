@@ -132,13 +132,17 @@ $(document).ready(function () {
             checkedLabelElement.find('img.icon_active').removeClass('hidden')
 
             /* show additional form when selecting*/
-            choosePaymentMethodOption('show')
-            accountNumberForm('show')
-            addQrCodePayForm('show')
+
             if (checkedValue === 'cashOrItem') {
                 itemCategorySelectedForm('show')
                 deliveryOptionForm('show')
+                choosePaymentMethodOption('hide')
+                accountNumberForm('hide')
+                addQrCodePayForm('hide')
             } else if (checkedValue === 'cash') {
+                choosePaymentMethodOption('show')
+                accountNumberForm('show')
+                addQrCodePayForm('show')
                 itemCategorySelectedForm('hide')
                 deliveryOptionForm('hide')
             }
@@ -660,9 +664,9 @@ $(document).ready(function () {
         xhr.done(function (response){
             console.log(response)
             if(response.success){
-                /*labelStatus(2,'form_step_4')
+                labelStatus(2,'form_step_4')
                 $('#form_step_4').addClass('hidden')
-                $('#result_from_create_campaign').removeClass('hidden')*/
+                $('#result_from_create_campaign').removeClass('hidden')
             }
         })
     })
@@ -754,5 +758,89 @@ $(document).ready(function () {
         })
 
     })
+
+    /*implement love button*/
+
+    $('.love-button').on('click',function (){
+        console.log('love click')
+        $(this).find('.icon_button').removeClass('far').addClass('fa  ')
+    })
+    $('.share-button').on('click',function (){
+        console.log('share click')
+    })
+    $('.follow-button').on('click',function (){
+        console.log('follow click')
+    })
+
+    /*for datalist*/
+    const $input = $('#item_category_name');
+    const $browsers = $('#itemCategoryList');
+    let currentFocus = -1;
+
+    $input.on('focus', function (e) {
+        $browsers.css('display', 'block');
+        console.log('focus')
+        // $input.css('borderRadius', '5px 5px 0 0');
+    });
+    $input.on('click',function (e){
+        e.stopPropagation();
+        console.log('input click')
+    })
+
+    $browsers.on('click', 'option', function (e) {
+        e.stopPropagation();
+        $input.val($(this).val());
+        $browsers.css('display', 'none');
+        $input.css('borderRadius', '5px');
+    });
+
+    $input.on('input', function (e) {
+        e.stopPropagation();
+        currentFocus = -1;
+        const text = $input.val().toUpperCase();
+        $browsers.find('option').each(function () {
+            if ($(this).val().toUpperCase().indexOf(text) > -1) {
+                $(this).css('display', 'block');
+                // $(this).removeClass('hidden')
+            } else {
+                $(this).css('display','none');
+            }
+        });
+    });
+    /*$input.on('blur',function (){
+        $browsers.css('display','none')
+    })*/
+    $('#form_step_2').on('click',function (){
+        $browsers.css('display','none')
+        console.log('hi')
+    })
+
+
+    $input.on('keydown', function (e) {
+        if (e.keyCode === 40) {
+            currentFocus++;
+            addActive($browsers.find('option'));
+        } else if (e.keyCode === 38) {
+            currentFocus--;
+            addActive($browsers.find('option'));
+        } else if (e.keyCode === 13) {
+            e.preventDefault();
+            if (currentFocus > -1) {
+                $browsers.find('option').eq(currentFocus).click();
+            }
+        }
+    });
+
+    function addActive($x) {
+        if (!$x) return false;
+        removeActive($x);
+        if (currentFocus >= $x.length) currentFocus = 0;
+        if (currentFocus < 0) currentFocus = $x.length - 1;
+        $x.eq(currentFocus).addClass('active');
+    }
+
+    function removeActive($x) {
+        $x.removeClass('active');
+    }
 
 })
