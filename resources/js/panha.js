@@ -843,4 +843,121 @@ $(document).ready(function () {
         $x.removeClass('active');
     }
 
+    $('.donateNow').on('click',function (){
+        let route = $(this).data('route');
+        window.location.href = route;
+    })
+
+    $('.amount_suggest').on('click', function (){
+        let $thisEle = $(this);
+        let amountSuggest = $thisEle.data('amount-suggest')
+        let $otherEle = $('.option_donate_amount').find('.amount_suggest').not(this);
+        $thisEle.removeClass('border-transparent').addClass('bg-secondaryColor border-mainColor')
+        $otherEle.removeClass('bg-secondaryColor border-mainColor').addClass('border-transparent')
+
+        $('#donate_amount').val(amountSuggest)
+        calculateTotalAmount()
+    })
+    $('.payment-option').on('click', function (){
+        let $thisEle = $(this);
+        let amountSuggest = $thisEle.data('amount-suggest')
+        let $otherEle = $('.payment-option-wrapper').find('.payment-option').not(this);
+        $thisEle.removeClass('border-transparent').addClass('bg-secondaryColor border-mainColor')
+        $otherEle.removeClass('bg-secondaryColor border-mainColor').addClass('border-transparent')
+    })
+
+    function calculateTotalAmount(){
+        let inputAmount = $('#donate_amount').val();
+        // console.log('Hello')
+        $('#total_amount_donate').text(formatCurrency(inputAmount))
+    }
+    $('#donate_amount').bind('keyup',function (){
+        // console.log('hi')
+        calculateTotalAmount()
+        let $suggestPay = $('.amount_suggest');
+        // console.log($suggestPay)
+        $suggestPay.removeClass('bg-secondaryColor border-mainColor').addClass('border-transparent')
+    })
+
+    $('input[name="payment-option"]').on('change',function (){
+        let paymentOptionVal = $(this).val();
+        console.log(paymentOptionVal);
+        if(paymentOptionVal === "stripe"){
+            $('#card_stripe').removeClass('hidden')
+        }
+    })
+
+    /*Stripe*/
+    let stripe = Stripe("pk_test_51NDo0uKvkwimcBFs3unPRJufPaReSTR5QccXu7BcJgXgsRnJ29xgCLaE8huQEpsQ2fEqCgBV6owvz6Dcs0aMV2Rz00h0mcPiyZ")
+    const elements = stripe.elements()
+    const cardElement = elements.create('card', {
+        style: {
+            base: {
+                fontSize: '16px'
+            }
+        }
+    })
+    const cardForm = document.getElementById('payment-form')
+    const cardName = document.getElementById('card-strip-name')
+    cardElement.mount('#card_stripe')
+    cardForm.addEventListener('submit', async (e) => {
+        e.preventDefault()
+        $('#donateLoading').removeClass('hidden');
+        let paymentOptionValue = $('input[name="payment-option"]').val();
+        if(paymentOptionValue === "stripe"){
+            const { paymentMethod, error } = await stripe.createPaymentMethod({
+                type: 'card',
+                card: cardElement,
+                billing_details: {
+                    name: cardName.value
+                }
+            })
+            if (error) {
+                console.log(error)
+            } else {
+                let input = document.createElement('input')
+                input.setAttribute('type', 'hidden')
+                input.setAttribute('name', 'payment_method')
+                input.setAttribute('value', paymentMethod.id)
+                cardForm.appendChild(input)
+                console.log(paymentMethod.id)
+                // cardForm.submit()
+            }
+            let $formEle = $('#payment-form');
+            let form = $formEle[0];
+            let formData = new FormData(form);
+            console.log(formData)
+            formData.append('_token', $('input[name="_token"]').val());
+            let xhr = $.ajax({
+                url: "/campaigns/donate_now_with_cash",
+                type: 'post',
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+            })
+
+            xhr.done(function (response){
+                console.log(response)
+                if(response.success){
+                    $('#donateLoading').addClass('hidden');
+                    $formEle.addClass('hidden');
+                    $('.resultDonate').removeClass('hidden');
+                    $('#resultDonateAmount').text(formatCurrency(response.data.donate_amount));
+                }
+            })
+
+
+        }
+    })
+
+
 })
+function formatCurrency(number) {
+    const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD'
+    });
+    return formatter.format(number);
+}
+

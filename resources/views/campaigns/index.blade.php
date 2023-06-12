@@ -393,10 +393,10 @@
                     <a href="{{route('campaigns.show', ['campaign_id'=>$campaign->id])}}"
                        class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100  md:flex-row hover:drop-shadow-xl transition">
 
-                        <div class="border bg-white rounded-lg shadow-lg flex flex-col md:flex-row inline-block">
-                            <div class="md:w-2/5 w-full">
+                        <div class="w-full border bg-white rounded-lg shadow-lg flex flex-col md:flex-row inline-block">
+                            <div class="md:w-2/5 w-full border flex justify-center">
                                 <img
-                                    class="object-cover block h-[170px] md:w-auto w-full flex-none bg-cover lg:h-full md:h-full rounded-t-lg md:rounded-none md:rounded-l-lg rounded-tl-[7px] rounded-bl-[7px]"
+                                    class="border object-cover block h-[170px] md:w-auto w-full flex-none bg-cover lg:h-full md:h-full rounded-t-lg md:rounded-none md:rounded-l-lg rounded-tl-[7px] rounded-bl-[7px]"
                                     src="{{asset($campaign->image_thumbnail_path)}}">
                             </div>
                             <div
@@ -465,11 +465,16 @@
                                             <div class="w-full mb-1 bg-gray-200 rounded-full">
                                                 @php
                                                     $raiseGoal = $campaign->raising_cash_amount_goal == 0 ? 1: $campaign->raising_cash_amount_goal;
+                                                    if($campaign->raising_cash_amount_goal >= $campaign->raising_cash_amount_collected){
+                                                        $lengthDisplay = round(($campaign->raising_cash_amount_collected / $raiseGoal)*100);
+                                                    }else{
+                                                        $lengthDisplay = 100;
+                                                    }
                                                 @endphp
                                                 <div
-                                                    style="width: {{round(($campaign->raising_cash_amount_collected / $raiseGoal)*100)}}%"
+                                                    style="width: {{$lengthDisplay}}%"
                                                     class="bg-mainColor text-xs font-medium text-white text-center p-0.5 leading-none rounded-full"
-                                                > {{ round(($campaign->raising_cash_amount_collected / $raiseGoal)*100) }}%
+                                                > {{ $lengthDisplay }}%
                                                 </div>
                                             </div>
                                         @else
@@ -560,12 +565,12 @@
                                                 Donate Now
                                             </button>
                                         @else
-                                            <button
-                                                class="px-8 py-3 border rounded-xl bg-red-500 hover:bg-red-700 text-white w-full md:w-1/2 lg:w-1/2">
-                                                Donate Now
-                                            </button>
-                                        @endif
 
+                                               <button data-route="{{route('campaigns.donate_cash',['campaign_id'=>$campaign->id])}}"
+                                                   class="border px-8 py-3 border-red rounded-xl bg-red-500 hover:bg-red-700 text-white w-full md:w-1/2 lg:w-1/2 donateNow">
+                                                   Donate Now
+                                               </button>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Campaign;
 use App\Models\CampaignCategory;
+use App\Models\CampaignDonatedCash;
 use App\Models\CampaignDropOffLocation;
 use App\Models\CampaignImage;
 use App\Models\CampaignSubtitle;
@@ -13,8 +14,12 @@ use App\Models\User;
 use App\Models\CampaignAdditionalContact;
 
 use Auth;
+use Exception;
 use Illuminate\Cache\CacheManager;
 use Illuminate\Http\Request;
+use Stripe\Exception\ApiErrorException;
+use Stripe\Exception\CardException;
+use Stripe\StripeClient;
 use function Psy\debug;
 
 class CampaignController extends Controller
@@ -542,5 +547,81 @@ class CampaignController extends Controller
             $campaign->delete();
         }
         return back()->with('success','Delete success');
+    }
+
+    public function donateCash($campaignId){
+        $campaign = Campaign::find($campaignId);
+        $user = Auth::user();
+//        dd($user);
+        if(!$user){
+            $user = new User();
+            $user->id = null;
+            $user->name = 'Uknown User';
+        }
+        return view('campaigns.cash_donation',compact('campaign','user'));
+    }
+
+    public function donateNowWithCash(Request $request){
+
+        $tokenPayment = $request['payment_method'];
+        $username = $request['name'];
+        $donateAmount = floatval($request['donate_amount']);
+        $commissionRate = $request['commission'];
+        $paymentOption = $request['payment-option'];
+        $userId = $request['user_id'];
+        $campaignId = $request['campaign_id'];
+
+        $campaignDonatedCash = new CampaignDonatedCash();
+        $campaignDonatedCash->user_id = $userId;
+        $campaignDonatedCash->campaign_id = $request['campaign_id'];
+        $campaignDonatedCash->original_amount = $donateAmount * 100;
+        $campaignDonatedCash->total_amount = ceil(($donateAmount * 100) * ((100 - $commissionRate)/100));
+        $campaignDonatedCash->is_successful = false;
+        $campaignDonatedCash->commission_rate = $commissionRate;
+        $campaignDonatedCash->donation_date = date('Y-m-d');
+        //dump($donateAmount);
+        //dump($tokenPayment);
+        //dd($request->all());
+        //dd($paymentOption == 'stripe');
+        if($paymentOption == 'stripe'){
+            try {
+                $description = $username.' has been donated to sharesquare campaign';
+                $stripe = new StripeClient(env('STRIPE_SECRET_KEY'));
+                $results = $stripe->paymentIntents->create([
+                    'amount' => $donateAmount * 100,
+                    'currency' => 'usd',
+                    'payment_method' => $tokenPayment,
+                    'description' => $description ,
+                    'confirm' => true,
+                ]);
+//                dd($results);
+
+                if($results->status == 'succeeded'){
+                    /*save it to database*/
+                    // save payment ref id
+                    // save ref n.o from stripe
+                    $campaignDonatedCash->payment_method = 'stripe';
+                    $campaignDonatedCash->is_successful = true;
+
+                    $saveCampaignDonatedCash = CampaignDonatedCash::create($campaignDonatedCash->toArray());
+                    /*update data to campaigns table*/
+                    $campaign = Campaign::findOrFail($campaignId);
+                    $amountCollected = $campaign->raising_cash_amount_collected;
+                    $campaign->raising_cash_amount_collected = $amountCollected + ($donateAmount * 100);
+                    $campaign->save();
+                    $data = [
+                        'donate_amount' => $donateAmount,
+                    ];
+
+                    return response()->json(['success' => true, 'message' => 'Payment success', 'data'=>$data]);
+               }elseif($results->status == 'requires_action'){
+                    return response()->json(['success' => false, 'message' => 'transaction action required']);
+                }
+            }catch (CardException $th) {
+                throw new Exception("There was a problem processing your payment", 1);
+            } catch (ApiErrorException $e) {
+            }
+        }
+        return response()->json(['success' => false, 'message' => 'error something']);
     }
 }

@@ -43,7 +43,7 @@
 
             {{-- donate button --}}
             <div class="py-6">
-                <button class="w-full block primary-bg-color text-center py-6 rounded-xl">
+                <button data-route="{{route('campaigns.donate_cash',['campaign_id'=>$campaign->id])}}" class="w-full block primary-bg-color text-center py-6 rounded-xl donateNow">
                     <span class="text-white font-bold text-2xl">Donate Now</span>
                 </button>
             </div>
