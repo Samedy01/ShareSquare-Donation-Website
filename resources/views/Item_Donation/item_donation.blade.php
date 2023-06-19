@@ -118,106 +118,114 @@
                 </span>
             </div>
         </div>
-        <div class=" border shadow-md sm:px-8 pt-4 mt-8 px-4  rounded">
-            <h2 class="font-bold">Item For Drop Off</h2>
-            <h6 class="pt-4 pb-2 flex">Please provide the name and the quantity of item</h6>
-            <div class="flex flex-wrap sm:mb-3">
-                <div class="w-full md:w-1/2 ">
-                    <label class="block text-gray-700 font-bold mb-2" for="item_name">
-                        Item Name
-                    </label>
-                    <input
-                        class=" block w-full text-gray-700 border border-gray-200 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                        id="item_name" type="text" placeholder="Input Item Name">
-                    {{-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> --}}
-                </div>
-                <div class="w-full md:w-1/2 sm:px-3 ">
-                    <label class="block text-gray-700 font-bold mb-2" for="qty_item">
-                        Quantity
-                    </label>
-                    <input
-                        class="block w-full text-gray-700 border border-gray-200 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                        id="qty_item" type="text" placeholder="Input Quatity Of Item">
+        <form action="{{ route('compaigns.perform_donate_item') }}" method="POST"  >
+            @csrf
+            <input type="number" class="hidden" name="user_id" value="1">
+            <input type="number" class="hidden" name="campaign_id" value="1">
+            <div class=" border shadow-md sm:px-8 pt-4 mt-8 px-4  rounded">
+                <h2 class="font-bold">Item For Drop Off</h2>
+                <h6 class="pt-4 pb-2 flex">Please provide the name and the quantity of item</h6>
+                <div class="flex flex-wrap sm:mb-3">
+                    <div class="w-full md:w-1/2 ">
+                        <label class="block text-gray-700 font-bold mb-2" for="item_name">
+                            Item Name
+                        </label>
+                        <input
+                            class=" block w-full text-gray-700 border border-gray-200 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            id="item_name" type="text" placeholder="Input Item Name" name="item_name">
+                        {{-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> --}}
+                    </div>
+                    <div class="w-full md:w-1/2 sm:px-3 ">
+                        <label class="block text-gray-700 font-bold mb-2" for="qty_item">
+                            Quantity
+                        </label>
+                        <input
+                            class="block w-full text-gray-700 border border-gray-200 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            id="qty_item" type="text" placeholder="Input Quatity Of Item" name="quantity_items">
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class=" border shadow-md sm:px-8 pt-4 mt-8 px-4  rounded">
-            <h2 class="font-bold">Contact Information</h2>
-            <h6 class="pt-4 pb-2 flex">Please provide the name and the quantity of item</h6>
-            <div class="flex flex-wrap sm:mb-3">
+            <div class=" border shadow-md sm:px-8 pt-4 mt-8 px-4  rounded">
+                <h2 class="font-bold">Contact Information</h2>
+                <h6 class="pt-4 pb-2 flex">Please provide the name and the quantity of item</h6>
+                <div class="flex flex-wrap sm:mb-3">
+    
+                    <div class="w-full md:w-1/2 ">
+                        <label class="block text-gray-700 font-bold mb-2" for="phone_number">
+                            Phone Number
+                        </label>
+                        <input
+                            class=" block w-full text-gray-700 border border-gray-200 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            id="phone_number" type="text" placeholder="Input your phone number" name="phone_number">
+                        {{-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> --}}
+                    </div>
+                    <div class="w-full md:w-1/2 sm:px-3  ">
+                        <label class="block text-gray-700 font-bold mb-2" for="email">
+                            Email Address
+                        </label>
+                        <input
+                            class="block w-full text-gray-700 border border-gray-200 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            id="qty_item" type="text" placeholder="Input your email address" name="email">
+                    </div>
+                    <div class="w-full md:w-1/2  ">
+                        <label class="block text-gray-700 font-bold mb-2" for="facebook">
+                            Facebook(Optional)
+                        </label>
+                        <input
+                            class="block w-full text-gray-700 border border-gray-200 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            id="facebook" type="text" placeholder="Input your facebook link" name="facebook">
+                    </div>
+    
+                    <div class="w-full md:w-1/2 sm:px-3 ">
+                        <label class="block text-gray-700 font-bold mb-2" for="telegram">
+                            Telegram(Optional)
+                        </label>
+                        <input
+                            class="block w-full text-gray-700 border border-gray-200 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            id="telegram" type="text" placeholder="Input your telegram username" name="telegram">
+                    </div>
+                </div>
+            </div>
+            <p class="text-[#ff4238] sm:px-8 mt-3 font-medium">Contact Information</p>
+            <div class=" border shadow-md sm:px-8 pt-4 mt-4 px-4  rounded">
+                <h2 class="font-bold">Date and Time For Drop Off</h2>
+                <h6 class="pt-4 pb-2">Please provide your contact information that is/are reachable</h6>
+                <div class="flex flex-wrap sm:mb-3">
+                    <div class="w-full md:w-1/2 sm:px-3 ">
+                        <label class="block text-gray-700 font-bold mb-2" for="date">
+                            Date
+                        </label>
+                        <input
+                            class=" block w-full text-gray-700 border border-gray-200 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            id="date" type="date" name="date">
+                        {{-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> --}}
+                    </div>
+                    <div class="w-full md:w-1/2 ">
+                        <label class="block text-gray-700 font-bold mb-2" for="time">
+                            Time
+                        </label>
+                        <input
+                            class=" block w-full text-gray-700 border border-gray-200 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            id="time" type="time" name="time">
+                    </div>
+                    <div class="w-full   ">
+                        <label class="block text-gray-700 font-bold mb-2" for="facebook">
+                            Note(Optional)
+                        </label>
+                        <input
+                            class=" block w-full text-gray-700 border border-gray-200 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            id="facebook" type="text" placeholder="Add Note" name="note">
+                    </div>
+                </div>
+            </div>
 
-                <div class="w-full md:w-1/2 ">
-                    <label class="block text-gray-700 font-bold mb-2" for="phone_number">
-                        Phone Number
-                    </label>
-                    <input
-                        class=" block w-full text-gray-700 border border-gray-200 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                        id="phone_number" type="text" placeholder="Input your phone number">
-                    {{-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> --}}
-                </div>
-                <div class="w-full md:w-1/2 sm:px-3  ">
-                    <label class="block text-gray-700 font-bold mb-2" for="email">
-                        Email Address
-                    </label>
-                    <input
-                        class="block w-full text-gray-700 border border-gray-200 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                        id="qty_item" type="text" placeholder="Input your email address">
-                </div>
-                <div class="w-full md:w-1/2  ">
-                    <label class="block text-gray-700 font-bold mb-2" for="facebook">
-                        Facebook(Optional)
-                    </label>
-                    <input
-                        class="block w-full text-gray-700 border border-gray-200 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                        id="facebook" type="url" placeholder="Input your facebook link">
-                </div>
-
-                <div class="w-full md:w-1/2 sm:px-3 ">
-                    <label class="block text-gray-700 font-bold mb-2" for="telegram">
-                        Telegram(Optional)
-                    </label>
-                    <input
-                        class="block w-full text-gray-700 border border-gray-200 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                        id="telegram" type="text" placeholder="Input your telegram username">
-                </div>
-            </div>
-        </div>
-        <p class="text-[#ff4238] sm:px-8 mt-3 font-medium">Contact Information</p>
-        <div class=" border shadow-md sm:px-8 pt-4 mt-4 px-4  rounded">
-            <h2 class="font-bold">Date and Time For Drop Off</h2>
-            <h6 class="pt-4 pb-2">Please provide your contact information that is/are reachable</h6>
-            <div class="flex flex-wrap sm:mb-3">
-                <div class="w-full md:w-1/2 sm:px-3 ">
-                    <label class="block text-gray-700 font-bold mb-2" for="date">
-                        Date
-                    </label>
-                    <input
-                        class=" block w-full text-gray-700 border border-gray-200 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                        id="date" type="date">
-                    {{-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> --}}
-                </div>
-                <div class="w-full md:w-1/2 ">
-                    <label class="block text-gray-700 font-bold mb-2" for="time">
-                        Time
-                    </label>
-                    <input
-                        class=" block w-full text-gray-700 border border-gray-200 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                        id="time" type="time">
-                </div>
-                <div class="w-full   ">
-                    <label class="block text-gray-700 font-bold mb-2" for="facebook">
-                        Note(Optional)
-                    </label>
-                    <input
-                        class=" block w-full text-gray-700 border border-gray-200 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                        id="facebook" type="url" placeholder="Add Note">
-                </div>
-            </div>
-        </div>
-        <a href="#">
-            <button
+        
+        
+        
+            <button type="submit"
                 class="mt-8 bg-[#ff4238] text-white font-bold w-full border border-gray-200 rounded py-3  mb-3">Donate</button>
-        </a>
+        
+    </form>
         @vite('resources/js/saovty.js')
 </body>
 
