@@ -40,11 +40,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/donations/campaign_profile', function () {
     return view('donations.campaign_profile');
 });
-//saovty
-Route::get('/item_donation',[CampaignDonatedItemController::class, 'itemDonation']);
-Route::post('/done_donated_items',[CampaignDonatedItemController::class,'performDonatedItem'])->name('compaigns.perform_donate_item');
 
-require __DIR__.'/auth.php';
 
 
 
@@ -143,7 +139,7 @@ Route::get('/following', function () {
 Route::get('/new_notification', function () {
     return view('Notification.new_ntf');
 });
-Route::get('/', function () {
+Route::get('/setting', function () {
     return view('setting');
 });
 Route::get('/done_donated', function () {
@@ -152,6 +148,14 @@ Route::get('/done_donated', function () {
 Route::get('/item_donation', function () {
     return view('Item_Donation.item_donation');
 });
+//saovty
+Route::get('/', function(){
+    return view('comment');
+});
+Route::get('/item_donation',[CampaignDonatedItemController::class, 'itemDonation']);
+Route::post('/done_donated_items',[CampaignDonatedItemController::class,'performDonatedItem'])->name('compaigns.perform_donate_item');
+
+require __DIR__.'/auth.php';
 
 
 

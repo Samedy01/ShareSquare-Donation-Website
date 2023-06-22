@@ -1,3 +1,25 @@
+const btn = document.getElementById('btn');
+
+btn.addEventListener('click', () => {
+  const form = document.getElementById('form');
+  // form.style.visibility="visible"
+
+  if (form.style.display === 'none') {
+    form.style.display = 'block';
+  } else {
+    form.style.display = 'none';
+  }
+});
+
+function myFunction() {
+  var x = document.getElementById("form");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+
 $(document).ready(function () {
     $('input[name="deliveryOption"]').on('change',function(){
         /*get the elements that are not checked*/
