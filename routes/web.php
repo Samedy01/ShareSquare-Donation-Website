@@ -80,11 +80,22 @@ Route::resource('campaigns', CampaignController::class);
 // campaigns
 Route::get('/campaigns', [CampaignController::class, 'index'])->name('campaigns.index'); // all campaigns
 
+// Samedy
 Route::get('/campaigns/show/{campaign_id}', [CampaignController::class, 'show'])->name('campaigns.show');
+
+Route::get('/campaigns/show/{campaign_id}/report', [CampaignController::class, 'report'])->name('campaigns.show.report');
+
+Route::get('/campaigns/show/{campaign_id}/comments', [CampaignController::class, 'comments'])->name('campaigns.show.comments');
+
+Route::get('/campaigns/show/{campaign_id}/donators', [CampaignController::class, 'donators'])->name('campaigns.show.donators');
+
 
 Route::get('/campaigns/{user_id}')->name('campaigns.user.index'); // all campaings of a user
 
 Route::get('/campaigns/{user_id}/show/{campaign_id}', [CampaignController::class, 'show_user'])->name('campaigns.user.show'); // show the details of a campaign (campaign profile)
+
+
+// 
 
 Route::get('/campaigns/{user_id}/create')->name('campaigns.create'); // the campaign form
 

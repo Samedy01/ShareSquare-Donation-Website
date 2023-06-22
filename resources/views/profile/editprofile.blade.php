@@ -186,10 +186,10 @@
                     </div>
                 </div>
                 <div class="inline-flex">
-                    <a href="{{ route('overview') }}" type="submit"
+                    <a href="{{ route('profile.overview') }}" type="submit"
                         class="{{ request()->is('profile/overview')}} py-2.5 px-5 mr-2 mb-2 text-white bg-mainColor hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto text-center">Update
                         Setting Profile</a>
-                    <a href="{{ route('overview') }}"
+                    <a href="{{ route('profile.overview') }}"
                         class="{{ request()->is('profile/overview')}}py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-mainColor focus:z-10 focus:ring-4 focus:ring-gray-200">Cancel</a>
 
                 </div>

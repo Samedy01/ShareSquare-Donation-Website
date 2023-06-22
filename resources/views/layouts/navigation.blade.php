@@ -5,9 +5,9 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-{{--                    <a href="{{ route('dashboard') }}">--}}
-{{--                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />--}}
-{{--                    </a>--}}
+                   {{-- <a href="{{ route('dashboard') }}">
+                       <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                   </a> --}}
                     <a href="https://flowbite.com/" class="flex items-center">
                         <img src="{{ asset('images/logo.jpg')}}" alt="ShareSqure Logo" class="h-8 md:h-8 lg:h-14">
                         <!-- Logo Text -->
@@ -18,11 +18,6 @@
                     </a>
                 </div>
 
-
-
-
-
-
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-40 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
@@ -32,20 +27,20 @@
             </div>
 
 
-            {{--            <div class="flex md:order-2 space-x-3">--}}
+            {{-- <div class="flex md:order-2 space-x-3"> --}}
                 <!-- Search Icon Button -->
                 <button class="text-gray-500 hover:text-gray-900">
                     <svg aria-hidden="true" class="w-3 h-3 md:w-5 md:h-5 lg:w-5 lg:h-5 text-red-500 dark:text-red-400"
-                         fill="none" stroke="gray" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            fill="none" stroke="gray" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                     </svg>
                 </button>
-{{--            </div>--}}
+           {{-- </div> --}}
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
-{{--                Add Profile Icon--}}
+               {{-- Add Profile Icon --}}
                 <a href="{{route('profile.overview')}}" class="flex items-center">
                     <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown" data-dropdown-placement="bottom-start" class="w-10 h-10 rounded-full cursor-pointer" src="{{ asset('images/login.jpg')}}" alt="User dropdown">
                     {{--                    <img class="w-8 h-8 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="{{ asset('images/logo.jpg')}}" alt="Bordered avatar">--}}
@@ -82,6 +77,8 @@
                     </x-slot>
                 </x-dropdown>
             </div>
+
+
 
             <!-- Hamburger -->
             <div class="-mr-2 flex items-center sm:hidden">
@@ -129,7 +126,6 @@
         </div>
     </div>
 
-
-
-
 </nav>
+
+{{-- <x-general.top-nav></x-general.top-nav> --}}

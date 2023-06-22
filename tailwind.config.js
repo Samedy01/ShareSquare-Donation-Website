@@ -45,6 +45,9 @@ export default {
       textColorWithLightBg: '#43536D',
       successColor: '#31B6A7',
       promptTextColor: '#7B8794',
+      topDonorCardThinText: '#7B8794',
+      topDonorCardThickText: '#333238',
+      topDonorCardTitle: '#323F4B',
     },
     fontSize: {
       'xxs': '0.5rem', // Extra-small font size

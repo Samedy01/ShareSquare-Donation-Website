@@ -26,6 +26,40 @@ class CampaignController extends Controller
         return view('campaigns.show', [
             'campaign' => $campaign,
             'user' => $user,
+            'test_var1' => 'test message camp controlller',
+        ]);
+    }
+
+    public function report($campaign_id) {
+        $campaign = Campaign::findOrFail($campaign_id);
+
+        $user = User::findOrFail($campaign->user_id);
+
+        return view('campaigns.report', [
+            'campaign' => $campaign,
+            'user' => $user,
+        ]);
+    }
+
+    public function comments($campaign_id) {
+        $campaign = Campaign::findOrFail($campaign_id);
+
+        $user = User::findOrFail($campaign->user_id);
+
+        return view('campaigns.comments', [
+            'campaign' => $campaign,
+            'user' => $user,
+        ]);
+    }
+
+    public function donators($campaign_id) {
+        $campaign = Campaign::findOrFail($campaign_id);
+
+        $user = User::findOrFail($campaign->user_id);
+
+        return view('campaigns.donators', [
+            'campaign' => $campaign,
+            'user' => $user,
         ]);
     }
 
