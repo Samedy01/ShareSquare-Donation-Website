@@ -14,4 +14,7 @@ class CampaignSubtitle extends Model
         'description',
         'ordered'
     ];
+    public function campaignImage(){
+        return $this->hasMany(CampaignImage::class,'campaign_subtitle_id');
+    }
 }

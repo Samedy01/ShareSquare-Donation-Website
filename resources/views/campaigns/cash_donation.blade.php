@@ -84,9 +84,9 @@
         </button>
     </div>
     </form>
-    <section class="resultDonate my-10 hidden">
+    <section class="resultDonate my-10">
         <div class="container">
-            <div class="border shadow rounded py-10 px-5 text-center mx-auto">
+            <div class="border shadow rounded py-10 px-5 text-center mx-auto w-3/5">
                 <p class="font-bold text-3xl">You've Made a Different!</p>
                 <p class="font-bold text-3xl mb-5">You've donated <span class="text-mainColor" id="resultDonateAmount">$20</span> Different!</p>
                 <p class="text-gray-400 mb-5">Thank You for Your Generosity! Share Your Impact, Inspire Others, and Donate Again.</p>

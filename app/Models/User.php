@@ -37,6 +37,7 @@ class User extends Authenticatable
         'organization',
         'id_card_image_id',
         'is_enable_email_notification',
+        'location'
     ];
 
     /**

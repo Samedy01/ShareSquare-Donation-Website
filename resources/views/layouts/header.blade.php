@@ -44,14 +44,13 @@
         </div>
     </button>
     @if(!Auth::check())
-    <button type="button"
-        class="text-white bg-mainColor hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs md:text-base lg:text-lg px-2 py-1 md:px-4 md:py-2 lg:px-4 lg:py-2 text-center mr-3 md:mr-0 ">Get
-        started</button>
+    <a type="button" href="{{route('login')}}"
+        class="text-white bg-mainColor hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs md:text-base lg:text-lg px-2 py-1 md:px-4 md:py-2 lg:px-4 lg:py-2 text-center mr-3 md:mr-0 ">Get started</a>
     @else
     <div class="sm:flex sm:items-center sm:ml-6">
         {{--                Add Profile Icon--}}
         <a href="{{route('profile.overview')}}" class="flex items-center">
-            <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown" data-dropdown-placement="bottom-start" class="w-10 h-10 rounded-full cursor-pointer" src="{{ asset('images/login.jpg')}}" alt="User dropdown">
+            <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown" data-dropdown-placement="bottom-start" class="w-10 h-10 rounded-full cursor-pointer" src="{{ asset(Auth::user()->image_profile_path)}}" alt="User dropdown">
             {{--                    <img class="w-8 h-8 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="{{ asset('images/logo.jpg')}}" alt="Bordered avatar">--}}
         </a>
 

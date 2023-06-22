@@ -57,4 +57,10 @@ class Campaign extends Model
     public function itemCategory(){
         return $this->belongsTo(ItemCategory::class,'item_category_id');
     }
+    public function additionalContact(){
+        return $this->hasMany(CampaignAdditionalContact::class,'campaign_id');
+    }
+    public function dropOffLocation(){
+        return $this->hasMany(CampaignDropOffLocation::class,'campaign_id');
+    }
 }

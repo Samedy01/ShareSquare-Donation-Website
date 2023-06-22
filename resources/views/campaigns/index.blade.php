@@ -12,12 +12,15 @@
                 class="border items-center md:flex justify-between absolute shadow-lg rounded-[10px] w-[90%] md:w-3/5 bottom-[-50%] md:bottom-[-10%] p-3 md:p-8 bg-white z-10"
                 style="">
                 <div class="relative md:w-1/2">
+                    <form action="{{route('campaigns.index')}}" method="get">
                     <input type="text"
                            name="searchCampaignOrUser"
                            class="text-sm md:text-base w-[100%] pl-10 pr-4 md:py-5 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-red-500 focus:border-transparent"
                            placeholder="Search campaign or user"
                            id="searchCampaignOrUser"
+                           value="{{request()->get('searchCampaignOrUser')}}"
                     >
+                    </form>
                     <span class="absolute inset-y-0 left-0 pl-3 flex items-center">
                         <i class="text-sm md:text-base fas fa-search text-gray-400"></i>
                     </span>
@@ -429,7 +432,7 @@
                                         @if($campaign->is_item)
                                         <span
                                             class="ml-2 bg-green-200 text-green-500 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded border">
-                                            <span class="inline-block">Raising {{$campaign->itemCategory->name}} and cash</span>
+                                            <span class="inline-block">Raising {{$campaign->itemCategory->name}}</span>
                                         </span>
                                         @else
                                             <span
@@ -577,11 +580,9 @@
                         </div>
                     </a>
                 @endforeach
-
-
-
             </div>
         </div>
+        <div class="mx-auto pb-10 w-4/5">{{$campaigns->links()}}</div>
         <div id="modalBackground" class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 items-center hidden">
         </div>
         @vite('resources/js/panha.js')

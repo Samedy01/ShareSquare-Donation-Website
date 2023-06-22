@@ -53,19 +53,37 @@
                 @php
                     $options = [
                         ['text' => 'Share', 'icon' => 'fa fa-share','class'=>'share-button'],
-                        ['text' => 'Care', 'icon' => 'far fa-heart','class'=>'love-button'],
+                        ['text' => 'Care', 'icon' => 'far fa-heart','class'=>'lov-button'],
                         ['text' => 'Follow', 'icon' => 'fa fa-user-plus','class'=>'follow-button'],
                     ];
                 @endphp
                 @foreach ($options as $option)
                     <div class="item {{$option['class']}} hover:cursor-pointer">
                         <div class="py-2 px-5 shadow bg-white rounded-xl text-center">
-                            <i class="dark-blue-grey {{$option['icon']}} h-5 icon_button"></i>
+                            <i class="dark-blue-grey {{$option['icon']}} h-5 icon_button" ></i>
                             <div class="h-1"></div>
                             <p class="title-color text-xl font-medium">{{$option['text']}}</p>
                         </div>
                     </div>
                 @endforeach
+
+                @if(!empty($isLoveCampaign))
+                <div id="love-button" class="item love-button hover:cursor-pointer"  data-care-lock="{{$isLoveCampaign->is_love}}" data-campaign-id="{{$campaign->id}}" data-token="{{ csrf_token()  }}">
+                    <div class="py-2 px-5 shadow bg-white rounded-xl text-center">
+                        <i class="dark-blue-grey far fa-heart icon_button text-xl"></i>
+                        <div class="h-1"></div>
+                        <p class="title-color text-xl font-medium">Care</p>
+                    </div>
+                </div>
+                @else
+                <div class="item love-button hover:cursor-pointer"  data-care-lock="0" data-campaign-id="{{$campaign->id}}" data-token="{{ csrf_token()  }}">
+                    <div class="py-2 px-5 shadow bg-white rounded-xl text-center">
+                        <i class="dark-blue-grey far fa-heart icon_button text-xl"></i>
+                        <div class="h-1"></div>
+                        <p class="title-color text-xl font-medium">Care</p>
+                    </div>
+                </div>
+                @endif
             </div>
 
             {{-- top donors --}}

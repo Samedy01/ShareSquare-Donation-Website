@@ -758,13 +758,60 @@ $(document).ready(function () {
         })
 
     })
-
-    /*implement love button*/
-
+    let $loveButton = $('#love-button')
+    let isCare = $loveButton.data('care-lock')
+    isApplyCareActive($loveButton, isCare);
+    /*implement love  or care button button*/
+    // isApplyCareActive($('.love-button'), isCare)
     $('.love-button').on('click',function (){
+        let $this = $(this);
+        let isCare = $this.data('care-lock');
         console.log('love click')
-        $(this).find('.icon_button').removeClass('far').addClass('fa  ')
+        let csrfToken = $this.data('token')
+
+        let campaignId = $this.data('campaign-id')
+        //request to backend
+        // console.log(csrfToken)
+        console.log(isCare)
+        let xhr = $.ajax({
+            url: "/user/care_campaign",
+            type: 'POST',
+            // dataType: 'json',
+            data: {
+                "_token": csrfToken,
+                "campaign_id": campaignId,
+                "is_care": !isCare
+            },
+            // cache: false,
+            // contentType: false,
+            // processData: false,
+        })
+
+        xhr.done(function (response){
+            console.log(response)
+            //Todo handle if not success
+        })
+
+        if(!isCare){
+            isApplyCareActive($this, 1)
+            /*$this.find('.icon_button').removeClass('far dark-blue-grey').addClass('fa text-mainColor')
+            $this.data('care-lock', 1)*/
+            return;
+        }
+        /*$this.find('.icon_button').removeClass('fa text-mainColor').addClass('far dark-blue-grey')
+        $this.data('care-lock', 0)*/
+        isApplyCareActive($this, 0)
     })
+    function isApplyCareActive(element, isCare){
+        if(isCare){
+            element.find('.icon_button').removeClass('far dark-blue-grey').addClass('fa text-mainColor')
+            element.data('care-lock', 1)
+            return;
+        }
+        element.find('.icon_button').removeClass('fa text-mainColor').addClass('far dark-blue-grey')
+        element.data('care-lock', 0)
+
+    }
     $('.share-button').on('click',function (){
         console.log('share click')
     })

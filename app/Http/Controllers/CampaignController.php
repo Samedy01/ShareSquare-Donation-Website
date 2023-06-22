@@ -13,6 +13,8 @@ use App\Models\ItemCategory;
 use App\Models\User;
 use App\Models\CampaignAdditionalContact;
 
+use App\Models\UserLoveCampaign;
+use App\Models\UserViewCampaign;
 use Auth;
 use Exception;
 use Illuminate\Cache\CacheManager;
@@ -38,10 +40,27 @@ class CampaignController extends Controller
      */
     public function index(Request $request)
     {
+        //TODO query only campaign with success status
         $campaignCategories = CampaignCategory::all();
         $selectedCategories = $request->input('campaign_category', []);
         $selectedCampaignTypes = $request->input('campaign_type', []);
         $otherFilterTypes = $request->input('other_filter', []);
+        $searchKey = $request->input('searchCampaignOrUser');
+//        dd($searchKey);
+        if(!empty($searchKey)){
+            $selectedCategories = [];
+            $selectedCampaignTypes = [];
+            $otherFilterTypes = [];
+//            dd($campaignCategories);
+            $campaigns = Campaign::with('campaignCategory')
+                ->where('is_raising', '=', 1)
+                ->where('title','LIKE','%'.$searchKey.'%')
+                ->whereNotNull('campaign_category_id')
+                ->orderBy('created_at', 'desc')
+                ->paginate(10);
+            return view('campaigns.index',
+                compact('campaigns', 'campaignCategories','searchKey','selectedCategories','selectedCampaignTypes','otherFilterTypes'));
+        }
 //        dd($otherFilterTypes);
         if (!empty($selectedCategories)) {
 //            dd('hi');
@@ -54,7 +73,7 @@ class CampaignController extends Controller
                 ->whereIn('campaign_category_id', $selectedCategoriesInt)
                 ->orderBy('created_at', 'desc')
 //                ->limit(10)
-                ->get();
+                ->paginate(10);
 //            dd(empty($otherFilterTypes));
             if (!empty($selectedCampaignTypes)) {
                 $diff = array_diff(['item', 'cash'], $selectedCampaignTypes);
@@ -70,7 +89,7 @@ class CampaignController extends Controller
                         })
                         ->orderBy('created_at', 'desc')
 //                        ->limit(10)
-                        ->get();
+                        ->paginate(10);
 
                 } else if (count($diff) == 1) {
                     // check if it is cash or item
@@ -84,7 +103,7 @@ class CampaignController extends Controller
                             ->where('is_cash', '=', 1)
                             ->orderBy('created_at', 'desc')
 //                            ->limit(10)
-                            ->get();
+                            ->paginate(10);
                     } else if ($selectedCampaignTypes[0] == 'item') {
                         $campaigns = Campaign::with('campaignCategory', 'itemCategory')
                             ->where('is_raising', '=', 1)
@@ -93,7 +112,7 @@ class CampaignController extends Controller
                             ->where('is_item', '=', 1)
                             ->orderBy('created_at', 'desc')
 //                            ->limit(10)
-                            ->get();
+                            ->paginate(10);
                     }
                 }
 //                dd($campaigns);
@@ -104,7 +123,7 @@ class CampaignController extends Controller
                 ->whereNotNull('campaign_category_id')
                 ->orderBy('created_at', 'desc')
 //                ->limit(5)
-                ->get();
+                ->paginate(10);
             $diff = array_diff(['item', 'cash'], $selectedCampaignTypes);
             if (count($diff) == 0) {
                 // mean that both cash and item is checked
@@ -116,7 +135,7 @@ class CampaignController extends Controller
                     })
                     ->orderBy('created_at', 'desc')
 //                        ->limit(10)
-                    ->get();
+                    ->paginate(10);
             } else if (count($diff) == 1) {
                 // check if it is cash or item
 //                dump($selectedCampaignTypes[0] == 'cash');
@@ -127,7 +146,7 @@ class CampaignController extends Controller
                         ->where('is_cash', '=', 1)
                         ->orderBy('created_at', 'desc')
 //                            ->limit(10)
-                        ->get();
+                        ->paginate(10);
                     if (!empty($otherFilterTypes)) {
                         dump($otherFilterTypes);
                         $otherFilterDiff = array_diff(['top_raising', 'new'], $otherFilterTypes);
@@ -139,8 +158,8 @@ class CampaignController extends Controller
                                 ->whereNotNull('campaign_category_id')
                                 ->orderBy('raising_cash_amount_collected', 'desc')
                                 ->orderBy('created_at', 'asc')
-                                ->limit(20)
-                                ->get();
+//                                ->limit(20)
+                                ->paginate(10);
                         } else {
 //                      dd('hello');
                             $campaigns = Campaign::with('campaignCategory')
@@ -149,8 +168,8 @@ class CampaignController extends Controller
                                 ->whereNotNull('campaign_category_id')
                                 ->orderBy('raising_cash_amount_collected', 'desc')
 //                                ->orderBy('raising_cash_amount_collected','desc')
-                                ->limit(20)
-                                ->get();
+//                                ->limit(20)
+                                ->paginate(10);
                         }
                     }
                 } else if ($selectedCampaignTypes[0] == 'item') {
@@ -160,7 +179,7 @@ class CampaignController extends Controller
                         ->where('is_item', '=', 1)
                         ->orderBy('created_at', 'desc')
 //                            ->limit(10)
-                        ->get();
+                        ->paginate(10);
                 }
             }
         }
@@ -178,14 +197,40 @@ class CampaignController extends Controller
     {
         $campaign = Campaign::findOrFail($campaign_id);
 
+        $this->__increaseNumOfView($campaign_id);
         $user = User::findOrFail($campaign->user_id);
-
+        $isLoveCampaign = null;
+        if (Auth::user()){
+            $isLoveCampaign = UserLoveCampaign::where('user_id', '=',Auth::user()->id)
+                ->where('campaign_id','=',$campaign_id)
+                ->first();
+        }
+//        dd($isLoveCampaign);
         return view('campaigns.show', [
             'campaign' => $campaign,
             'user' => $user,
+            'isLoveCampaign' => $isLoveCampaign,
         ]);
     }
 
+    private function __increaseNumOfView($campaign_id){
+        $campaign = Campaign::findOrFail($campaign_id);
+        $campaign->number_of_view += 1;
+//        dd(!Auth::user());
+        if(!Auth::user()){
+            $campaign->save();
+            return;
+        }
+        /*Save to db of what register user is view*/
+
+        $userViewCampaign = new UserViewCampaign();
+        $userViewCampaign->user_id = Auth::user()->id;
+        $userViewCampaign->campaign_id = $campaign_id;
+        $userViewCampaign->is_view = true;
+        $isSaved = UserViewCampaign::create($userViewCampaign->toArray());
+       // debug($isSaved);
+        $campaign->save();
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -275,7 +320,12 @@ class CampaignController extends Controller
         }
         $campaign->start_date = date('Y-m-d', strtotime($request['start_date']));
         $campaign->end_date = date('Y-m-d', strtotime($request['end_date']));
-        $campaign->raising_cash_amount_goal = $request['raising_or_donating_goal_amount'] * 100; //* 100 because we can display back by /100
+        if($request['raising_option'] == 'cash'){
+            $campaign->raising_cash_amount_goal = $request['raising_or_donating_goal_amount'] * 100; //* 100 because we can display back by /100
+        }else{
+            $campaign->raising_item_quantity_goal = $request['raising_or_donating_goal_amount'];
+
+        }
 
         //save contact
         $campaign->phone_number = $request['phone_number'];
@@ -337,8 +387,9 @@ class CampaignController extends Controller
         }
 
         /*temp data for dev*/
+        //TODO change this when user role is done
         $campaign->approved_by_sys_user_id = 2;
-        $campaign->status = 'success';
+        $campaign->status = 'pending';
 
         //save campaign to DB
 
@@ -623,5 +674,40 @@ class CampaignController extends Controller
             }
         }
         return response()->json(['success' => false, 'message' => 'error something']);
+    }
+
+    public function userCareCampaign(Request $request){
+
+        //dd($request->all());
+//        dd($request['is_care']);
+        // find record first
+        //TODO handle on user id is null
+        $userLoveCampaign = UserLoveCampaign::where('user_id','=',Auth::user()->id)->where('campaign_id','=',$request['campaign_id'])->first();
+        //dd($userLoveCampaign);
+        $campaign = Campaign::findOrFail($request['campaign_id']);
+
+        if(empty($userLoveCampaign)){
+            $userLoveCampaign = new UserLoveCampaign();
+            $userLoveCampaign->campaign_id = $request['campaign_id'];
+            $userLoveCampaign->user_id = Auth::user()->id;
+            $userLoveCampaign->is_love = true;
+            $userLoveCampaignSave = UserLoveCampaign::create($userLoveCampaign->toArray());
+            if($userLoveCampaignSave){
+                // update value to the campagin in love column
+                $campaign->number_of_love += 1;
+                $campaign->save();
+            }
+            return response()->json(['success'=>true,'message'=>'Hello']);
+        }
+        $userLoveCampaign->is_love = !($request['is_care'] == "false");
+        $userLoveCampaign->save();
+
+        if($userLoveCampaign->is_love){
+            $campaign->number_of_love += 1;
+        }else{
+            $campaign->number_of_love -= 1;
+        }
+        $campaign->save();
+        return response()->json(['success'=>true,'message'=>'modified']);
     }
 }
