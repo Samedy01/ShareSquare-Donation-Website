@@ -12,7 +12,7 @@
     @vite('resources/css/panha.css')
     @vite('resources/js/app.js')
     @vite('resources/js/datepicker.js')
-{{--    @vite('resources/flowbite.min.js')--}}
+    {{--    @vite('resources/flowbite.min.js')--}}
     <title>Create Campaign cash type</title>
 </head>
 <body>
@@ -57,21 +57,39 @@
         </div>
     </div>
     {{--Right side--}}
-    <form method="POST" action="{{ route('campaigns.store') }}" class=" col-span-3 max-h-[88vh] overflow-auto right-side pr-2 pl-2" enctype="multipart/form-data">
+    <form id="formCreateCampaign" method="POST" action="{{ route('campaigns.store') }}"
+          class=" col-span-3 max-h-[88vh] overflow-auto right-side pr-2 pl-2" enctype="multipart/form-data">
         @csrf
         <div class="">
-            {{--<div class="test_append bg-red-500 rounded shadow-lg hover:cursor-pointer">
-                Hello
-            </div>
-            <div class="test_click bg-yellow-300 rounded hover:cursor-pointer">Hello world</div>
-            <div id="appendWraper">
 
-            </div>--}}
             {{--1st form: About--}}
             <div class="mb-[100px] form" id="form_step_1" data-status="1">
                 <h1 class="text-2xl font-bold">About</h1>
                 <div class="mt-4 " id="campaign_option_form">
                     <p class="font-bold">Are you donating items or raising?</p>
+
+                    <label for="raising"
+                           class="mt-3 flex w-[60%] py-3 px-5 rounded shadow-sm border  hover:border-red-500 campaign_type hover:cursor-pointer">
+                        <img
+                            src="{{asset('images/svgs/raising.svg')}}"
+                            alt="triangle with all three sides equal"
+                            height="50"
+                            class="icon"
+                            width="50"/>
+                        <img
+                            src="{{asset('images/svgs/raising_active.svg')}}"
+                            alt="triangle with all three sides equal"
+                            height="50"
+                            class="icon_active hidden"
+                            width="50"/>
+
+                        <div class="flex flex-col justify-between ml-3">
+                            <div class="font-bold">Raising</div>
+                            <div class="text-gray-500">Raising cash and/or items for the campaign</div>
+                        </div>
+                        <input type="radio" class="hidden" id="raising" name="campaign_type" value="raising"
+                               data-target-open="#raising_option_form">
+                    </label>
                     <label for="donating"
                            class="mt-3 flex w-[60%] py-3 px-5 rounded shadow-sm border hover:border-red-500 campaign_type hover:cursor-pointer">
                         {{--normal image--}}
@@ -95,28 +113,6 @@
                         <input type="radio" class="hidden" id="donating" name="campaign_type" value="donating"
                                data-target-open="#donate_option_form,#delivery_option_form,#item_category_form">
                     </label>
-                    <label for="raising"
-                           class="mt-3 flex w-[60%] py-3 px-5 rounded shadow-sm border  hover:border-red-500 campaign_type hover:cursor-pointer">
-                        <img
-                            src="{{asset('images/svgs/raising.svg')}}"
-                            alt="triangle with all three sides equal"
-                            height="50"
-                            class="icon"
-                            width="50"/>
-                        <img
-                            src="{{asset('images/svgs/raising_active.svg')}}"
-                            alt="triangle with all three sides equal"
-                            height="50"
-                            class="icon_active hidden"
-                            width="50"/>
-
-                        <div class="flex flex-col justify-between ml-3">
-                            <div class="font-bold">Raising</div>
-                            <div class="text-gray-500">Raising cash and/or items for the campaign</div>
-                        </div>
-                        <input type="radio" class="hidden" id="raising" name="campaign_type" value="raising"
-                               data-target-open="#raising_option_form">
-                    </label>
                 </div>
                 <div class="mt-4">
                     <p class="font-bold">Campaign Thumbnail</p>
@@ -133,8 +129,9 @@
                                 </div>
                             </div>
                             <div class="flex">
-                                <input type="file" id="imageThumbnailInput" name="id_card_image" class="">
-                                <label for="imageThumbnailInput" id="uploadButton" class="flex items-center justify-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded cursor-pointer">
+                                <input type="file" id="imageThumbnailInput" name="thumbnail_image" class="hidden">
+                                <label for="imageThumbnailInput" id="uploadButton"
+                                       class="flex items-center justify-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded cursor-pointer">
                                     <i class="fas fa-cloud-upload-alt mr-2"></i>
                                     <span>Select Image</span>
                                 </label>
@@ -146,12 +143,15 @@
                     <label for="campaign_title" class="font-bold">Title</label>
                     <input type="text" id="campaign_title"
                            class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent"
-                           placeholder="Your campaign title">
+                           placeholder="Your campaign title"
+                           name="campaign_title"
+                    >
                     <a id="AddPhotoToTitle" href="#" class="primary-color-letter mt-3">
                         <i class="fa fa-plus-circle"></i>
-                        <span>Add Photos/Videos</span>
+                        <span>Add Photos</span>
                     </a>
-                    <input id="hidden-input-images-title" type="file" multiple class="hidden inputForMultipleImage">
+                    <input name="multiple_image_for_title[]" id="hidden-input-images-title" type="file" multiple
+                           class="hidden inputForMultipleImage">
                     <ul id="gallery" class="flex flex-1 flex-wrap -m-1">
                         <li id="empty" class="h-full w-full text-center flex flex-col justify-center items-center">
                             <img class="mx-auto w-32 hidden"
@@ -163,45 +163,50 @@
                 </div>
                 <div class="flex flex-col mt-4 oneSubTitle">
                     <label for="campaign_title" class="font-bold">Summary</label>
-                    <textarea id="campaign_summary_1"
+                    <textarea id="campaign_summary_1" name="campaign_summary"
                               class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent"
                               placeholder="Your campaign description"></textarea>
                     <a id="AddPhotoToSummary" href="#" class="primary-color-letter mt-3 addPhotoToAnyTitle"
                        data-input-target="#hidden-input-images-for-summary">
                         <i class="fa fa-plus-circle"></i>
-                        <span>Add Photos/Videos</span>
+                        <span>Add Photos</span>
                     </a>
-                    <input id="hidden-input-images-for-summary" type="file" multiple class="hidden inputForMultipleImage">
+                    <input name="multiple_image_for_summary[]" id="hidden-input-images-for-summary" type="file" multiple
+                           class="hidden inputForMultipleImage">
                     <ul class="flex flex-1 flex-wrap -m-1 imageInputWrapper">
 
                     </ul>
                 </div>
                 <div class="flex flex-col mt-4 oneSubTitle">
-                    <label for="campaign_title" class="font-bold">Purpose</label>
+                    <label for="campaign_purpose" class="font-bold">Purpose</label>
                     <textarea id="campaign_purpose"
+                              name="campaign_purpose"
                               class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent"
                               placeholder="What is the purpose of your campaign"></textarea>
                     <a href="#" class="primary-color-letter mt-3 addPhotoToAnyTitle"
                        data-input-target="#hidden-input-images-for-purpose">
                         <i class="fa fa-plus-circle"></i>
-                        <span>Add Photos/Videos</span>
+                        <span>Add Photos</span>
                     </a>
-                    <input id="hidden-input-images-for-purpose" type="file" multiple class="hidden inputForMultipleImage">
+                    <input name="multiple_image_for_purpose[]" id="hidden-input-images-for-purpose" type="file" multiple
+                           class="hidden inputForMultipleImage">
                     <ul class="flex flex-1 flex-wrap -m-1 imageInputWrapper">
 
                     </ul>
                 </div>
                 <div class="flex flex-col mt-4 oneSubTitle">
-                    <label for="campaign_title" class="font-bold">Goal</label>
-                    <textarea id="campaign_purpose"
+                    <label for="campaign_goal" class="font-bold">Goal</label>
+                    <textarea id="campaign_goal"
+                              name="campaign_goal"
                               class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent"
                               placeholder="What is the purpose of your campaign"></textarea>
                     <a href="#" class="primary-color-letter mt-3 addPhotoToAnyTitle"
                        data-input-target="#hidden-input-images-for-goal">
                         <i class="fa fa-plus-circle"></i>
-                        <span>Add Photos/Videos</span>
+                        <span>Add Photos</span>
                     </a>
-                    <input id="hidden-input-images-for-goal" type="file" multiple class="hidden inputForMultipleImage">
+                    <input name="multiple_image_for_goal[]" id="hidden-input-images-for-goal" type="file" multiple
+                           class="hidden inputForMultipleImage">
                     <ul class="flex flex-1 flex-wrap -m-1 imageInputWrapper">
 
                     </ul>
@@ -231,8 +236,6 @@
                        class="nextform inline-block bg-red-500 py-2 px-16 rounded-[10px]">
                         <span class="text-white">Next</span>
                     </a>
-                    <button type="submit" class="bg-blue-500 rounded p-3">Submit</button>
-
                 </div>
             </div>
             {{--2nd form: Campaign options / campaign option --}}
@@ -255,7 +258,8 @@
                             <div class="font-bold">Item</div>
                             <div class="text-gray-500">Pick-Up, Delivery or Both</div>
                         </div>
-                        <input type="radio" class="hidden" id="donating-item" name="donate-option" value="cash" checked>
+                        <input type="radio" class="hidden" id="donating-item" name="donation_option" value="item"
+                               checked>
                     </label>
                 </div>
                 {{--Select the type of raising of donation --}}
@@ -280,7 +284,7 @@
                             <div class="font-bold">Cash</div>
                             <div class="text-gray-500">Online donation with ABA, ACELEDA, etc</div>
                         </div>
-                        <input type="radio" class="hidden" id="cash-input" name="raising-option" value="cash">
+                        <input type="radio" class="hidden" id="cash-input" name="raising_option" value="cash">
                     </label>
                     <label for="cashOrItem-input"
                            class="mt-3 flex w-[60%] py-3 px-5 rounded shadow-sm border  hover:border-red-500 raising_option hover:cursor-pointer">
@@ -303,7 +307,7 @@
                             <div class="font-bold">Both Cash and Item</div>
                             <div class="text-gray-500">Accept both cash and items</div>
                         </div>
-                        <input type="radio" class="hidden" id="cashOrItem-input" name="raising-option"
+                        <input type="radio" class="hidden" id="cashOrItem-input" name="raising_option"
                                value="cashOrItem">
                     </label>
                 </div>
@@ -324,7 +328,7 @@
                     {{--ABA option--}}
                     <label for="aba_method"
                            class="paymentOption shadow relative items-center mb-1 mt-2 hover:cursor-pointer border inline-block h-[200px] w-40 hover:border-red-500 rounded-[10px]">
-                        <input type="radio" class="hidden" id="aba_method" name="paymentOption" value="aba">
+                        <input type="radio" class="hidden" id="aba_method" name="payment_option" value="aba">
                         <span
                             class="tick-border absolute w-8 h-8 border-2 border-gray-200 rounded-[50%] bg-white flex items-center justify-center transition-colors duration-200 right-2 top-2">
                                     <span class="tick-icon hidden text-red-500">
@@ -346,7 +350,7 @@
                     </label>
                     <label for="aceleda_method"
                            class="paymentOption ml-3 shadow relative items-center mb-1 mt-2 hover:cursor-pointer border inline-block h-[200px] w-40 hover:border-red-500 rounded-[10px]">
-                        <input type="radio" class="hidden" id="aceleda_method" name="paymentOption" value="aceleda">
+                        <input type="radio" class="hidden" id="aceleda_method" name="payment_option" value="acleda">
                         <span
                             class="tick-border absolute w-8 h-8 border-2 border-gray-200 rounded-[50%] bg-white flex items-center justify-center transition-colors duration-200 right-2 top-2">
                                     <span class="tick-icon hidden text-red-500">
@@ -362,8 +366,8 @@
                             <div class="my-1 h-10 w-20">
                                 <img src="{{asset('images/ACLEDA.png')}}">
                             </div>
-                            <div class="my-1">Aceleda</div>
-                            <div class="text-gray-400 my-1">Donate with Aceleda</div>
+                            <div class="my-1">Acleda</div>
+                            <div class="text-gray-400 my-1">Donate with Acleda</div>
                         </div>
                     </label>
                 </div>
@@ -372,6 +376,7 @@
                         <p class="font-bold">Acount number</p>
                         <label for="account_number" class="">
                             <input placeholder="Enter your ABA account number" type="text" id="campaign_purpose"
+                                   name="payment_account_number"
                                    class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent w-full">
                         </label>
                     </div>
@@ -388,7 +393,8 @@
                             <div id="uploadContainer" class="bg-white rounded-lg shadow-md p-6 uploadContainer">
                                 <div id="imagePreview" class="mb-6">
                                     <label for="imageInput" class="block text-gray-700 hidden">Select Image</label>
-                                    <div class="previewContainer bg-gray-100 border border-gray-300 rounded-lg p-4 mt-2">
+                                    <div
+                                        class="previewContainer bg-gray-100 border border-gray-300 rounded-lg p-4 mt-2">
                                         <div class="previewMessage text-gray-500 text-center">
                                             <span class="block">Please upload the your bank QR code.</span>
                                         </div>
@@ -396,8 +402,10 @@
                                     </div>
                                 </div>
                                 <div class="flex">
-                                    <input type="file" id="imageQrCodeInput" name="qr_code_image" class="hidden image_input_with_preview">
-                                    <label for="imageQrCodeInput" id="uploadButton" class="flex items-center justify-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded cursor-pointer">
+                                    <input type="file" id="imageQrCodeInput" name="qr_code_image"
+                                           class="hidden image_input_with_preview">
+                                    <label for="imageQrCodeInput" id="uploadButton"
+                                           class="flex items-center justify-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded cursor-pointer">
                                         <i class="fas fa-cloud-upload-alt mr-2"></i>
                                         <span>Select Image</span>
                                     </label>
@@ -477,7 +485,8 @@
                             </div>
                         </div>
                     </div>
-                    <a href="#" class="primary-color-letter mt-3 block" data-modal-target="authentication-modal" data-modal-toggle="authentication-modal">
+                    <a href="#" class="primary-color-letter mt-3 block" data-modal-target="authentication-modal"
+                       data-modal-toggle="authentication-modal">
                         <i class="fa fa-plus-circle"></i>
                         <span>Add Location</span>
                     </a>
@@ -512,15 +521,17 @@
                        class="inline-block bg-red-500 py-2 px-16 rounded-[10px] hover:shadow-lg nextform">
                         <span class="text-white" data-target="form_step_3">Next</span>
                     </a>
+{{--                    <button type="submit" class="bg-blue-500 rounded p-3">Submit</button>--}}
+
                 </div>
             </div>
             {{--3th form: Campaign options--}}
-            <div class="mb-[100px] hidden  form" id="form_step_3">
+            <div class="mb-[100px]  form hidden" id="form_step_3">
                 <h1 class="text-3xl font-bold">Fund Raising Goal</h1>
                 <div class="mt-4">
                     <p class="font-bold">Donation goal amount</p>
                     <label for="goal_amount" class="">
-                        <input placeholder="Enter your donation goal amount" type="number" id="goal_amount"
+                        <input name="raising_or_donating_goal_amount" placeholder="Enter your donation goal amount" type="number" id="goal_amount"
                                class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent w-full">
                     </label>
                 </div>
@@ -537,7 +548,7 @@
                                               clip-rule="evenodd"></path>
                                     </svg>
                                 </div>
-                                <input name="start" type="text"
+                                <input name="start_date" type="text"
                                        class="py-5 px-7 bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                        placeholder="Select date start">
                             </div>
@@ -551,7 +562,7 @@
                                               clip-rule="evenodd"></path>
                                     </svg>
                                 </div>
-                                <input name="end" type="text"
+                                <input name="end_date" type="text"
                                        class="py-5 px-7 bg-white border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full pl-10 p-2.5"
                                        placeholder="Select date end">
                             </div>
@@ -579,20 +590,22 @@
                         <div id="uploadContainer" class="bg-white rounded-lg shadow-md p-6">
                             <div id="imagePreview" class="mb-6">
                                 <label for="imageInput" class="block text-gray-700">Select Image</label>
-                                <div id="previewContainer" class="bg-gray-100 border border-gray-300 rounded-lg p-4 mt-2">
+                                <div id="previewContainer"
+                                     class="bg-gray-100 border border-gray-300 rounded-lg p-4 mt-2">
                                     <div id="previewMessage" class="text-gray-500 text-center">
                                         <span class="block">Please upload your identity card.</span>
                                     </div>
                                     <img id="previewImage" class="hidden mt-4 rounded-md mx-auto" alt="Image Preview">
                                 </div>
                             </div>
-                                <div class="flex">
-                                    <input type="file" id="imageIDCardInput" name="id_card_image" class="hidden">
-                                    <label for="imageIDCardInput" id="uploadButton" class="flex items-center justify-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded cursor-pointer">
-                                        <i class="fas fa-cloud-upload-alt mr-2"></i>
-                                        <span>Select Image</span>
-                                    </label>
-                                </div>
+                            <div class="flex">
+                                <input type="file" id="imageIDCardInput" name="id_card_image" class="hidden">
+                                <label for="imageIDCardInput" id="uploadButton"
+                                       class="flex items-center justify-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded cursor-pointer">
+                                    <i class="fas fa-cloud-upload-alt mr-2"></i>
+                                    <span>Select Image</span>
+                                </label>
+                            </div>
                         </div>
                     </div>
 
@@ -641,26 +654,36 @@
                        class="inline-block bg-white border-red-500 border py-2 px-16 rounded-[10px] hover:shadow previousform">
                         <span class="primary-color-letter" data-target="form_step_3">Previous</span>
                     </a>
-                    <a href="#result_from_create_campaign"
-                       class="inline-block bg-red-500 py-2 px-16 rounded-[10px] hover:shadow-lg nextform submit">
-                        <span class="text-white" data-target="#result_from_create_campaign">Submit</span>
-                    </a>
+{{--                    <a href="#result_from_create_campaign"--}}
+{{--                       class="inline-block bg-red-500 py-2 px-16 rounded-[10px] hover:shadow-lg nextform submit">--}}
+{{--                        <span class="text-white" data-target="#result_from_create_campaign">Submit</span>--}}
+{{--                    </a>--}}
+{{--                    <button type="submit" class=" rounded p-3 bg-red-500 py-2 px-16 rounded-[10px] hover:shadow-lg nextform submit text-white" data-target="#result_from_create_campaign">Submit</button>--}}
+                    <button id="buttonFormSubmit" type="submit" class="rounded p-3 bg-red-500 py-2 px-16 rounded-[10px] hover:shadow-lg submit text-white" data-target="#result_from_create_campaign">
+                        <span class="letterSubmmit" id="letterSubmmit">Submit</span>
+                        <div role="status" class="loading hidden" id="submitLoading">
+                            <svg aria-hidden="true" class="inline w-6 h-6 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                                <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+                            </svg>
+                        </div>
+                    </button>
 
                 </div>
             </div>
             {{--5th success create--}}
             <div class="mb-[100px] form hidden" id="result_from_create_campaign">
-            <div class="border md:w-2/3 sm:w-2/3 lg:w-1/3 text-center py-10 px-2 rounded-[10px] shadow-lg mx-auto">
-                <i class="fa fa-check-circle text-7xl text-green-500"></i>
-                <p class="font-bold text-2xl my-3">New Campaign Successfully Created</p>
-                <p class="text-gray-500 my-3">Congratulations! Your new campaign has been created successfully.</p>
-                <a href="#"
-                   class="inline-block mt-3 bg-white border-1 border-red-500 border py-2 px-16 rounded-[10px] hover:shadow-lg submit">
+                <div class="border md:w-2/3 sm:w-2/3 lg:w-1/3 text-center py-10 px-2 rounded-[10px] shadow-lg mx-auto">
+                    <i class="fa fa-check-circle text-7xl text-green-500"></i>
+                    <p class="font-bold text-2xl my-3">New Campaign Successfully Created</p>
+                    <p class="text-gray-500 my-3">Congratulations! Your new campaign has been created successfully.</p>
+                    <a href="#"
+                       class="inline-block mt-3 bg-white border-1 border-red-500 border py-2 px-16 rounded-[10px] hover:shadow-lg submit">
                         <span class="primary-color-letter "
                               data-target="#result_from_create_campaign">View Campaign</span>
-                </a>
+                    </a>
+                </div>
             </div>
-        </div>
 
         </div>
     </form>
@@ -751,29 +774,48 @@
 </template>
 
 <!-- template Main modal -->
-<div id="authentication-modal" tabindex="-1" aria-hidden="true" class="hidden fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+<div id="authentication-modal" tabindex="-1" aria-hidden="true"
+     class="hidden fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative w-full max-w-md max-h-full">
         <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="authentication-modal">
-                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+            <button type="button"
+                    class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+                    data-modal-hide="authentication-modal">
+                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                          d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                          clip-rule="evenodd"></path>
+                </svg>
                 <span class="sr-only">Close modal</span>
             </button>
             <div class="px-6 py-6 lg:px-8">
                 <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Adding New drop-off location</h3>
                 <form class="space-y-6" action="#">
                     <div>
-                        <label for="location_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">location Name</label>
-                        <input type="text" name="location_name" id="location_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Cadt Innovation Center" required>
+                        <label for="location_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">location
+                            Name</label>
+                        <input type="text" name="location_name" id="location_name"
+                               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                               placeholder="Cadt Innovation Center" required>
                     </div>
                     <div>
-                        <label for="location_description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Location description</label>
-                        <input type="text" name="location_description" id="location_description" placeholder="2nd Bridge Prek Leap, National Road Number 6, Phnom Penh, 12252" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                        <label for="location_description"
+                               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Location
+                            description</label>
+                        <input type="text" name="location_description" id="location_description"
+                               placeholder="2nd Bridge Prek Leap, National Road Number 6, Phnom Penh, 12252"
+                               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                               required>
                     </div>
                     <div class="flex justify-between">
 
                     </div>
-                    <button type="submit" class="w-full text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add new Location</button>
+                    <button type="submit"
+                            class="w-full text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Add new Location
+                    </button>
                 </form>
             </div>
         </div>

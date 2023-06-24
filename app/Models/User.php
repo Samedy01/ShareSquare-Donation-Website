@@ -22,6 +22,21 @@ class User extends Authenticatable
         'email',
         'phone',
         'password',
+        'username',
+        'image_profile_id',
+        'image_profile_path',
+        'telegram',
+        'number_campaign_created',
+        'total_cash_donating_amount',
+        'total_cash_raising_amount',
+        'total_item_raising_amount',
+        'is_enable_profile_anonymous',
+        'job_title',
+        'website',
+        'bio',
+        'organization',
+        'id_card_image_id',
+        'is_enable_email_notification',
     ];
 
     /**
