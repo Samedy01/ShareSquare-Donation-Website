@@ -1,6 +1,6 @@
-@extends('layouts.profileheader')
+@extends('layouts.otherprofileheader')
 
-@section('profile_contents')
+@section('otherprofile_contents')
 
 <div class="w-screen px-10 py-5 mx-auto">
     {{-- Overview Card --}}
@@ -624,22 +624,4 @@
 
 </div>
 
-
-
-
 @endsection
-
-<script>
-    function toggleDropdown(dropdownMenuId) {
-    var dropdownMenu = document.getElementById(dropdownMenuId);
-    dropdownMenu.classList.toggle("hidden");
-  }
-  function selectItem(item, dropdownTitleId) {
-  // Update the dropdown title with the selected item
-  document.getElementById(dropdownTitleId).textContent = item;
-
-  // Hide the dropdown menu
-  var dropdownMenu = document.getElementById(dropdownTitleId.replace('dropdownTitle', 'dropdownMenu'));
-  dropdownMenu.classList.add('hidden');
-}
-</script>

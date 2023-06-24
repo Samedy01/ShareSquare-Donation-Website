@@ -7,6 +7,7 @@ use App\Http\Controllers\CampaignCategoryController;
 use App\Http\Controllers\CampaignController;
 // Vortey
 use App\Http\Controllers\MyProfileController;
+use App\Http\Controllers\OtherUserProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,7 +78,7 @@ Route::resource('campaigns', CampaignController::class);
 
 
 
-// 
+//
 // campaigns
 Route::get('/campaigns')->name('campaigns.index'); // all campaigns
 
@@ -113,8 +114,37 @@ Route::get('/profile/follower', [MyProfileController::class, 'follower'])->name(
 
 Route::get('/profile/editprofile', [MyProfileController::class, 'editprofile'])->name('editprofile');
 
+Route::get('/profile/mycampaign/allcampaign', [MyProfileController::class, 'allCampaign'])->name('allCampaign');
+
+Route::get('/profile/mycampaign/closedcampaign', [MyProfileController::class, 'closedcampaign'])->name('closedcampaign');
+
+Route::get('/profile/mycampaign/reachedgoal', [MyProfileController::class, 'reachedgoal'])->name('reachedgoal');
+
+Route::get('/profile/mycampaign/unreachedgoal', [MyProfileController::class, 'unreachedgoal'])->name('unreachedgoal');
+
+Route::get('/profile/mycampaign/draft', [MyProfileController::class, 'draft'])->name('draft');
 
 
+// Other Profile
+Route::get('/otherprofile/overview', [OtherUserProfileController::class, 'overview'])->name('user_overview');
+
+Route::get('/otherprofile/campaign', [OtherUserProfileController::class, 'campaign'])->name('user_campaign');
+
+Route::get('/otherprofile/history', [OtherUserProfileController::class, 'history'])->name('user_history');
+
+Route::get('/otherprofile/following', [OtherUserProfileController::class, 'following'])->name('user_following');
+
+Route::get('/otherprofile/follower', [OtherUserProfileController::class, 'follower'])->name('user_follower');
+
+Route::get('/otherprofile/usercampaign/allcampaign', [OtherUserProfileController::class, 'allCampaign'])->name('user_allCampaign');
+
+Route::get('/otherprofile/usercampaign/closedcampaign', [OtherUserProfileController::class, 'closedcampaign'])->name('user_closedcampaign');
+
+Route::get('/otherprofile/usercampaign/reachedgoal', [OtherUserProfileController::class, 'reachedgoal'])->name('user_reachedgoal');
+
+Route::get('/otherprofile/usercampaign/unreachedgoal', [OtherUserProfileController::class, 'unreachedgoal'])->name('user_unreachedgoal');
+
+Route::get('/otherprofile/usercampaign/draft', [OtherUserProfileController::class, 'draft'])->name('user_draft');
 
 
 
