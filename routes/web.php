@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ItemCategoryController;
 use App\Http\Controllers\CampaignCategoryController;
 use App\Http\Controllers\CampaignController;
+use App\Http\Controllers\CampaignDonatedItemController;
 // Vortey
 use App\Http\Controllers\MyProfileController;
 use App\Http\Controllers\StripePaymentController;
@@ -45,7 +46,6 @@ Route::get('/donations/campaign_profile', function () {
     return view('donations.campaign_profile');
 });
 
-require __DIR__.'/auth.php';
 
 
 
@@ -159,6 +159,14 @@ Route::get('/done_donated', function () {
 Route::get('/item_donation', function () {
     return view('Item_Donation.item_donation');
 });
+//saovty
+Route::get('/', function(){
+    return view('comment');
+});
+Route::get('/item_donation',[CampaignDonatedItemController::class, 'itemDonation']);
+Route::post('/done_donated_items',[CampaignDonatedItemController::class,'performDonatedItem'])->name('compaigns.perform_donate_item');
+
+require __DIR__.'/auth.php';
 
 
 /*panha*/
