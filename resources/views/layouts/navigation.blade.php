@@ -1,3 +1,4 @@
+
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -17,19 +18,16 @@
                         </div>
                     </a>
                 </div>
-
-
-
-
-
-
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-40 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Home') }}
+                        {{ __('content.home') }}
+                        
                     </x-nav-link>
                 </div>
             </div>
+            
+          
 
 
             {{--            <div class="flex md:order-2 space-x-3">--}}
@@ -41,7 +39,26 @@
                               d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                     </svg>
                 </button>
+                 {{-- Language Switching --}}
+            <div class="hidden sm:flex sm:items-center sm:ml-6 text-base" >
+                <ul>
+                 <li class="nav-item dropdown">
+                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     <span class="flag-icon flag-icon-{{Config::get('languages')[App::getLocale()]['flag-icon']}}"></span> {{ Config::get('languages')[App::getLocale()]['display'] }}
+                     </a>
+                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                     @foreach (Config::get('languages') as $lang => $language)
+                         @if ($lang != App::getLocale())
+                                 <a class="dropdown-item" href="{{ route('lang.switch', $lang) }}"><span class="flag-icon flag-icon-{{$language['flag-icon']}}"></span> {{$language['display']}}</a>
+                         @endif
+                     @endforeach
+                     </div>
+             </li>   
+                </ul>
+             </div>
+           
 {{--            </div>--}}
+             
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">

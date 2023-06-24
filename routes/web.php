@@ -9,6 +9,7 @@ use App\Http\Controllers\CampaignDonatedItemController;
 // Vortey
 use App\Http\Controllers\MyProfileController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,17 +28,17 @@ use App\Http\Controllers\MyProfileController;
 
 
 // Pech
-Route::get('/dashboard', function () {
+    Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+    Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/donations/campaign_profile', function () {
+    Route::get('/donations/campaign_profile', function () {
     return view('donations.campaign_profile');
 });
 
@@ -61,10 +62,10 @@ Route::get('/test_tailwind', function () {
 });
 
 
-Route::get('/testUpload', function () {
+    Route::get('/testUpload', function () {
     return view('tests.testuploadfile');
 });
-Route::get('/testGoogleMap', function () {
+    Route::get('/testGoogleMap', function () {
     return view('tests.testGoogleMap');
 });
 
@@ -130,6 +131,8 @@ Route::get('/donations/campaign_profile', function () {
 
 
 // Saovty
+Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'App\Http\Controllers\LanguageController@switchLang']);
+
 Route::get('/followers', function () {
     return view('Notification.followers');
 });
@@ -149,7 +152,7 @@ Route::get('/item_donation', function () {
     return view('Item_Donation.item_donation');
 });
 //saovty
-Route::get('/', function(){
+Route::get('/comment_tab', function(){
     return view('comment');
 });
 Route::get('/item_donation',[CampaignDonatedItemController::class, 'itemDonation']);
