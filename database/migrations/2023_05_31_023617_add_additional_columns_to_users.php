@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('username',20)->nullable();
             $table->integer('image_profile_id')->nullable();
-            $table->text('image_profile_path')->nullable();
+            $table->string('image_profile_path')->default('default_profile.png');
             $table->string('telegram', 20)->nullable();
             $table->integer('number_campaign_created')->nullable()->default(0);
             $table->integer('total_cash_donating_amount')->nullable()->default(0);
