@@ -9,10 +9,11 @@
     <link rel="icon" type="image/x-icon" href="{{asset('/img/logo/sharesquare-logo.png')}}">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css" />
-    @vite(['resources/css/app.css', 'resources/js/app.js','resources/css/panha.css'])
+    @vite(['resources/css/app.css', 'resources/js/app.js','resources/css/panha.css','resources/css/saovty.css'])
     @vite('resources/js/datepicker.js')
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+    <script src="https://kit.fontawesome.com/b0e5d03480.js" crossorigin="anonymous"></script>
 
 </head>
 

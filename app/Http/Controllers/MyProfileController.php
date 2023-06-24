@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Campaign;
+use App\Models\CampaignDonatedCash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MyProfileController extends Controller
 {
@@ -20,7 +22,20 @@ class MyProfileController extends Controller
     }
 
     public function history(){
-        return view('profile.history');
+
+        $totalCashDonation = CampaignDonatedCash::where('user_id','=',Auth::user()->id)
+            ->where('is_successful','=',1)
+            ->sum('original_amount');
+        //dd($totalCashDonation);
+        //TODO fetch record of donating item
+        $cashDonations = CampaignDonatedCash::with('user','campaign','campaign.campaignCategory')->where('user_id','=',Auth::user()->id)
+            ->where('is_successful','=',1)
+            //->whereNotNull('campaign.campaign_category_id')
+            ->get();
+        //dd($cashDonations);
+        return view('profile.history',compact(
+            'totalCashDonation', 'cashDonations'
+        ));
     }
 
     public function following(){

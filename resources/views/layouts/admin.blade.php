@@ -38,23 +38,29 @@
                 </a>
             </li>
             <li class="px-4 py-2">
-                <a href="{{route('admin.campaigns')}}" class="{{$controller == 'AdminController' ? 'text-mainColor':'text-primaryTextColor'}} flex items-center space-x-2 text-gray-600 hover:text-gray-900">
+                <a href="{{route('admin.campaigns')}}" class="{{$controller == 'AdminController' && $method =='campaigns'  ? 'text-mainColor':'text-primaryTextColor'}} flex items-center space-x-2 text-gray-600 hover:text-gray-900">
                     <span><i class="fas fa-bullhorn"></i></span>
                     <span >Campaigns</span>
                 </a>
             </li>
             <li class="px-4 py-2">
+                <a href="{{route('admin.campaignCategories')}}" class="{{$controller == 'AdminController' && $method == 'campaignCategories'? 'text-mainColor':'text-primaryTextColor'}} flex items-center space-x-2 text-gray-600 hover:text-gray-900">
+                    <span><i class="fab fa-servicestack"></i></span>
+                    <span >Campaigns Categories</span>
+                </a>
+            </li>
+            <li class="px-4 py-2">
+                <a href="{{route('admin.item_categories.index')}}" class="{{$controller == 'AdminController' && $method == 'campaignItemCategories' ? 'text-mainColor':'text-primaryTextColor'}} flex items-center space-x-2 text-gray-600 hover:text-gray-900">
+                    <span><i class="fas fa-puzzle-piece"></i></span>
+                    <span >Item Categories</span>
+                </a>
+            </li>
+<!--            <li class="px-4 py-2">
                 <a href="#" class="flex items-center space-x-2 text-gray-600 hover:text-gray-900">
                     <span><i class="fas fa-users"></i></span>
                     <span>Users</span>
                 </a>
-            </li>
-            <li class="px-4 py-2">
-                <a href="#" class="flex items-center space-x-2 text-gray-600 hover:text-gray-900">
-                    <span><i class="fas fa-cog"></i></span>
-                    <span>Settings</span>
-                </a>
-            </li>
+            </li>-->
             <!-- Add more navigation items as needed -->
         </ul>
     </nav>

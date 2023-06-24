@@ -1,6 +1,12 @@
 // import 'select2';
 $(document).ready(function () {
 
+
+    $('#comment_tab').on('click',function (){
+        let route = $(this).data('route');
+        console.log(route)
+        window.location.href = route
+    })
     /*Browse campaign*/
     $('#test').on('click', function () {
         console.log('Hello')
@@ -667,6 +673,7 @@ $(document).ready(function () {
                 labelStatus(2,'form_step_4')
                 $('#form_step_4').addClass('hidden')
                 $('#result_from_create_campaign').removeClass('hidden')
+
             }
         })
     })
@@ -812,9 +819,9 @@ $(document).ready(function () {
         element.data('care-lock', 0)
 
     }
-    $('.share-button').on('click',function (){
+    /*$('.share-button').on('click',function (){
         console.log('share click')
-    })
+    })*/
     $('.follow-button').on('click',function (){
         console.log('follow click')
     })
@@ -993,12 +1000,8 @@ $(document).ready(function () {
                     $('#resultDonateAmount').text(formatCurrency(response.data.donate_amount));
                 }
             })
-
-
         }
     })
-
-
 })
 function formatCurrency(number) {
     const formatter = new Intl.NumberFormat('en-US', {

@@ -4,7 +4,7 @@
 <div class="bg-white ">
     <div class="flex flex-col md:flex-row px-6 py-4 justify-center items-center">
         <div class="w-32 h-32 rounded-full overflow-hidden">
-            <img src="{{ asset('img/profile/user-profile.png')}}" alt="Profile Image"
+            <img src="{{ asset(request()->user()->image_profile_path)}}" alt="Profile Image"
                 class="object-cover w-full h-full">
         </div>
         <!-- Spacing -->

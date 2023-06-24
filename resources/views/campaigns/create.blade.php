@@ -699,7 +699,7 @@
                 <div class="border md:w-2/3 sm:w-2/3 lg:w-1/3 text-center py-10 px-2 rounded-[10px] shadow-lg mx-auto">
                     <i class="fa fa-check-circle text-7xl text-green-500"></i>
                     <p class="font-bold text-2xl my-3">New Campaign Successfully Created</p>
-                    <p class="text-gray-500 my-3">Congratulations! Your new campaign has been created successfully.</p>
+                    <p class="text-gray-500 my-3">Congratulations! Your new campaign has been created successfully. Please wait for admin to approve.</p>
                     <a href="#"
                        class="inline-block mt-3 bg-white border-1 border-red-500 border py-2 px-16 rounded-[10px] hover:shadow-lg submit">
                         <span class="primary-color-letter "

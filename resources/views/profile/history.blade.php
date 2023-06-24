@@ -2,7 +2,7 @@
 
 @section('profile_contents')
 
-<div class="w-screen px-10 py-5 mx-auto">
+<div class="px-10 py-5 mx-auto">
     <form class="flex items-center w-full justify-start">
         <label for="voice-search" class="sr-only">Search</label>
         <div class="w-full flex flex-wrap justify-center ">
@@ -17,7 +17,7 @@
                 </div>
                 <input type="text" id="voice-search"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Search Mockups, Logos, Design Templates..." required>
+                    placeholder="Search">
             </div>
             <div class="w-full sm:w-auto mb-2 md:mb-2 lg:mb-0">
                 <div date-rangepicker class="flex items-center md:justify-between">
@@ -81,7 +81,7 @@
 
                     </button>
                 </div>
-                <h5 class="mt-3 mb-1 text-3xl font-extrabold tracking-tight text-gray-900 px-4">10</h5>
+                <h5 class="mt-3 mb-1 text-3xl font-extrabold tracking-tight text-gray-900 px-4 text-right">${{ number_format($totalCashDonation,0,'.',',') }}</h5>
             </div>
         </div>
         <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow">
@@ -96,7 +96,7 @@
 
                     </button>
                 </div>
-                <h5 class="mt-3 mb-1 text-3xl font-extrabold tracking-tight text-gray-900 px-4">10</h5>
+                <h5 class="mt-3 mb-1 text-3xl font-extrabold tracking-tight text-gray-900 px-4 text-right">10</h5>
             </div>
         </div>
     </div>
@@ -139,7 +139,7 @@
                     <th scope="col" class="px-6 py-3">
                         Date
                     </th>
-                    <th scope="col" class="px-6 py-3">
+                    <th scope="col" class="px-6 py-3 text-right">
                         Amount
                     </th>
                     <th scope="col" class="px-6 py-3">
@@ -148,69 +148,30 @@
                 </tr>
             </thead>
             <tbody>
+            @foreach($cashDonations as $cashDonation)
+                @if($cashDonation->campaign)
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap hover:underline">
-                        APOPO vzw
+                        {{ $cashDonation->user == null? 'Anonymous': $cashDonation->user->name }}
                     </th>
                     <td class="px-6 py-4 whitespace-normal">
-                        Support APOPO’s Minefield Survey HeroDOGs
+                        {{$cashDonation->campaign->title}}
                     </td>
                     <td class="px-6 py-4">
-                        Wild Life Conservation
+                        {{$cashDonation->campaign->campaignCategory->name}}
                     </td>
                     <td class="px-6 py-4">
-                        2 May 2023
+                        {{ $cashDonation->created_at->format('F d, Y') }}
+                    </td>
+                    <td class="px-6 py-4 text-right">
+                        ${{ number_format($cashDonation->original_amount,0,'.',',') }}
                     </td>
                     <td class="px-6 py-4">
-                        $2999
-                    </td>
-                    <td class="px-6 py-4">
-                        <a href="#" class="font-medium text-mainColor hover:underline">View
-                            Campaign</a>
+                        <a href="{{route('campaigns.show',$cashDonation->campaign_id)}}" class="font-medium text-mainColor hover:underline">View Campaign</a>
                     </td>
                 </tr>
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap hover:underline">
-                        APOPO vzw
-                    </th>
-                    <td class="px-6 py-4 whitespace-normal">
-                        Support APOPO’s Minefield Survey HeroDOGs
-                    </td>
-                    <td class="px-6 py-4">
-                        Wild Life Conservation
-                    </td>
-                    <td class="px-6 py-4">
-                        2 May 2023
-                    </td>
-                    <td class="px-6 py-4">
-                        $2999
-                    </td>
-                    <td class="px-6 py-4">
-                        <a href="#" class="font-medium text-mainColor hover:underline">View
-                            Campaign</a>
-                    </td>
-                </tr>
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap hover:underline">
-                        APOPO vzw
-                    </th>
-                    <td class="px-6 py-4 whitespace-normal">
-                        Support APOPO’s Minefield Survey HeroDOGs
-                    </td>
-                    <td class="px-6 py-4">
-                        Wild Life Conservation
-                    </td>
-                    <td class="px-6 py-4">
-                        2 May 2023
-                    </td>
-                    <td class="px-6 py-4">
-                        $2999
-                    </td>
-                    <td class="px-6 py-4">
-                        <a href="#" class="font-medium text-mainColor hover:underline">View
-                            Campaign</a>
-                    </td>
-                </tr>
+                @endif
+            @endforeach
             </tbody>
         </table>
     </div>

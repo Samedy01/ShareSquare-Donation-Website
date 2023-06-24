@@ -84,7 +84,7 @@
         </button>
     </div>
     </form>
-    <section class="resultDonate my-10">
+    <section class="resultDonate my-10 hidden">
         <div class="container">
             <div class="border shadow rounded py-10 px-5 text-center mx-auto w-3/5">
                 <p class="font-bold text-3xl">You've Made a Different!</p>
