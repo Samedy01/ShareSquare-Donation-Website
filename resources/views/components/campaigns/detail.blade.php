@@ -66,6 +66,25 @@
                         </div>
                     </div>
                 @endforeach
+
+                {{-- love button --}}
+                @if(!empty($isLoveCampaign))
+                <div id="love-button" class="item love-button hover:cursor-pointer"  data-care-lock="{{$isLoveCampaign->is_love}}" data-campaign-id="{{$campaign->id}}" data-token="{{ csrf_token()  }}">
+                    <div class="py-2 px-5 shadow bg-white rounded-xl text-center">
+                        <i class="dark-blue-grey far fa-heart icon_button text-xl"></i>
+                        <div class="h-1"></div>
+                        <p class="title-color text-xl font-medium">Care</p>
+                    </div>
+                </div>
+                @else
+                <div class="item love-button hover:cursor-pointer"  data-care-lock="0" data-campaign-id="{{$campaign->id}}" data-token="{{ csrf_token()  }}">
+                    <div class="py-2 px-5 shadow bg-white rounded-xl text-center">
+                        <i class="dark-blue-grey far fa-heart icon_button text-xl"></i>
+                        <div class="h-1"></div>
+                        <p class="title-color text-xl font-medium">Care</p>
+                    </div>
+                </div>
+                @endif
             </div>
 
             {{-- top donors --}}
@@ -131,4 +150,5 @@
     </div>
     
 </div>
+@vite('resources/js/panha.js')
 @endsection

@@ -1,25 +1,13 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
-    {{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/datepicker.min.js"></script>--}}
-    @vite('resources/css/app.css')
-    @vite('resources/css/panha.css')
-    @vite('resources/js/app.js')
-    @vite('resources/js/datepicker.js')
-    {{--    @vite('resources/flowbite.min.js')--}}
-    <title>Create Campaign cash type</title>
-</head>
-<body>
+@extends('layouts.layout')
+
+@section('title', 'Browse campaign')
+
+@section('contents')
 <section class="container mt-5">
     <h1 class="font-bold text-3xl">Create New Campaign</h1>
 </section>
-<section class="container grid grid-cols-4 gap-16 mt-5">
+<section class="container grid grid-cols-4 gap-16 mt-5 relative">
+    <div class="absolute top-[-10%] right-[5%]"><i data-modal-target="draft-alert-modal" data-modal-toggle="draft-alert-modal" class="far fa-times-circle text-4xl hover:cursor-pointer hover:text-gray-500 text-gray-300"></i></div>
     {{--Left side--}}
     <div class="col-span-1">
         <div class="border px-5 rounded-xl">
@@ -58,12 +46,13 @@
     </div>
     {{--Right side--}}
     <form id="formCreateCampaign" method="POST" action="{{ route('campaigns.store') }}"
-          class=" col-span-3 max-h-[88vh] overflow-auto right-side pr-2 pl-2" enctype="multipart/form-data">
+          class=" col-span-3 max-h-[75vh] overflow-auto right-side pr-2 pl-2" enctype="multipart/form-data">
         @csrf
         <div class="">
 
             {{--1st form: About--}}
             <div class="mb-[100px] form" id="form_step_1" data-status="1">
+
                 <h1 class="text-2xl font-bold">About</h1>
                 <div class="mt-4 " id="campaign_option_form">
                     <p class="font-bold">Are you donating items or raising?</p>
@@ -91,7 +80,7 @@
                                data-target-open="#raising_option_form">
                     </label>
                     <label for="donating"
-                           class="mt-3 flex w-[60%] py-3 px-5 rounded shadow-sm border hover:border-red-500 campaign_type hover:cursor-pointer">
+                           class="hover:cursor-not-allowed disabled:bg-secondaryColor mt-3 flex w-[60%] py-3 px-5 rounded shadow-sm border campaign_type">
                         {{--normal image--}}
                         <img
                             src="{{asset('images/svgs/donating.svg')}}"
@@ -110,7 +99,7 @@
                             <div class="font-bold">Donating</div>
                             <div class="text-gray-500">Online donation with ABA, ACELEDA, etc</div>
                         </div>
-                        <input type="radio" class="hidden" id="donating" name="campaign_type" value="donating"
+                        <input type="radio" class="hidden" id="donating" name="campaign_type_disable" value="donating"
                                data-target-open="#donate_option_form,#delivery_option_form,#item_category_form">
                     </label>
                 </div>
@@ -236,6 +225,7 @@
                        class="nextform inline-block bg-red-500 py-2 px-16 rounded-[10px]">
                         <span class="text-white">Next</span>
                     </a>
+{{--                    <button type="submit" class="p-3 rounded bg-green-300">Submit</button>--}}
                 </div>
             </div>
             {{--2nd form: Campaign options / campaign option --}}
@@ -263,7 +253,7 @@
                     </label>
                 </div>
                 {{--Select the type of raising of donation --}}
-                <div class="mt-4 hidden" id="raising_option_form">
+                <div class="mt-4 " id="raising_option_form">
                     <p class="font-bold">Select the type of donation</p>
                     <label for="cash-input"
                            class="mt-3 flex w-[60%] py-3 px-5 rounded shadow-sm border hover:border-red-500 raising_option hover:cursor-pointer">
@@ -304,23 +294,27 @@
                         />
 
                         <div class="flex flex-col justify-between ml-3">
-                            <div class="font-bold">Both Cash and Item</div>
-                            <div class="text-gray-500">Accept both cash and items</div>
+                            <div class="font-bold">Item</div>
+                            <div class="text-gray-500">Accept item for donation</div>
                         </div>
                         <input type="radio" class="hidden" id="cashOrItem-input" name="raising_option"
                                value="cashOrItem">
                     </label>
                 </div>
                 {{--Choose item category--}}
-                <div class="flex flex-col mt-4 hidden" id="item_category_form">
+                <fieldset id="item_category_form" class="hidden mt-4">
                     <label for="item_category" class="font-bold">Item Category</label>
-                    <select id="item_category" name="item_category_id"
-                            class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent">
-                        <option class="" value="">Please selected item category</option>
-                        <option class="" value="book">book</option>
-                        <option class="" value="Marker">Marker</option>
-                    </select>
-                </div>
+                    <input class="border py-5 px-7 w-[350px] h-[50px] rounded-lg border-black"  autocomplete="off" role="combobox" list="" id="item_category_name" name="item_category_name" placeholder="choose one item category or insert the new one">
+                    <!-- It's important that you keep the list attribute empty to hide the default dropdown icon and the browser's default datalist -->
+
+                    <div class="relative">
+                        <datalist role="listbox" id="itemCategoryList" class="border absolute z-10">
+                            @foreach($itemCategories as $itemCategory)
+                                <option class="hover:bg-gray-200" value="{{ $itemCategory->name }}">{{ $itemCategory->name }}</option>
+                            @endforeach
+                        </datalist>
+                    </div>
+                </fieldset>
                 {{--Choose type of payment--}}
                 <div class="mt-4 hidden" id="payment_option_form">
                     <p class="font-bold">Chose payment method</p>
@@ -412,7 +406,21 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#" class="underline text-gray-400">See the sample</a>
+                        <a href="#" class="underline text-gray-400" data-modal-target="sample-qr-code" data-modal-toggle="sample-qr-code">See the sample</a>
+                        <div id="sample-qr-code" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                            <div class="relative w-full max-w-md max-h-full">
+                                <!-- Modal content -->
+                                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                    <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="sample-qr-code">
+                                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                        <span class="sr-only">Close modal</span>
+                                    </button>
+                                    <div class="px-6 py-6 lg:px-8 flex items-center justify-center">
+                                        <img src="{{asset('img/sample_qr_code.png')}}" class="w-2/3 h-auto">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 {{--In form 2st , show this div if the campaign is both donation/raising--}}
@@ -422,7 +430,7 @@
                     {{--Delivery options--}}
                     <label for="drop-off"
                            class="shadow relative items-center mb-1 mt-2 hover:cursor-pointer border inline-block h-[200px] w-40 hover:border-red-500 rounded-[10px] deliveryOption">
-                        <input type="checkbox" class="hidden" id="drop-off" name="deliveryOption" value="drop-off"
+                        <input type="checkbox" class="hidden" id="drop-off" name="deliveryOption1" value="drop-off"
                                data-target-open="#pickup_note_form,#pickup_location_form">
                         <span
                             class="tick-border absolute w-8 h-8 border-2 border-gray-200 rounded bg-white flex items-center justify-center transition-colors duration-200 right-2 top-2">
@@ -445,7 +453,7 @@
                     </label>
                     <label for="delivery"
                            class="ml-3 shadow relative items-center mb-1 mt-2 hover:cursor-pointer border inline-block h-[200px] w-40 hover:border-red-500 rounded-[10px] deliveryOption">
-                        <input type="checkbox" class="hidden" id="delivery" name="deliveryOption" value="delivery"
+                        <input type="checkbox" class="hidden" id="delivery" name="deliveryOption2" value="delivery"
                                data-target-open="#delivery_note_form">
                         <span
                             class="tick-border absolute w-8 h-8 border-2 border-gray-200 rounded bg-white flex items-center justify-center transition-colors duration-200 right-2 top-2">
@@ -468,9 +476,9 @@
                     </label>
                 </div>
                 {{--TODO pickup location--}}
-                <div class="mt-4 hidden" id="pickup_location_form">
+                <div class="mt-4 hidden" id="pickup_location_form"><!--don't forget to add hidden back-->
                     <p class="font-bold">Pick up location</p>
-                    <div class="w-2/3 py-3 px-5 bg-gray-100 rounded relative mt-3">
+                    <div class="w-2/3 py-3 px-5 bg-gray-100 rounded relative mt-3 locationWrapper hidden">
                         <h2 class="text-2xl font-bold">CADT - Innovation Center</h2>
                         <p class="text-xs text-gray-400">2nd Bridge Prek Leap, National Road Number 6, Phnom Penh,
                             12252</p>
@@ -485,7 +493,11 @@
                             </div>
                         </div>
                     </div>
-                    <a href="#" class="primary-color-letter mt-3 block" data-modal-target="authentication-modal"
+                    <!--additional location -->
+                    <div class="" id="additionalLocationWrapper">
+
+                    </div>
+                    <a href="#" class="primary-color-letter mt-3 inline-block" data-modal-target="authentication-modal"
                        data-modal-toggle="authentication-modal">
                         <i class="fa fa-plus-circle"></i>
                         <span>Add Location</span>
@@ -495,8 +507,9 @@
                 <div class="mt-4 hidden" id="pickup_note_form">
                     <div class="flex flex-col">
                         <p class="font-bold">Add Pick-Up Note</p>
-                        <label for="campaign_title" class="">
-                                <textarea id="campaign_purpose"
+                        <label for="drop_off_note" class="">
+                                <textarea id="drop_off_note"
+                                          name="drop_off_note"
                                           class="w-full border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent"
                                           placeholder="Add pick-up note"></textarea>
                         </label>
@@ -505,8 +518,9 @@
                 <div class="mt-4 hidden" id="delivery_note_form">
                     <div class="flex flex-col ">
                         <p class="font-bold">Add Delivery Note</p>
-                        <label for="campaign_title" class="">
-                                <textarea id="campaign_purpose"
+                        <label for="delivery_note" class="">
+                                <textarea id="delivery_note"
+                                          name="delivery_note"
                                           class="w-full border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent"
                                           placeholder="Add delivery note"></textarea>
                         </label>
@@ -531,7 +545,8 @@
                 <div class="mt-4">
                     <p class="font-bold">Donation goal amount</p>
                     <label for="goal_amount" class="">
-                        <input name="raising_or_donating_goal_amount" placeholder="Enter your donation goal amount" type="number" id="goal_amount"
+                        <input name="raising_or_donating_goal_amount" placeholder="Enter your donation goal amount"
+                               type="number" id="goal_amount"
                                class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent w-full">
                     </label>
                 </div>
@@ -654,17 +669,25 @@
                        class="inline-block bg-white border-red-500 border py-2 px-16 rounded-[10px] hover:shadow previousform">
                         <span class="primary-color-letter" data-target="form_step_3">Previous</span>
                     </a>
-{{--                    <a href="#result_from_create_campaign"--}}
-{{--                       class="inline-block bg-red-500 py-2 px-16 rounded-[10px] hover:shadow-lg nextform submit">--}}
-{{--                        <span class="text-white" data-target="#result_from_create_campaign">Submit</span>--}}
-{{--                    </a>--}}
-{{--                    <button type="submit" class=" rounded p-3 bg-red-500 py-2 px-16 rounded-[10px] hover:shadow-lg nextform submit text-white" data-target="#result_from_create_campaign">Submit</button>--}}
-                    <button id="buttonFormSubmit" type="submit" class="rounded p-3 bg-red-500 py-2 px-16 rounded-[10px] hover:shadow-lg submit text-white" data-target="#result_from_create_campaign">
+                    {{--                    <a href="#result_from_create_campaign"--}}
+                    {{--                       class="inline-block bg-red-500 py-2 px-16 rounded-[10px] hover:shadow-lg nextform submit">--}}
+                    {{--                        <span class="text-white" data-target="#result_from_create_campaign">Submit</span>--}}
+                    {{--                    </a>--}}
+{{--                    <button type="submit" class=" rounded p-3 bg-green-500 py-2 px-16 rounded-[10px] hover:shadow-lg text-white">Submit</button>--}}
+                    <button id="buttonFormSubmit" type="submit"
+                            class="rounded p-3 bg-red-500 py-2 px-16 rounded-[10px] hover:shadow-lg submit text-white"
+                            data-target="#result_from_create_campaign">
                         <span class="letterSubmmit" id="letterSubmmit">Submit</span>
                         <div role="status" class="loading hidden" id="submitLoading">
-                            <svg aria-hidden="true" class="inline w-6 h-6 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
-                                <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+                            <svg aria-hidden="true"
+                                 class="inline w-6 h-6 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                                 viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                                    fill="currentColor"/>
+                                <path
+                                    d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                                    fill="currentFill"/>
                             </svg>
                         </div>
                     </button>
@@ -792,7 +815,7 @@
             </button>
             <div class="px-6 py-6 lg:px-8">
                 <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Adding New drop-off location</h3>
-                <form class="space-y-6" action="#">
+                <form class="space-y-6" action="#" id="formAddNewLocation">
                     <div>
                         <label for="location_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">location
                             Name</label>
@@ -809,10 +832,18 @@
                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                required>
                     </div>
-                    <div class="flex justify-between">
-
+                    <div class="justify-between">
+                        <label for="location_geocodes"
+                               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Location
+                        </label>
+                        <div class="relative w-full border h-[300px]">
+                            <div id="map" class="absolute top-0 w-full left-0 bottom-0"></div>
+                        </div>
+                        <input class="hidden" type="text" name="latitude_input" id="latitude_input">
+                        <input class="hidden" type="text" name="longitude_input" id="longitude_input">
                     </div>
-                    <button type="submit"
+
+                    <button type="submit" data-modal-hide="authentication-modal"
                             class="w-full text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Add new Location
                     </button>
@@ -821,7 +852,103 @@
         </div>
     </div>
 </div>
+<div id="draft-alert-modal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative w-full max-w-md max-h-full">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="draft-alert-modal">
+                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                <span class="sr-only">Close modal</span>
+            </button>
+            <div class="p-6 text-center">
+                <svg aria-hidden="true" class="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Do you want to save this to draft?</h3>
+                <button data-modal-hide="draft-alert-modal" type="button" class="text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                    Save as draft
+                </button>
+                <button data-modal-hide="draft-alert-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoicGFuaGFna3AiLCJhIjoiY2xpaXozbXBoMDM2YTNnczVhaXFxdjhhOCJ9.4IzvuunZe8a3RNR4Qs9HlQ';
+    const map = new mapboxgl.Map({
+        container: 'map',
+// Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+        style: 'mapbox://styles/mapbox/streets-v12',
+        center: [-79.4512, 43.6568],
+        zoom: 8
+    });
 
+    /* Given a query in the form "lng, lat" or "lat, lng"
+    * returns the matching geographic coordinate(s)
+    * as search results in carmen geojson format,
+    * https://github.com/mapbox/carmen/blob/master/carmen-geojson.md */
+    const coordinatesGeocoder = function (query) {
+// Match anything which looks like
+// decimal degrees coordinate pair.
+        const matches = query.match(
+            /^[ ]*(?:Lat: )?(-?\d+\.?\d*)[, ]+(?:Lng: )?(-?\d+\.?\d*)[ ]*$/i
+        );
+        if (!matches) {
+            return null;
+        }
+
+        function coordinateFeature(lng, lat) {
+            return {
+                center: [lng, lat],
+                geometry: {
+                    type: 'Point',
+                    coordinates: [lng, lat]
+                },
+                place_name: 'Lat: ' + lat + ' Lng: ' + lng,
+                place_type: ['coordinate'],
+                properties: {},
+                type: 'Feature'
+            };
+        }
+
+        const coord1 = Number(matches[1]);
+        const coord2 = Number(matches[2]);
+        const geocodes = [];
+
+        if (coord1 < -90 || coord1 > 90) {
+// must be lng, lat
+            geocodes.push(coordinateFeature(coord1, coord2));
+        }
+
+        if (coord2 < -90 || coord2 > 90) {
+// must be lat, lng
+            geocodes.push(coordinateFeature(coord2, coord1));
+        }
+
+        if (geocodes.length === 0) {
+// else could be either lng, lat or lat, lng
+            geocodes.push(coordinateFeature(coord1, coord2));
+            geocodes.push(coordinateFeature(coord2, coord1));
+        }
+        console.log(geocodes[0].center[0]) // [0] = longitude , [1] = latitude
+        console.log(geocodes[0].center[1]) // [0] = longitude , [1] = latitude
+
+        document.getElementById("latitude_input").value = geocodes[0].center[1];
+        document.getElementById("longitude_input").value = geocodes[0].center[0];
+
+        return geocodes;
+    };
+
+    // Add the control to the map.
+    map.addControl(
+        new MapboxGeocoder({
+            accessToken: mapboxgl.accessToken,
+            localGeocoder: coordinatesGeocoder,
+            zoom: 15,
+            placeholder: 'Try: -40, 170',
+            mapboxgl: mapboxgl,
+            reverseGeocode: true
+        })
+    );
+</script>
 @vite('resources/js/panha.js')
-</body>
-</html>
+@endsection

@@ -17,3 +17,6 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+/public/img/qrcode_payments/
+/public/img/user_idcard_images/
+/public/img/campaign_images/

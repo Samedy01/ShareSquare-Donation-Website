@@ -2,7 +2,7 @@
 
 @section('contents')
 
-<div class="w-screen px-10 py-5 mx-auto">
+<div class="px-10 py-5 mx-auto">
 
     <div class="px-2 py-4 mx-auto m-4">
         {{-- Edit Profile Title --}}
@@ -36,7 +36,9 @@
                 </button>
             </form>
         </div>
-
+        {{-- Main Setting --}}
+        <form method="post" action="{{route('profile.update')}}" enctype="multipart/form-data">
+            @csrf
         {{-- Profile Image --}}
         <div class="container flex flex-col lg:flex-row py-3 border-b border-gray-200">
             <div class="flex-auto w-full md:w-1/3 lg:w-1/3">
@@ -47,8 +49,8 @@
             <div class="flex-none w-full md:w-2/3 lg:w-2/3">
                 <!-- Content of the second div -->
                 <div class="flex flex-col md:flex-row">
-                    <div class="w-32 h-32 rounded-full overflow-hidden">
-                        <img src="{{ asset('storage/user-profile.png')}}" alt="Profile Image"
+                    <div class="w-32 h-32 rounded-full overflow-hidden border">
+                        <img src="{{ asset($user->image_profile_path)}}" alt="Profile Image" id="previewProfileUpload"
                             class="object-cover w-full h-full">
                     </div>
                     <!-- Spacing -->
@@ -59,7 +61,8 @@
                         <div class="lg:text-left font-medium text-lg">Upload new avatar</div>
                         <div class="flex space-x-4 items-center">
                             <div class="inline-block">
-                                <button type="button"
+                                <input type="file" id="profile-image" name="profile_image" class="hidden">
+                                <button type="button" id="uploadProfile"
                                     class="text-primaryTextColor border bg-lightGrayColor hover:bg-gray-200 hover:text-primaryTextColor focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
                                     Choose file
                                     <svg aria-hidden="true" class="w-5 h-5 ml-2 -mr-1 mr-2" fill="currentColor"
@@ -69,14 +72,13 @@
                                     </svg>
                                 </button>
                             </div>
-                            <p>No file chosen</p>
+                            <p class="hidden">No file chosen</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        {{-- Main Setting --}}
 
         <div class="container flex flex-col lg:flex-row py-3 border-b border-gray-200">
             <div class="flex-auto w-full md:w-1/3 lg:w-1/3">
@@ -92,84 +94,87 @@
                         <div>
                             <label for="username" class="block mb-2 text-sm font-medium text-gray-900">Your
                                 Username</label>
-                            <input type="text" id="username" aria-label="disabled input"
+                            <input type="text" id="username" aria-label="disabled input" name="user_name"
                                 class="mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 cursor-not-allowed"
-                                value="@johndoe" disabled>
+                                value="{{'@'.str_replace(' ','_',$user->name)}}" readonly>
                         </div>
                         <div>
                             <label for="user_id" class="block mb-2 text-sm font-medium text-gray-900">User ID</label>
-                            <input type="text" id="user_id" aria-label="disabled input"
+                            <input type="text" id="user_id" aria-label="disabled input" name="user_id"
                                 class="mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 cursor-not-allowed"
-                                value="12499154" disabled>
+                                value="{{$user->id}}" readonly>
                         </div>
+                        @php
+                        $parts = explode(' ',$user->name)
+                        @endphp
                         <div>
                             <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">First
                                 name</label>
-                            <input type="text" id="first_name"
+                            <input type="text" id="first_name" name="first_name" value="{{$parts[0]}}"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5"
                                 placeholder="John" required>
                         </div>
                         <div>
                             <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900">Last
                                 name</label>
-                            <input type="text" id="last_name"
+                            <input type="text" id="last_name" name="last_name" value="{{$parts[1]}}"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5"
                                 placeholder="Doe" required>
                         </div>
                         <div>
                             <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
-                            <input type="email" id="email"
+                            <input type="email" id="email" name="email" value="{{$user->email}}"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5"
                                 placeholder="john.doe@company.com" required>
                         </div>
                         <div>
                             <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Phone
                                 number</label>
-                            <input type="tel" id="phone"
+                            <input type="tel" id="phone" name="phone" value="{{$user->phone}}"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5"
-                                placeholder="123-45-678" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required>
+                                placeholder="123-45-678" required>
                         </div>
                         <div>
                             <label for="telegram-input"
                                 class="block mb-2 text-sm font-medium text-gray-900 ">Telegram</label>
-                            <input type="text" id="telegram-input"
+                            <input type="text" id="telegram-input" value="{{$user->telegram}}"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5"
-                                name="telegram" placeholder="@john_doe" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}">
+                                name="telegram" placeholder="@john_doe" >
                         </div>
                         <div>
                             <label for="organization"
                                 class="block mb-2 text-sm font-medium text-gray-900 ">Organization</label>
-                            <input type="text" id="organization"
+                            <input type="text" id="organization" name="organization" value="{{$user->organization}}"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5"
                                 placeholder="ShareSquare">
                         </div>
                         <div>
                             <label for="website" class="block mb-2 text-sm font-medium text-gray-900 ">Website
                                 URL</label>
-                            <input type="url" id="website"
+                            <input type="text" id="website" name="website" value="{{ $user->website }}"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5"
                                 placeholder="sharesquare.com">
                         </div>
                         <div>
                             <label for="job" class="block mb-2 text-sm font-medium text-gray-900 ">Job
                                 Title</label>
-                            <input type="text" id="job"
+                            <input type="text" id="job" name="job" value="{{$user->job_title}}"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5"
                                 placeholder="Philanthropist">
                         </div>
                         <div>
                             <label for="location-input"
                                 class="block mb-2 text-sm font-medium text-gray-900">Location</label>
-                            <input type="text" id="location-input"
+                            <input type="text" id="location-input" name="location" value="{{ $user->location }}"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5"
                                 placeholder="Phnom Penh, Cambodia">
                         </div>
                     </div>
                     <div class="mb-6">
                         <label for="bio-input" class="block mb-2 text-sm font-medium text-gray-900">Bio</label>
-                        <textarea id="bio-input"
+                        <textarea id="bio-input" name="bio"
                             class="block w-full min-h-[10rem] p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-red-500 focus:border-red-500 resize-none"
-                            placeholder="Tell us about yourself in fewer than 250 characters"></textarea>
+                            placeholder="Tell us about yourself in fewer than 250 characters">{{$user->bio}}</textarea>
                     </div>
 
                 </form>
@@ -177,26 +182,27 @@
                     <h5 class="text-bold text-base my-2">Private Profile</h5>
                     <div class="flex items-start mb-6">
                         <div class="flex items-center h-5">
-                            <input id="remember" type="checkbox" value=""
+                            <input name="is_enable_profile_anonymous" id="remember" type="checkbox" {{ $user->is_enable_profile_anonymous == 1 ? 'checked':'' }}
                                 class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-red-300 checked:bg-mainColor"
-                                required>
+                                >
                         </div>
                         <label for="remember" class="ml-2 text-sm font-medium text-gray-900">Don't
                             display activity-related personal information on your profile.</label>
                     </div>
                 </div>
                 <div class="inline-flex">
-                    <a href="{{ route('profile.overview') }}" type="submit"
+                    <button  type="submit"
                         class="{{ request()->is('profile/overview')}} py-2.5 px-5 mr-2 mb-2 text-white bg-mainColor hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto text-center">Update
-                        Setting Profile</a>
-                    <a href="{{ route('profile.overview') }}"
+                        Setting Profile</button>
+                    <a href=""
                         class="{{ request()->is('profile/overview')}}py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-mainColor focus:z-10 focus:ring-4 focus:ring-gray-200">Cancel</a>
 
                 </div>
 
             </div>
         </div>
+        </form>
     </div>
-
 </div>
+@vite('resources/js/editprofile.js')
 @endsection

@@ -1,4 +1,4 @@
-
+// import 'select2';
 $(document).ready(function () {
 
     /*Browse campaign*/
@@ -18,12 +18,12 @@ $(document).ready(function () {
             $(this).find('.under-dropdown').removeClass('hidden')
             /*other dropdown*/
             $('.under-dropdown').not($thisUnderDropDown).addClass('hidden')
-            $('#modalBackground').removeClass('hidden')
+            // $('#modalBackground').removeClass('hidden')
             /*change color other dropdown if they open*/
             hiddenDropDown($otherDropDown)
         } else {
             hiddenDropDown($(this))
-            $('#modalBackground').addClass('hidden')
+            // $('#modalBackground').addClass('hidden')
 
         }
     })
@@ -132,13 +132,17 @@ $(document).ready(function () {
             checkedLabelElement.find('img.icon_active').removeClass('hidden')
 
             /* show additional form when selecting*/
-            choosePaymentMethodOption('show')
-            accountNumberForm('show')
-            addQrCodePayForm('show')
+
             if (checkedValue === 'cashOrItem') {
                 itemCategorySelectedForm('show')
                 deliveryOptionForm('show')
+                choosePaymentMethodOption('hide')
+                accountNumberForm('hide')
+                addQrCodePayForm('hide')
             } else if (checkedValue === 'cash') {
+                choosePaymentMethodOption('show')
+                accountNumberForm('show')
+                addQrCodePayForm('show')
                 itemCategorySelectedForm('hide')
                 deliveryOptionForm('hide')
             }
@@ -202,10 +206,10 @@ $(document).ready(function () {
             checkedLabelElement.find('span.tick-border').removeClass('border-gray-200').addClass('border-red-500')
         }
     })
-    $('input[name="deliveryOption"]').on('change', function () {
+    $('input[name^="deliveryOption"]').on('change', function () {
         /*get the elements that are not checked*/
-        let $unCheckedInput = $('input[name="deliveryOption"]:not(:checked)')
-        let $checkedInput = $('input[name="deliveryOption"]:checked')
+        let $unCheckedInput = $('input[name^="deliveryOption"]:not(:checked)')
+        let $checkedInput = $('input[name^="deliveryOption"]:checked')
         let unCheckedLabelEle = $unCheckedInput.closest('label.deliveryOption')
         unCheckedLabelEle.find('span.tick-border').addClass('border-gray-200 bg-white').removeClass('border-red-500 bg-red-50')
         unCheckedLabelEle.removeClass('border-red-500 bg-red-50')
@@ -421,7 +425,7 @@ $(document).ready(function () {
         delete FILES[ou];
     });
 
-    let subtitleCounter = 1; // Counter variable for unique IDs
+    let subtitleCounter = 0; // Counter variable for unique IDs
 
     $("#addNewSubtitle").click(function() {
         // Clone the template element
@@ -432,20 +436,19 @@ $(document).ready(function () {
                     <input type="text" id="campaign_title-${subtitleCounter}"
                            class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent"
                            placeholder="Your campaign title"
-                           name="campaign_title-${subtitleCounter}"
-                           >
+                           name="campaign_additional_title[]">
                 </div>
                 <div class="flex flex-col mt-4 oneSubTitle newSubtitleTemplate">
                     <label for="campaign_description-${subtitleCounter}" class="font-bold">Description</label>
                     <textarea id="campaign_description-${subtitleCounter}"
-                              name="campaign_description-${subtitleCounter}"
+                              name="campaign_additional_subtitle_description[]"
                               class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent"
                               placeholder="What is the purpose of your campaign"></textarea>
                     <a href="#" class="primary-color-letter mt-3 addPhotoToAdditionalTitle" data-input-target="#hidden-input-images-for-description-${subtitleCounter}">
                         <i class="fa fa-plus-circle"></i>
                         <span>Add Photos</span>
                     </a>
-                    <input name="multiple_image_for_title-${subtitleCounter}[]" id="hidden-input-images-for-description-${subtitleCounter}" type="file" multiple class="hidden inputForMultipleImage">
+                    <input name="multiple_image_for_additional_subtitle-${subtitleCounter}[]" id="hidden-input-images-for-description-${subtitleCounter}" type="file" multiple class="hidden inputForMultipleImage">
                     <ul class="flex flex-1 flex-wrap -m-1 imageInputWrapper">
 
                     </ul>
@@ -487,7 +490,7 @@ $(document).ready(function () {
     });
 
 
-    let countNewContact = 1;
+    let countNewContact = 0;
     /*Add additional contact*/
     $('#addNewContactInfo').on('click',function() {
         // Clone the template element
@@ -496,12 +499,12 @@ $(document).ready(function () {
                 <div class="mt-4">
                     <p class="font-bold">New contact ${countNewContact} (optional)</p>
                     <label for="campaign-contact-title-${countNewContact}" class="">
-                        <input name="campaign_contact_title-${countNewContact}" placeholder="Contact title (Ex: Instagram)" type="text"
+                        <input name="campaign_additional_contact_title[]" placeholder="Contact title (Ex: Instagram)" type="text"
                                id="campaign-contact-title-${countNewContact}"
                                class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent w-full">
                     </label>
                     <label for="campaign-contact-detail-${countNewContact}" class="">
-                        <input name="campaign_contact_detail-${countNewContact}" placeholder="Enter contact link" type="text"
+                        <input name="campaign_additional_contact_detail[]" placeholder="Enter contact link" type="text"
                                id="campaign-contact-detail-${countNewContact}"
                                class="border py-5 px-7 rounded-[10px] mt-3 focus:outline-none focus:ring-1 focus:ring-red-200 focus:border-transparent w-full">
                     </label>
@@ -510,6 +513,50 @@ $(document).ready(function () {
         // console.log(templateContact)
         $("#additionalContactWrapper").append(templateContact);
         countNewContact++;
+    })
+
+    $('#formAddNewLocation').on('submit', function (e){
+        e.preventDefault();
+        let $locationInputName = $('#location_name');
+        let $locationDescriptionInput = $('#location_description');
+        let $latitude = $('#latitude_input');
+        let $longitude = $('#longitude_input');
+        let locationName = $locationInputName.val();
+        let locationDescription = $locationDescriptionInput.val();
+        let latitude = $latitude.val();
+        let longitude = $longitude.val();
+        let templateLocation = `
+               <div class="w-2/3 py-3 px-5 bg-gray-100 rounded relative mt-3 locationWrapper">
+                        <h2 class="text-2xl font-bold">${locationName}</h2>
+                        <input type="text" name="location_name[]" class="hidden" value="${locationName}">
+                        <p class="text-xs text-gray-400">${locationDescription}</p>
+                        <input type="text" name="location_description[]" class="hidden" value="${locationDescription}">
+                        <input type="text" name="latitude[]" class="hidden" value="${latitude}">
+                        <input type="text" name="longitude[]" class="hidden" value="${longitude}">
+                        <div class="absolute flex flex-col top-0 h-full right-3 justify-center">
+                            <div class=" flex ">
+                                <a href="#"
+                                   class="flex w-5 h-5 justify-center items-center p-3 bg-white mr-2 shadow rounded"><i
+                                        class="fa fa-edit block"></i></a>
+                                <a href="#"
+                                   class="flex w-5 h-5 justify-center items-center p-3 bg-white shadow rounded"><i
+                                        class="fa fa-trash block"></i></a>
+                            </div>
+                        </div>
+               </div>
+        `;
+        $('#additionalLocationWrapper').append(templateLocation)
+        //reset input
+        $locationInputName.val('')
+        $locationDescriptionInput.val('')
+        $longitude.val('')
+        $latitude.val('')
+    })
+
+    $(document).on('click','.fa-trash',function (){
+        // find the wrapper parent
+        let $parent = $(this).closest('.locationWrapper')
+        $parent.remove();
     })
 
 
@@ -600,8 +647,8 @@ $(document).ready(function () {
     // submit the form as Ajax request
     $('form#formCreateCampaign').submit(function (e){
         e.preventDefault()
-        $('#letterSubmmit').addClass('hidden')
-        $('#submitLoading').removeClass('hidden')
+        /*$('#letterSubmmit').addClass('hidden')
+        $('#submitLoading').removeClass('hidden')*/
         let formData = new FormData(this);
         // console.log(formData)
         formData.append('_token', $('input[name="_token"]').val());
@@ -623,4 +670,341 @@ $(document).ready(function () {
             }
         })
     })
+
+    /*filter wrapper*/
+    $('#clearFilter').on('click',function (){
+        console.log('filter clear')
+        $('#filterWrapper input[type="checkbox"]').prop('checked',false)
+    })
+
+
+/*submit payment with stripe*/
+    $('form#paymentForm').submit(function (e){
+        e.preventDefault()
+        /*$('#letterSubmmit').addClass('hidden')
+        $('#submitLoading').removeClass('hidden')*/
+        let formData = new FormData(this);
+        // console.log(formData)
+        formData.append('_token', $('input[name="_token"]').val());
+        let xhr = $.ajax({
+            url: "stripe/paymentRequest",
+            type: 'post',
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+        })
+
+        xhr.done(function (response){
+            console.log(response)
+            if(response.success){
+
+            }
+        })
+    })
+
+    /*Search campaign or user*/
+    $('#searchCampaignOrUser').on('input',function (){
+        let input = $(this).val()
+        // console.log(input.trim().length === 0);
+        $('#resultWrapper').empty();
+
+        $('#searchResultWrapper').removeClass('hidden')
+        $('#loadingDot').removeClass('hidden')
+        $('#noResultSearch').addClass('hidden')
+
+        if(input.trim().length === 0){
+            $('#searchResultWrapper').addClass('hidden')
+            return;
+        }
+        let xhr = $.ajax({
+            url: "/search?keyword="+input,
+            method: 'get',
+        })
+
+        xhr.done(function (response){
+            $('#loadingDot').addClass('hidden')
+            // console.log(response)
+            // console.log(response.result === null)
+            if(response.result === null){
+                $('#noResultSearch').removeClass('hidden')
+                return;
+            }
+            let elements = '';
+            $.each(response.result, function (index,object){
+                let element = '';
+                if(object.type === 'campaign'){
+                    element = `
+                        <a href="/campaigns/show/${object.id}">
+                            <div class="flex border-b items-center py-2 hover:bg-gray-300 px-3 campaign_result">
+                                <img src="${object.image_path}" class="h-5 w-5 border object-cover rounded mr-2">
+                                <p class="line-clamp-1 text-xs md:text-base">${object.title}</p>
+                            </div>
+                        </a>
+                    `;
+                }else{
+                    element = `
+                            <a href="/user-profile">
+                                <div class="flex border-b items-center py-2 hover:bg-gray-300 px-3" id="userResult">
+                                    <img src="${object.image_path}" class="h-5 w-auto border object-cover rounded-[50%] mr-2">
+                                    <p class="md:text-base text-xs">${object.name}</p>
+                                </div>
+                            </a>
+                    `;
+                }
+                elements += element;
+            })
+            $('#resultWrapper').append(elements);
+        })
+
+    })
+    let $loveButton = $('#love-button')
+    let isCare = $loveButton.data('care-lock')
+    isApplyCareActive($loveButton, isCare);
+    /*implement love  or care button button*/
+    // isApplyCareActive($('.love-button'), isCare)
+    $('.love-button').on('click',function (){
+        let $this = $(this);
+        let isCare = $this.data('care-lock');
+        console.log('love click')
+        let csrfToken = $this.data('token')
+
+        let campaignId = $this.data('campaign-id')
+        //request to backend
+        // console.log(csrfToken)
+        console.log(isCare)
+        let xhr = $.ajax({
+            url: "/user/care_campaign",
+            type: 'POST',
+            // dataType: 'json',
+            data: {
+                "_token": csrfToken,
+                "campaign_id": campaignId,
+                "is_care": !isCare
+            },
+            // cache: false,
+            // contentType: false,
+            // processData: false,
+        })
+
+        xhr.done(function (response){
+            console.log(response)
+            //Todo handle if not success
+        })
+
+        if(!isCare){
+            isApplyCareActive($this, 1)
+            /*$this.find('.icon_button').removeClass('far dark-blue-grey').addClass('fa text-mainColor')
+            $this.data('care-lock', 1)*/
+            return;
+        }
+        /*$this.find('.icon_button').removeClass('fa text-mainColor').addClass('far dark-blue-grey')
+        $this.data('care-lock', 0)*/
+        isApplyCareActive($this, 0)
+    })
+    function isApplyCareActive(element, isCare){
+        if(isCare){
+            element.find('.icon_button').removeClass('far dark-blue-grey').addClass('fa text-mainColor')
+            element.data('care-lock', 1)
+            return;
+        }
+        element.find('.icon_button').removeClass('fa text-mainColor').addClass('far dark-blue-grey')
+        element.data('care-lock', 0)
+
+    }
+    $('.share-button').on('click',function (){
+        console.log('share click')
+    })
+    $('.follow-button').on('click',function (){
+        console.log('follow click')
+    })
+
+    /*for datalist*/
+    const $input = $('#item_category_name');
+    const $browsers = $('#itemCategoryList');
+    let currentFocus = -1;
+
+    $input.on('focus', function (e) {
+        $browsers.css('display', 'block');
+        console.log('focus')
+        // $input.css('borderRadius', '5px 5px 0 0');
+    });
+    $input.on('click',function (e){
+        e.stopPropagation();
+        console.log('input click')
+    })
+
+    $browsers.on('click', 'option', function (e) {
+        e.stopPropagation();
+        $input.val($(this).val());
+        $browsers.css('display', 'none');
+        $input.css('borderRadius', '5px');
+    });
+
+    $input.on('input', function (e) {
+        e.stopPropagation();
+        currentFocus = -1;
+        const text = $input.val().toUpperCase();
+        $browsers.find('option').each(function () {
+            if ($(this).val().toUpperCase().indexOf(text) > -1) {
+                $(this).css('display', 'block');
+                // $(this).removeClass('hidden')
+            } else {
+                $(this).css('display','none');
+            }
+        });
+    });
+    /*$input.on('blur',function (){
+        $browsers.css('display','none')
+    })*/
+    $('#form_step_2').on('click',function (){
+        $browsers.css('display','none')
+        console.log('hi')
+    })
+
+
+    $input.on('keydown', function (e) {
+        if (e.keyCode === 40) {
+            currentFocus++;
+            addActive($browsers.find('option'));
+        } else if (e.keyCode === 38) {
+            currentFocus--;
+            addActive($browsers.find('option'));
+        } else if (e.keyCode === 13) {
+            e.preventDefault();
+            if (currentFocus > -1) {
+                $browsers.find('option').eq(currentFocus).click();
+            }
+        }
+    });
+
+    function addActive($x) {
+        if (!$x) return false;
+        removeActive($x);
+        if (currentFocus >= $x.length) currentFocus = 0;
+        if (currentFocus < 0) currentFocus = $x.length - 1;
+        $x.eq(currentFocus).addClass('active');
+    }
+
+    function removeActive($x) {
+        $x.removeClass('active');
+    }
+
+    $('.donateNow').on('click',function (){
+        let route = $(this).data('route');
+        window.location.href = route;
+    })
+
+    $('.amount_suggest').on('click', function (){
+        let $thisEle = $(this);
+        let amountSuggest = $thisEle.data('amount-suggest')
+        let $otherEle = $('.option_donate_amount').find('.amount_suggest').not(this);
+        $thisEle.removeClass('border-transparent').addClass('bg-secondaryColor border-mainColor')
+        $otherEle.removeClass('bg-secondaryColor border-mainColor').addClass('border-transparent')
+
+        $('#donate_amount').val(amountSuggest)
+        calculateTotalAmount()
+    })
+    $('.payment-option').on('click', function (){
+        let $thisEle = $(this);
+        let amountSuggest = $thisEle.data('amount-suggest')
+        let $otherEle = $('.payment-option-wrapper').find('.payment-option').not(this);
+        $thisEle.removeClass('border-transparent').addClass('bg-secondaryColor border-mainColor')
+        $otherEle.removeClass('bg-secondaryColor border-mainColor').addClass('border-transparent')
+    })
+
+    function calculateTotalAmount(){
+        let inputAmount = $('#donate_amount').val();
+        // console.log('Hello')
+        $('#total_amount_donate').text(formatCurrency(inputAmount))
+    }
+    $('#donate_amount').bind('keyup',function (){
+        // console.log('hi')
+        calculateTotalAmount()
+        let $suggestPay = $('.amount_suggest');
+        // console.log($suggestPay)
+        $suggestPay.removeClass('bg-secondaryColor border-mainColor').addClass('border-transparent')
+    })
+
+    $('input[name="payment-option"]').on('change',function (){
+        let paymentOptionVal = $(this).val();
+        console.log(paymentOptionVal);
+        if(paymentOptionVal === "stripe"){
+            $('#card_stripe').removeClass('hidden')
+        }
+    })
+
+    /*Stripe*/
+    let stripe = Stripe("pk_test_51NDo0uKvkwimcBFs3unPRJufPaReSTR5QccXu7BcJgXgsRnJ29xgCLaE8huQEpsQ2fEqCgBV6owvz6Dcs0aMV2Rz00h0mcPiyZ")
+    const elements = stripe.elements()
+    const cardElement = elements.create('card', {
+        style: {
+            base: {
+                fontSize: '16px'
+            }
+        }
+    })
+    const cardForm = document.getElementById('payment-form')
+    const cardName = document.getElementById('card-strip-name')
+    cardElement.mount('#card_stripe')
+    cardForm.addEventListener('submit', async (e) => {
+        e.preventDefault()
+        $('#donateLoading').removeClass('hidden');
+        let paymentOptionValue = $('input[name="payment-option"]').val();
+        if(paymentOptionValue === "stripe"){
+            const { paymentMethod, error } = await stripe.createPaymentMethod({
+                type: 'card',
+                card: cardElement,
+                billing_details: {
+                    name: cardName.value
+                }
+            })
+            if (error) {
+                console.log(error)
+            } else {
+                let input = document.createElement('input')
+                input.setAttribute('type', 'hidden')
+                input.setAttribute('name', 'payment_method')
+                input.setAttribute('value', paymentMethod.id)
+                cardForm.appendChild(input)
+                console.log(paymentMethod.id)
+                // cardForm.submit()
+            }
+            let $formEle = $('#payment-form');
+            let form = $formEle[0];
+            let formData = new FormData(form);
+            console.log(formData)
+            formData.append('_token', $('input[name="_token"]').val());
+            let xhr = $.ajax({
+                url: "/campaigns/donate_now_with_cash",
+                type: 'post',
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+            })
+
+            xhr.done(function (response){
+                console.log(response)
+                if(response.success){
+                    $('#donateLoading').addClass('hidden');
+                    $formEle.addClass('hidden');
+                    $('.resultDonate').removeClass('hidden');
+                    $('#resultDonateAmount').text(formatCurrency(response.data.donate_amount));
+                }
+            })
+
+
+        }
+    })
+
+
 })
+function formatCurrency(number) {
+    const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD'
+    });
+    return formatter.format(number);
+}
+

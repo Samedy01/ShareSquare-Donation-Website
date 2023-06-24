@@ -18,7 +18,7 @@
                 March 14, 2023
             </div>
             <div class="flex mt-4 space-x-3 md:mt-6 justify-center md:justify-start lg:justify-start">
-                <a href="{{ route('editprofile') }}"
+                <a href="{{ route('profile.edit') }}"
                     class="{{ request()->is('profile/editprofile')}} inline-flex items-center text-center px-4 py-2 text-sm text-white bg-mainColor hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg sm:w-auto text-center">Edit
                     Profile</a>
                 <a href="{{ route('profile.overview') }}"

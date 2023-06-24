@@ -7,6 +7,13 @@ use App\Http\Controllers\CampaignCategoryController;
 use App\Http\Controllers\CampaignController;
 // Vortey
 use App\Http\Controllers\MyProfileController;
+use App\Http\Controllers\StripePaymentController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SearchController;
+
+//panha
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,13 +32,12 @@ use App\Http\Controllers\MyProfileController;
 
 
 // Pech
-Route::get('/', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/', [HomeController::class,'index'])->name('dashboard');
+Route::get('/dashboard', [HomeController::class,'index'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
@@ -60,8 +66,8 @@ Route::get('/test_tailwind', function () {
 });
 
 
-Route::get('/testUpload', function () {
-    return view('tests.testuploadfile');
+Route::get('/tests', function () {
+    return view('test');
 });
 Route::get('/testGoogleMap', function () {
     return view('tests.testGoogleMap');
@@ -70,6 +76,9 @@ Route::get('/testGoogleMap', function () {
 Route::resource('item_categories', ItemCategoryController::class);
 Route::resource('campaign_categories', CampaignCategoryController::class);
 Route::resource('campaigns', CampaignController::class);
+Route::resource('admins',AdminController::class);
+
+Route::post('/admins/campaignDelete',[AdminController::class,'campaignDelete']);
 
 //Route::post('')
 
@@ -94,11 +103,11 @@ Route::get('/campaigns/{user_id}')->name('campaigns.user.index'); // all campain
 
 Route::get('/campaigns/{user_id}/show/{campaign_id}', [CampaignController::class, 'show_user'])->name('campaigns.user.show'); // show the details of a campaign (campaign profile)
 
-//Route::get('/campaigns/{user_id}/create')->name('campaigns.create'); // the campaign form
+Route::get('/campaigns/create',[CampaignController::class,'create'])->middleware(['auth', 'verified'])->name('campaigns.create'); // the campaign form
 
 //Route::post('/campaigns/{user_id}')->name('campaigns.store'); // post a campaign
 
-Route::delete('/campaigns/{user_id}/{campaign_id}')->name('campaigns.destroy'); // delete a campaign
+Route::delete('/campaigns/destroy/{campaign_id}'); // delete a campaign
 
 Route::get('/campaigns/{user_id}/edit/{campaign_id}')->name('campaigns.edit'); // the campaign update form
 
@@ -160,13 +169,27 @@ Route::get('/item_donation', function () {
 });
 
 
+/*panha*/
+Route::get('/manage-campaign-list',[CampaignController::class,'manage']);
+Route::get('stripe',[StripePaymentController::class,'paymentStripe'])->name('donate_cash.paymentstripe');
+Route::get('stripe/paymentRequest',[StripePaymentController::class,'paymentRequest'])->name('paystripe');
+Route::get('/search',[SearchController::class,'searchUsersAndCampaigns'])->name('search');
+
+Route::get('/test_map_box',function (){
+    return view('tests.testMapBox');
+});
+
+Route::get('/campaigns/cash_donation/{campaign_id}',[CampaignController::class,'donateCash'])->name('campaigns.donate_cash');
+Route::post('/campaigns/donate_now_with_cash',[CampaignController::class,'donateNowWithCash'])->name('campaign.donate_now_cash');
+Route::post('/user/care_campaign',[CampaignController::class,'userCareCampaign'])->name('campaign.user_care_campaign');
 
 
 
-
-
-
-
+Route::get('/admin/campaigns',[AdminController::class,'campaigns'])->name('admin.campaigns');
+Route::get('admin/view_campaign/{campaign_id}',[AdminController::class,'viewCampaign'])->name('admin.view_campaign');
+Route::post('/admin/approve_campaign',[AdminController::class,'approveCampaign']);
+Route::post('/admin/reject_campaign',[AdminController::class,'rejectCampaign']);
+Route::get('/users/profile/{user_id}',[UserController::class,'viewOtherProfile'])->name('users.view_other_user');
 
 
 

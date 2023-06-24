@@ -11,11 +11,12 @@ export default defineConfig({
                 'resources/js/panha.js',
                 'resources/js/jquery-3.6.1.min.js',
                 'node_modules/flowbite/dist/flowbite.min.js',
+                'node_modules/select2/dist/css/select2.min.css',
                 'resources/js/datepicker.js',
             ],
             refresh: true,
         }),
     ],
 
-
+    // @import "select2/dist/css/select2.min.css";
 });

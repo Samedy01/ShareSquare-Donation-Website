@@ -125,7 +125,6 @@
             </div>
         </div>
     </div>
-
 </nav>
 
 {{-- <x-general.top-nav></x-general.top-nav> --}}

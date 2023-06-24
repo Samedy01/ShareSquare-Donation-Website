@@ -8,15 +8,17 @@
             <h1 class="text-2xl font-bold mr-2 text-primaryTextColor">Campaign </h1>
             <span class="bg-secondaryColor text-mainColor text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">10</span>
         </div>
-        <button type="button"
-            class="text-white bg-mainColor hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-2.5 py-2.5 md:px-2.5 lg:px-5 text-center inline-flex items-center mr-2 relative">
-            <span class="hidden sm:inline-block mr-2">Create New Campaign</span>
-            <svg aria-hidden="true" class="w-5 h-5  ml-0 md:ml-0 lg:ml-2" fill="currentColor"
-                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                <path
-                    d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
-            </svg>
-        </button>
+        <a href="{{ route('campaigns.create') }}">
+            <button type="button"
+                    class="text-white bg-mainColor hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-2.5 py-2.5 md:px-2.5 lg:px-5 text-center inline-flex items-center mr-2 relative">
+                <span class="hidden sm:inline-block mr-2">Create New Campaign</span>
+                <svg aria-hidden="true" class="w-5 h-5  ml-0 md:ml-0 lg:ml-2" fill="currentColor"
+                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                    <path
+                        d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+                </svg>
+            </button>
+        </a>
 
 
     </div>
