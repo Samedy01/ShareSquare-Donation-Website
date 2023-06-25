@@ -109,3 +109,47 @@
 .background-image {
     width: 30px;
 }
+.my-title1 {
+    position: absolute;
+    width: 812px;
+    height: 931px;
+    left: 105px;
+    top: 125px;
+    font-family: 'Nunito Sans';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 64px;
+    line-height: 100%;
+    color: #E8EBF0;
+}
+.my-title2 {
+    position: absolute;
+    width: 812px;
+    height: 931px;
+    left: 105px;
+    top: 125px;
+    font-family: 'Nunito Sans';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 64px;
+    line-height: 330%;
+    color: #E8EBF0;
+}
+.my-title3 {
+    position: absolute;
+    width: 812px;
+    height: 931px;
+    left: 105px;
+    top: 125px;
+    font-family: 'Nunito Sans';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 64px;
+    line-height: 550%;
+    color: #ffffff;
+}
+/* Hover styles for button */
+button:hover {
+    /*background-color: #c53030;*/
+    border-color: #c53030;
+}
