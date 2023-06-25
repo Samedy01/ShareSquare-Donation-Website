@@ -77,7 +77,7 @@ Route::resource('campaigns', CampaignController::class);
 
 
 
-// 
+//
 // campaigns
 Route::get('/campaigns')->name('campaigns.index'); // all campaigns
 
