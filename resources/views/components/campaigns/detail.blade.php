@@ -125,6 +125,7 @@
 
         <div class="inline-block clearfix">
             @php
+            // Tabs and corresponding routes
                 $tabs = ['Overview', 'Report', 'Comments', 'Donators'];
                 $routes = ['campaigns.show', 'campaigns.show.report', 'campaigns.show.comments', 'campaigns.show.donators'];
             @endphp

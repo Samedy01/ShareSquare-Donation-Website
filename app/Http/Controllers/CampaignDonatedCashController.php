@@ -12,28 +12,26 @@ class CampaignDonatedCashController extends Controller
     //
     public function index($campaign_id) {
         error_log('campaign_id: '.$campaign_id);
-        $campCashs = CampaignDonatedCash::where('campaign_id', $campaign_id)->get();
-        $donors = [];
 
+        $campCashs = CampaignDonatedCash::where('campaign_id', $campaign_id)->get();
         $campCashs_donors = [];
 
         error_log('n_campCash: '.count($campCashs));
 
         foreach ($campCashs as $item) {
             error_log('donor_id: '. $item->user_id);
-            $donor = User::findOrFail($item->user_id);
-            
-            array_push($campCashs_donors, ['campCash' => $item, 'donor' => $donor]);
 
-            array_push($donors, $donor);
+            if ($item->user_id != null) {
+                // registered
+                $donor = User::findOrFail($item->user_id);
+                array_push($campCashs_donors, ['campCash' => $item, 'donor' => $donor]);
+            }  else {
+                // anonymous
+                array_push($campCashs_donors, ['campCash' => $item, 'donor' => null]);
+            }
         }
 
         $campaign = Campaign::findOrFail($campaign_id);
-
-        error_log('donors: '.count($donors));
-        if (count($donors) > 0) {
-            error_log('donor1: '.$donors[0]);
-        }
 
 
         $user = User::findOrFail($campaign->user_id); // user of the campaign
@@ -41,11 +39,8 @@ class CampaignDonatedCashController extends Controller
         return view('campaigns.donators', [
             'campaign' => $campaign,
             'user' => $user,
-            'donors' => $donors,
             'campaignDonatedCashs' => $campCashs,
             'campCashDonors' => $campCashs_donors,
-
-
         ]);
     }
 }

@@ -1,5 +1,3 @@
-
-
 <x-campaigns.detail :campaign="$campaign" :user="$user" :currenttabindex='3'>
 
     <div class=" my-10 text-primaryTextColor font-bold text-4xl">Donor List</div>
