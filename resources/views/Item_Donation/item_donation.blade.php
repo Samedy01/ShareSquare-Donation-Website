@@ -120,7 +120,7 @@
         <form action="{{ route('compaigns.perform_donate_item') }}" method="POST"  >
             @csrf
             <input type="number" class="hidden" name="user_id" value="1">
-            <input type="number" class="hidden" name="campaign_id" value="1">
+            <input type="number" class="hidden" name="campaign_id" value="{{ $campaign->id }}">
             <div class=" border shadow-md sm:px-8 pt-4 mt-8 px-4  rounded">
                 <h2 class="font-bold">Item For Drop Off</h2>
                 <h6 class="pt-4 pb-2 flex">Please provide the name and the quantity of item</h6>

@@ -1,7 +1,7 @@
 // import 'select2';
 $(document).ready(function () {
 
-
+   // $('#payment_fail').removeClass('hidden').addClass('justify-center items-center flex');
     $('#comment_tab').on('click',function (){
         let route = $(this).data('route');
         console.log(route)
@@ -998,6 +998,9 @@ $(document).ready(function () {
                     $formEle.addClass('hidden');
                     $('.resultDonate').removeClass('hidden');
                     $('#resultDonateAmount').text(formatCurrency(response.data.donate_amount));
+                }else{
+                    $('#donateLoading').addClass('hidden');
+                    $('#payment_fail').removeClass('hidden').addClass('justify-center items-center flex');
                 }
             })
         }

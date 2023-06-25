@@ -38,7 +38,8 @@ class CampaignDonatedItemController extends Controller
         $campaign = Campaign::findOrFail($request['campaign_id']);
         $collectedQuantity = $campaign->raising_item_quantity_collected;
         $campaign->raising_item_quantity_collected = $collectedQuantity + $request['quantity_items'];
-        $campaign->save();
+        $isSave = $campaign->save();
+        //dd($campaign->id);
         /*create new item if there is no item category is match*/
         $itemCategory = ItemCategory::where('name','=',$request['item_name'])->firstOrFail();
         //dd($itemCategory);
