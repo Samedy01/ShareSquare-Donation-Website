@@ -160,11 +160,16 @@ Route::get('/item_donation', function () {
     return view('Item_Donation.item_donation');
 });
 //saovty
-Route::get('/', function(){
+Route::get('/campaigns/donate_item/{campaign_id}',[CampaignDonatedItemController::class,'donateItem'])->name('campaigns.donate_item');
+
+/*Route::get('/', function(){
     return view('comment');
-});
+});*/
+
+
 Route::get('/item_donation',[CampaignDonatedItemController::class, 'itemDonation']);
-Route::post('/done_donated_items',[CampaignDonatedItemController::class,'performDonatedItem'])->name('compaigns.perform_donate_item');
+Route::post('/campaign/perform_donate',[CampaignDonatedItemController::class,'performDonatedItem'])->name('compaigns.perform_donate_item');
+//Route::post('/done_donated_items',[CampaignDonatedItemController::class,'performDonatedItem'])->name('compaigns.perform_donate_item');
 
 require __DIR__.'/auth.php';
 

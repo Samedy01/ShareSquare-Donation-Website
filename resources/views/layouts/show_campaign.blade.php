@@ -50,12 +50,22 @@
                     </div>
                 </div>
 
+
+                <!--if raise cash - route to cash-->
+                @if($campaign->is_cash)
                 {{-- donate button --}}
                 <div class="py-6">
                     <button data-route="{{route('campaigns.donate_cash',['campaign_id'=>$campaign->id])}}" class="w-full block primary-bg-color text-center py-6 rounded-xl donateNow">
                         <span class="text-white font-bold text-2xl">Donate Now</span>
                     </button>
                 </div>
+                @else
+                    <div class="py-6">
+                        <button data-route="{{route('campaigns.donate_item',['campaign_id'=>$campaign->id])}}" class="w-full block primary-bg-color text-center py-6 rounded-xl donateNow">
+                            <span class="text-white font-bold text-2xl">Donate Now</span>
+                        </button>
+                    </div>
+                @endif
 
                 {{-- options --}}
                 <div class="py-6 flex justify-between">
