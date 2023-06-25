@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('purpose')->nullable();
             $table->text('goal')->nullable();
             $table->integer('campaign_category_id')->nullable();
-            $table->text('image_thumbnail_path')->nullable();
+            $table->string('image_thumbnail_path')->default('default_campaign_photo.png');
 
             $table->boolean('is_raising')->nullable();
 

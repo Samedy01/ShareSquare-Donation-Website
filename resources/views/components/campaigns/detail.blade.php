@@ -11,27 +11,32 @@
         </div>
     </div>
 
-    <div class="tmp bg-green-200 rounded-md clearfix">
-        <div class="float-left w-3/5 bg-yellow-300">
-            <img src="/images/campaigns/{{$campaign->image_thumbnail_path}}" class="rounded-xl" alt="">
-            <div class="p-8">
-                Under Image Content
+    <div class="rounded-md clearfix">
+        <div class="float-left w-3/5 bg-yellow-300 relative" style="height: 600px">
+            <img src="/img/upload/campaign/{{$campaign->image_thumbnail_path}}" class="rounded-xl w-full h-3/4" alt="">
+
+            <div class="py-3 flex justify-between">
+                @for ($i = 0; $i < 3; $i++)
+                    <img class="w-1/4 flex rounded-lg" src="/img/upload/campaign/{{$campaign->image_thumbnail_path}}" style="height: 100px"></img>        
+                @endfor
+
             </div>
         </div>
-
-
 
         <div class="float-left w-2/5 bg-white pl-12">
             <div class="border bg-white rounded-xl shadow px-3 py-5">
                 {{-- info text --}}
                 <p>
-                    <span class="primary-text-color text-4xl font-medium">$4456 </span>
-                    <span class="title-color text-2xl font-medium">raised of $20,000 goal</span>
+                    <span class="primary-text-color text-4xl font-medium">${{$campaign->raising_cash_amount_collected / 100}} </span>
+                    <span class="title-color text-2xl font-medium">raised of ${{$campaign->raising_cash_amount_goal / 100}} goal</span>
                 </p>
                 {{-- progress slide bar --}}
                 <div class="clearfix py-5">
-                    <div class="h-3 primary-bg-color w-1/4 float-left rounded-l-md"></div>
-                    <div class="h-3 bg-gray-300 w-3/4 float-left rounded-r-md"></div>
+                    <div class="h-3 float-left rounded-l-full rounded-r-full bg-gray-300" style="width: 100%">
+                        <div class="h-3 primary-bg-color float-left rounded-l-full rounded-r-full" style="width: {{$campaign->raising_cash_amount_collected * 100 / $campaign->raising_cash_amount_goal}}%"></div>
+
+                        {{-- <div class="h-3 primary-bg-color float-left rounded-l-full rounded-r-full" style="width: {{5000 * 100 / $campaign->raising_cash_amount_goal}}%"></div> --}}
+                    </div>
                 </div>
                 {{-- info text --}}
                 <div>
@@ -43,18 +48,18 @@
 
             {{-- donate button --}}
             <div class="py-6">
-                <button class="w-full block primary-bg-color text-center py-6 rounded-xl">
+                <button onclick="window.location='{{route('campaigns.donate_cash',['campaign_id'=>$campaign->id])}}'" class="w-full block primary-bg-color text-center py-6 rounded-xl">
                     <span class="text-white font-bold text-2xl">Donate Now</span>
                 </button>
             </div>
 
             {{-- options --}}
-            <div class="py-6 flex justify-between">
+            <div class="pb-6 flex justify-between">
                 @php
                     $options = [
                         ['text' => 'Share', 'icon' => 'fa fa-share'],
-                        ['text' => 'Care', 'icon' => 'fa fa-heart'],
-                        ['text' => 'Follow', 'icon' => 'fa fa-user-plus'],
+                        // ['text' => 'Care', 'icon' => 'fa fa-heart'],
+                        // ['text' => 'Follow', 'icon' => 'fa fa-user-plus'],
                     ];
                 @endphp
                 @foreach ($options as $option)
@@ -136,7 +141,7 @@
                 @php $current_route = $routes[$loop->index]; @endphp
 
                 <a class="item {{$focus}} inline-block float-left py-3 px-8 border-r text-xl font-medium" href="{{route("$current_route", 
-                ['campaign' => $campaign, 'campaign_id' => 1])}}">
+                ['campaign' => $campaign, 'campaign_id' => $campaign->id])}}">
                 {{$tab}}
                 </a>
             @endforeach

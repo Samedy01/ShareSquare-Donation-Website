@@ -13,7 +13,9 @@ use App\Http\Controllers\SearchController;
 
 //panha
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CampaignDonatedCashController;
 use App\Http\Controllers\UserController;
+use App\Models\CampaignDonatedCash;
 
 /*
 |--------------------------------------------------------------------------
@@ -96,7 +98,7 @@ Route::get('/campaigns/show/{campaign_id}/report', [CampaignController::class, '
 
 Route::get('/campaigns/show/{campaign_id}/comments', [CampaignController::class, 'comments'])->name('campaigns.show.comments');
 
-Route::get('/campaigns/show/{campaign_id}/donators', [CampaignController::class, 'donators'])->name('campaigns.show.donators');
+Route::get('/campaigns/show/{campaign_id}/donators', [CampaignDonatedCashController::class, 'index'])->name('campaigns.show.donators');
 
 
 Route::get('/campaigns/{user_id}')->name('campaigns.user.index'); // all campaings of a user

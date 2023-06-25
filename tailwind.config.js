@@ -25,6 +25,13 @@ export default {
             sans: ['Figtree', ...defaultTheme.fontFamily.sans],
         },
       },
+      width: {
+        'donator-card': '550px',
+        'donator-img': '150px',
+      },
+      height: {
+        'donator-img': '150px',
+      }
     },
     container: {
         center: true,

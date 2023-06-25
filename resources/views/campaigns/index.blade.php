@@ -400,7 +400,7 @@
                             <div class="md:w-2/5 w-full border flex justify-center">
                                 <img
                                     class="border object-cover block h-[170px] md:w-auto w-full flex-none bg-cover lg:h-full md:h-full rounded-t-lg md:rounded-none md:rounded-l-lg rounded-tl-[7px] rounded-bl-[7px]"
-                                    src="{{asset($campaign->image_thumbnail_path)}}">
+                                    src="{{asset('img/upload/campaign/'.$campaign->image_thumbnail_path)}}">
                             </div>
                             <div
                                 class="flex flex-col p-4 leading-normal justify-center lg:justify-between my-2 md:my-2 lg:my-5 md:w-3/5 w-full">

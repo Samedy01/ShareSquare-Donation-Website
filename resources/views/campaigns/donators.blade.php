@@ -1,5 +1,16 @@
+
+
 <x-campaigns.detail :campaign="$campaign" :user="$user" :currenttabindex='3'>
-    <div class="">
-        This is donators
-    </div>
+
+    <div class=" my-10 text-primaryTextColor font-bold text-4xl">Donor List</div>
+
+    @if (count($campCashDonors) == 0)
+        <div class=" text-promptTextColor text-3xl text-center">There is no donors yet!</div>
+    @else
+        <div class="flex justify-between flex-wrap">
+            @foreach ($campCashDonors as $item)
+                    <x-campaigns.donator :campcashdonor="$item"></x-campaigns.donator>
+            @endforeach
+        </div>
+    @endif
 </x-campaigns.detail>

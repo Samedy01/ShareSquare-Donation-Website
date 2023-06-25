@@ -46,11 +46,13 @@ class CampaignController extends Controller
         $selectedCampaignTypes = $request->input('campaign_type', []);
         $otherFilterTypes = $request->input('other_filter', []);
         $searchKey = $request->input('searchCampaignOrUser');
+
 //        dd($searchKey);
         if(!empty($searchKey)){
             $selectedCategories = [];
             $selectedCampaignTypes = [];
             $otherFilterTypes = [];
+
 //            dd($campaignCategories);
             $campaigns = Campaign::with('campaignCategory')
                 ->where('is_raising', '=', 1)
@@ -58,9 +60,11 @@ class CampaignController extends Controller
                 ->whereNotNull('campaign_category_id')
                 ->orderBy('created_at', 'desc')
                 ->paginate(10);
+
             return view('campaigns.index',
                 compact('campaigns', 'campaignCategories','searchKey','selectedCategories','selectedCampaignTypes','otherFilterTypes'));
         }
+        
 //        dd($otherFilterTypes);
         if (!empty($selectedCategories)) {
 //            dd('hi');
@@ -243,7 +247,7 @@ class CampaignController extends Controller
         return view('campaigns.donators', [
             'campaign' => $campaign,
             'user' => $user,
-            'isLoveCampaign' => $isLoveCampaign,
+            // 'isLoveCampaign' => $isLoveCampaign,
         ]);
     }
 

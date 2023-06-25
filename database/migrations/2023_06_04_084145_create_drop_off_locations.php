@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('drop_off_locations');
+        Schema::dropIfExists('campaign_drop_off_locations');
     }
 };
