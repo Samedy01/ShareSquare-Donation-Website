@@ -33,14 +33,14 @@
             <section class="text-gray-600 body-font">
                 <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
                     <div class="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
-                        <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">Unleash Your Generosity,
-                            <br class="hidden lg:inline-block">Transform Lives: Join
-                            <br class="hidden lg:inline-block">ShareSquare Today!
+                        <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">{{ __("content.Unleash Your Generosity,") }}
+                            <br class="hidden lg:inline-block">{{ __("content.Transform Lives: Join") }}
+                            <br class="hidden lg:inline-block">{{ __("content.ShareSquare Today!") }}
                         </h1>
-                        <p class="mb-8 leading-relaxed">Smaller Text Goes Here</p>
+                        <p class="mb-8 leading-relaxed">{{__("Smaller Text Goes Here") }}</p>
                         <div class="flex justify-center">
-                            <button class="inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg">Donate Now</button>
-                            <button class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">Create Campaign</button>
+                            <button class="inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg">{{ __("content.Donate Now") }}</button>
+                            <button class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">{{ __("content.Create Campaign") }}</button>
                         </div>
                     </div>
 
@@ -58,11 +58,11 @@
                 {{--        <div class="lg:w-4/5 mx-auto flex flex-wrap">--}}
                 {{--            <div class="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">--}}
                 <div class="lg:w-1/2 w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
-                    <h1 class="text-sm title-font text-gray-500 tracking-widest"> ------------WHAT WE DO</h1>
-                    <h1 class="text-gray-900 text-4xl title-font font-bold mb-6">Empowering Positive Change:</h1>
-                    <h1 class="text-gray-900 text-4xl title-font font-bold mb-6">Discover The Mission of</h1>
-                    <h1 class="text-gray-900 text-4xl title-font font-bold mb-6">ShareSquare</h1>
-                    <p class="leading-relaxed mb-4">ShareSquare is a purpose-driven platform dedicated to empowering individuals and organizations to create and support impactful fundraising campaigns. Our mission is to provide a user-friendly space where generosity meets social causes, fostering a community that drives positive change. Join us as we strive to make a meaningful difference in education, health, disaster relief, and more through collective action and shared values.</p>
+                    <h1 class="text-sm title-font text-gray-500 tracking-widest"> ------------{{__("content.WHAT WE DO") }}</h1>
+                    <h1 class="text-gray-900 text-4xl title-font font-bold mb-6">{{ __("content.Empowering Positive Change:") }}</h1>
+                    <h1 class="text-gray-900 text-4xl title-font font-bold mb-6">{{ __("content.Discover The Mission of") }}</h1>
+                    <h1 class="text-gray-900 text-4xl title-font font-bold mb-6">{{ __("content.ShareSquare") }}</h1>
+                    <p class="leading-relaxed mb-4">{{ __("content.WE DO") }}</p>
                 </div>
                 <img alt="ecommerce" class="lg:w-1/3 w-full lg:h-auto h-64 object-cover object-center rounded" src="{{ asset('images/charity-unsplash.jpg') }}">
             </div>
@@ -80,7 +80,7 @@
                             <h1 class="title-font text-lg font-medium text-gray-900 mb-3">The Catalyzer</h1>
                             <p class="leading-relaxed mb-3">Photo booth fam kinfolk cold-pressed sriracha leggings jianbing microdosing tousled waistcoat.</p>
                             <div class="flex items-center flex-wrap ">
-                                <a class="text-red-500 inline-flex items-center md:mb-2 lg:mb-0">Donate Now
+                                <a class="text-red-500 inline-flex items-center md:mb-2 lg:mb-0">{{ __("content.Donate Now") }}
                                     <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M5 12h14"></path>
                                         <path d="M12 5l7 7-7 7"></path>
@@ -109,7 +109,7 @@
                             <h1 class="title-font text-lg font-medium text-gray-900 mb-3">The 400 Blows</h1>
                             <p class="leading-relaxed mb-3">Photo booth fam kinfolk cold-pressed sriracha leggings jianbing microdosing tousled waistcoat.</p>
                             <div class="flex items-center flex-wrap">
-                                <a class="text-red-500 inline-flex items-center md:mb-2 lg:mb-0">Donate Now
+                                <a class="text-red-500 inline-flex items-center md:mb-2 lg:mb-0">{{ __("content.Donate Now") }}
                                     <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M5 12h14"></path>
                                         <path d="M12 5l7 7-7 7"></path>
@@ -138,7 +138,7 @@
                             <h1 class="title-font text-lg font-medium text-gray-900 mb-3">Shooting Stars</h1>
                             <p class="leading-relaxed mb-3">Photo booth fam kinfolk cold-pressed sriracha leggings jianbing microdosing tousled waistcoat.</p>
                             <div class="flex items-center flex-wrap ">
-                                <a class="text-red-500 inline-flex items-center md:mb-2 lg:mb-0">Donate Now
+                                <a class="text-red-500 inline-flex items-center md:mb-2 lg:mb-0">{{ __("content.Donate Now") }}
                                     <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M5 12h14"></path>
                                         <path d="M12 5l7 7-7 7"></path>
@@ -344,8 +344,8 @@
                 <p class="mb-8 leading-relaxed">Kickstarter biodiesel roof party wayfarers cold-pressed. Palo santo live-edge tumeric scenester copper mug flexitarian. Prism vice offal plaid everyday carry. Gluten-free chia VHS squid listicle artisan.</p>
 
                 <div class="flex justify-center">
-                    <button class="inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg">Donate Now</button>
-                    <button class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">Create Campaign</button>
+                    <button class="inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg">{{ __("content.Donate Now") }}</button>
+                    <button class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">{{ __("content.Create Campaign") }}</button>
                 </div>
 
                 <div class="flex w-full justify-center items-end">
@@ -353,7 +353,7 @@
                         <label for="hero-field" class="leading-7 text-sm text-gray-600">Write your question below</label>
                         <input type="text" id="hero-field" name="hero-field" class="w-full bg-gray-100 bg-opacity-50 rounded focus:ring-2 focus:ring-red-200 focus:bg-transparent border border-gray-300 focus:border-red-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                     </div>
-                    <button class="inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg">Submit</button>
+                    <button class="inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg">{{ __("content.Submit") }}</button>
                 </div>
                 <p class="text-sm mt-2 text-gray-500 mb-8 w-full">Feel free to ask us any question regarding to our campaign!</p>
                 {{--            <div class="flex">--}}
