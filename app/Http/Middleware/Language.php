@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\App;
 
 class Language
 {
+    
     /**
      * Handle an incoming request.
      *
