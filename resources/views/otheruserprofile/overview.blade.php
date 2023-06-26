@@ -3,7 +3,7 @@
 @section('otherprofile_contents')
 
 <div class="w-screen px-10 py-5 mx-auto">
-    <div>User id = {{$user->id}}</div>
+    <div class="hidden">User id = {{$user->id}}</div>
     {{-- Overview Card --}}
     <div class="px-4 py-4 mx-auto m-4">
         <h1 class="text-2xl font-bold">Overview </h1>
@@ -621,8 +621,6 @@
             </div>
         </div>
     </div>
-
-
 </div>
 
 @endsection
