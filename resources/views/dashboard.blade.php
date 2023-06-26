@@ -67,8 +67,9 @@
         </div>
     </section>
 
+
     {{--About Us--}}
-    <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 bg-gray-100">
+    <div class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 bg-gray-100">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-10 py-20">
             <div class="flex flex-col justify-start items-start space-y-10">
                 <div class="text-cyan-900 text-2xl font-bold uppercase tracking-widest">_______ What we do</div>
@@ -80,7 +81,6 @@
             </div>
         </div>
     </div>
-
 {{-- Card View 1 --}}
 
     <section class="text-gray-800 body-font">
@@ -323,14 +323,14 @@
         <div class="flex flex-col items-center">
             <div class="flex flex-col justify-center items-center text-center max-w-7xl my-8 py-10 px-10 rounded-lg border-4 border-white overflow-hidden backdrop-blur-lg">
                 <h1 class="text-base text-white font-medium tracking-wider">Welcome to ShareSquare</h1>
-                <span class="underline underline-offset-2 text-white-700-mt-3">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;</span>
+                <span class="underline underline-offset-2 text-white-700-mt-3 mb-10">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;</span>
                 <div class="flex flex-col text-gray-700 mt-5">
-                    <h1 class="text-4xl text-white md:text-[50px] font-semibold">Be the Catalyst for Change:</h1>
-                    <h1 class="text-4xl md:text-[50px] text-white font-semibold">Donate Now and Make an Impact!</h1>
-                    <p class="text-xl text-white mt-2 md:mt-4 tracking-wide">Designer - Developer - Freelancer</p>
+                    <h1 class="text-4xl text-white md:text-[50px] font-semibold mb-10">Be the Catalyst for Change:</h1>
+                    <h1 class="text-4xl md:text-[50px] text-white font-semibold mb-10">Donate Now and Make an Impact!</h1>
+                    <p class="text-xl text-white mt-2 md:mt-4 tracking-wide mb-5">Donate - Support - Make a Difference</p>
                 </div>
                 <p class="mt-4 text-sm md:w-[52%] tracking-wide leading-7"></p>
-                <div class="flex justify-center">
+                <div class="flex justify-center mb-10">
                     <button class="inline-flex text-white bg-red-600 border-0 py-2 px-6 focus:outline-none hover:bg-red-800 rounded text-lg">Donate Now</button>
                     <button class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">Create Campaign</button>
                 </div>
