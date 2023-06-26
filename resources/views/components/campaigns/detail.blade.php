@@ -6,7 +6,7 @@
         <div class="h-8"></div>
         <div class="donation-subtitle text-3xl">
             <p class="donation-less-focus-text">
-                Created by <span class="donation-more-focus-text">{{$user->name}}</span> • {{$campaign->created_at}}
+                Created by <a href="{{route('user_overview')}}"><span class="donation-more-focus-text">{{$user->name}}</span></a> • {{$campaign->created_at}}
             </p>
         </div>
     </div>
