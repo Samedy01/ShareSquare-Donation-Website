@@ -35,7 +35,7 @@ use App\Models\CampaignDonatedCash;
 
 // Pech
 Route::get('/', [HomeController::class,'index'])->name('dashboard');
-Route::get('/dashboard', [HomeController::class,'index'])->name('dashboard');
+// Route::get('/dashboard', [HomeController::class,'index'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
