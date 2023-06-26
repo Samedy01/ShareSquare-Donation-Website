@@ -191,14 +191,14 @@ class AdminController extends Controller
         $campaign = Campaign::with('campaignCategory', 'additionalContact', 'itemCategory', 'dropOffLocation')
             ->where('id', '=', $campaignId)
             ->firstOrFail();
-        //dd($campaign);
+        // dd($campaign);
         $campaignSubtitles = CampaignSubtitle::with('campaignImage')->where('campaign_id', '=', $campaignId)->get();
-//        dd($campaignSubtitles);
+    //    dd($campaignSubtitles);
         $user = User::where('id', '=', $campaign->user_id)->firstOrFail();
         $idCardImagePath = Image::where('id', '=', $user->id_card_image_id)
             ->orderBy('created_at', 'desc')
             ->firstOrFail();
-        //dd($idCardImagePath);
+        // dd($idCardImagePath);
         return view('admin.view_campaign', compact('campaign', 'campaignSubtitles', 'idCardImagePath', 'user'));
     }
 
