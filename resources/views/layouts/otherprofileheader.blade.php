@@ -4,36 +4,31 @@
 <div class="bg-white ">
     <div class="flex flex-col md:flex-row px-6 py-4 justify-center items-center">
         <div class="w-32 h-32 rounded-full overflow-hidden">
-            <img src="/img/upload/profile/{{ Auth::user()->image_profile_path}}" alt="Profile Image"
+            <img src="{{ asset('img/profile/user-profile.png')}}" alt="Profile Image"
                 class="object-cover w-full h-full">
         </div>
         <!-- Spacing -->
         <div class="md:ml-5"></div>
         <div class="ml-5 mt-4 md:mt-0 md:ml-5 space-y-3 ">
-
-            {{-- Edited by Samedy --}}
-            <div class="text-center lg:text-left font-bold text-xl">{{Auth::user()->name}}</div>
-            <div class="text-center lg:text-left text-base text-promptTextColor">{{Auth::user()->email}} -
+            <div class="text-center lg:text-left font-bold text-xl">Other User Name</div>
+            <div class="text-center lg:text-left text-base text-promptTextColor">Email -
                 Member since
                 March 14, 2023
             </div>
             <div class="flex mt-4 space-x-3 md:mt-6 justify-center md:justify-start lg:justify-start">
-                <a href="{{ route('profile.edit') }}"
-                    class="{{ request()->is('profile/editprofile')}} inline-flex items-center text-center px-4 py-2 text-sm text-white bg-mainColor hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg sm:w-auto text-center">Edit
-                    Profile</a>
-                <a href="{{ route('profile.overview') }}"
-                    class="{{ request()->is('profile/overview')}}inline-flex items-center text-center px-4 py-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-mainColor focus:z-10 focus:ring-4 focus:ring-gray-200">Share
-                    Profile</a>
-                {{-- <button type="button"
-                    class="text-mainColor border border-mainColor hover:bg-mainColor hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center">
-                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                            clip-rule="evenodd"></path>
+                <button id="followButton" type="button"
+                    class="text-mainColor border bg-white hover:bg-mainColor hover:text-white focus:ring-4 focus:outline-none focus:ring-secondaryColor font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-2 -mr-1 mr-2" fill="currentColor"
+                        viewBox="0 0 640 512">
+                        <path
+                            d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
                     </svg>
-                    <span class="sr-only">Icon description</span>
-                </button> --}}
+                    <span id="buttonText">Follow</span>
+                </button>
+
+                <a href="{{ route('user_overview') }}"
+                    class="{{ request()->is('otherprofile/overview')}}inline-flex items-center text-center px-4 py-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-mainColor focus:z-10 focus:ring-4 focus:ring-gray-200">Share
+                    Profile</a>
             </div>
         </div>
     </div>
@@ -43,11 +38,11 @@
     <div class="border-b border-gray-100">
         <ul
             class="flex flex-wrap -mb-px text-sm font-medium text-center text-promptTextColor justify-center items-center">
-            <a href="{{ route('profile.overview') }}"
-                class="inline-flex p-4 border-b-2 rounded-t-lg  {{ request()->is('profile/overview') ? 'text-mainColor border-mainColor' : 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group' }}"
-                aria-current="{{ Request::is('profile/overview') ? 'page' : '' }}">
+            <a href="{{ route('user_overview') }}"
+                class="inline-flex p-4 border-b-2 rounded-t-lg  {{ request()->is('otherprofile/overview') ? 'text-mainColor border-mainColor' : 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group' }}"
+                aria-current="{{ Request::is('otherprofile/overview') ? 'page' : '' }}">
                 <svg aria-hidden="true"
-                    class="w-5 h-5 mr-2 {{ request()->is('profile/overview') ? 'text-mainColor' : 'group-hover:text-gray-500 text-gray-400 dark:text-gray-500 dark:group-hover:text-gray-300' }} "
+                    class="w-5 h-5 mr-2 {{ request()->is('otherprofile/overview') ? 'text-mainColor' : 'group-hover:text-gray-500 text-gray-400 dark:text-gray-500 dark:group-hover:text-gray-300' }} "
                     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20"
                     zoomAndPan="magnify" fill="currentColor" viewBox="0 0 30 30.000001" height="20"
                     preserveAspectRatio="xMidYMid meet" version="1.0">
@@ -128,25 +123,25 @@
             </a>
             {{-- class="inline-flex p-4 text-mainColor border-b-2 border-mainColor rounded-t-lg active group" --}}
             <li class="mr-2">
-                <a href="{{ route('mycampaign', ['user_id' => Auth::user()->id])}}"
-                    class="inline-flex p-4 border-b-2 rounded-t-lg  {{ request()->is('profile/mycampaign') ? 'text-mainColor border-mainColor' : 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group' }}"
+                <a href="{{ route('user_campaign')}}"
+                    class="inline-flex p-4 border-b-2 rounded-t-lg  {{ request()->is('otherprofile/campaign') ? 'text-mainColor border-mainColor' : 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group' }}"
                     aria-current="page">
                     <svg aria-hidden="true"
-                        class="w-5 h-5 mr-2 {{ request()->is('profile/mycampaign') ? 'text-mainColor' : 'group-hover:text-gray-500 text-gray-400 dark:text-gray-500 dark:group-hover:text-gray-300' }} "
+                        class="w-5 h-5 mr-2 {{ request()->is('otherprofile/campaign') ? 'text-mainColor' : 'group-hover:text-gray-500 text-gray-400 dark:text-gray-500 dark:group-hover:text-gray-300' }} "
                         fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" width="16"
                         height="16" fill="currentColor">
                         <path
                             d="M13 2.5a1.5 1.5 0 0 1 3 0v11a1.5 1.5 0 0 1-3 0v-.214c-2.162-1.241-4.49-1.843-6.912-2.083l.405 2.712A1 1 0 0 1 5.51 15.1h-.548a1 1 0 0 1-.916-.599l-1.85-3.49a68.14 68.14 0 0 0-.202-.003A2.014 2.014 0 0 1 0 9V7a2.02 2.02 0 0 1 1.992-2.013 74.663 74.663 0 0 0 2.483-.075c3.043-.154 6.148-.849 8.525-2.199V2.5zm1 0v11a.5.5 0 0 0 1 0v-11a.5.5 0 0 0-1 0zm-1 1.35c-2.344 1.205-5.209 1.842-8 2.033v4.233c.18.01.359.022.537.036 2.568.189 5.093.744 7.463 1.993V3.85zm-9 6.215v-4.13a95.09 95.09 0 0 1-1.992.052A1.02 1.02 0 0 0 1 7v2c0 .55.448 1.002 1.006 1.009A60.49 60.49 0 0 1 4 10.065zm-.657.975 1.609 3.037.01.024h.548l-.002-.014-.443-2.966a68.019 68.019 0 0 0-1.722-.082z" />
                     </svg>
-                    My Campaign
+                    Campaign
                 </a>
             </li>
             <li class="mr-2">
-                <a href="{{route('history')}}"
-                    class="inline-flex p-4 border-b-2 rounded-t-lg  {{ request()->is('profile/history') ? 'text-mainColor border-mainColor' : 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group' }}">
+                <a href="{{route('user_history')}}"
+                    class="inline-flex p-4 border-b-2 rounded-t-lg  {{ request()->is('otherprofile/history') ? 'text-mainColor border-mainColor' : 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group' }}">
 
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20"
-                        class="w-5 h-5 mr-2 {{ request()->is('profile/history') ? 'text-red-500' : 'group-hover:text-gray-500 text-gray-400 dark:text-gray-500 dark:group-hover:text-gray-300' }} "
+                        class="w-5 h-5 mr-2 {{ request()->is('otherprofile/history') ? 'text-red-500' : 'group-hover:text-gray-500 text-gray-400 dark:text-gray-500 dark:group-hover:text-gray-300' }} "
                         zoomAndPan="magnify" fill="currentColor" viewBox="0 0 30 30.000001" height="20"
                         preserveAspectRatio="xMidYMid meet" version="1.0">
                         <defs>
@@ -168,11 +163,11 @@
                 </a>
             </li>
             <li class="mr-2">
-                <a href="{{route('following')}}"
-                    class="inline-flex p-4 border-b-2 rounded-t-lg  {{ request()->is('profile/following') ? 'text-mainColor border-mainColor' : 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group' }}">
+                <a href="{{route('user_following')}}"
+                    class="inline-flex p-4 border-b-2 rounded-t-lg  {{ request()->is('otherprofile/following') ? 'text-mainColor border-mainColor' : 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group' }}">
                     <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink" width="20"
-                        class="w-5 h-5 mr-2 {{ request()->is('profile/following') ? 'text-red-500' : 'group-hover:text-gray-500 text-gray-400 dark:text-gray-500 dark:group-hover:text-gray-300' }} "
+                        class="w-5 h-5 mr-2 {{ request()->is('otherprofile/following') ? 'text-red-500' : 'group-hover:text-gray-500 text-gray-400 dark:text-gray-500 dark:group-hover:text-gray-300' }} "
                         fill="currentColor" zoomAndPan="magnify" viewBox="0 0 30 30.000001" height="20"
                         preserveAspectRatio="xMidYMid meet" version="1.0">
                         <defs>
@@ -202,10 +197,10 @@
                 </a>
             </li>
             <li class="mr-2">
-                <a href="{{route('follower')}}"
-                    class="inline-flex p-4 border-b-2 rounded-t-lg  {{ request()->is('profile/follower') ? 'text-mainColor border-mainColor' : 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group' }}">
+                <a href="{{route('user_follower')}}"
+                    class="inline-flex p-4 border-b-2 rounded-t-lg  {{ request()->is('otherprofile/follower') ? 'text-mainColor border-mainColor' : 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group' }}">
                     <svg aria-hidden="true"
-                        class="w-5 h-5 mr-2 {{ request()->is('profile/follower') ? 'text-red-500' : 'group-hover:text-gray-500 text-gray-400 dark:text-gray-500 dark:group-hover:text-gray-300' }} "
+                        class="w-5 h-5 mr-2 {{ request()->is('otherprofile/follower') ? 'text-red-500' : 'group-hover:text-gray-500 text-gray-400 dark:text-gray-500 dark:group-hover:text-gray-300' }} "
                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20"
                         zoomAndPan="magnify" fill="currentColor" viewBox="0 0 30 30.000001" height="20"
                         preserveAspectRatio="xMidYMid meet" version="1.0">
@@ -228,9 +223,23 @@
         </ul>
     </div>
 
-    @yield('profile_contents')
+    @yield('otherprofile_contents')
 
 </div>
 
 
 @endsection
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#followButton').click(function() {
+            var buttonText = $('#buttonText');
+            if (buttonText.text() === 'Follow') {
+                buttonText.text('Following');
+            } else {
+                buttonText.text('Follow');
+            }
+        });
+    });
+</script>

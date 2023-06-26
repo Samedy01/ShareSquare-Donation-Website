@@ -34,4 +34,27 @@ class MyProfileController extends Controller
     public function editprofile(){
         return view('profile.editprofile');
     }
+
+
+    // My Campaign
+    public function allCampaign(){
+        return view('profile.mycampaign.allcampaign');
+    }
+
+    public function closedCampaign(){
+        return view('profile.mycampaign.closedcampaign');
+    }
+
+    public function reachedgoal(){
+        return view('profile.mycampaign.reachedgoal');
+    }
+
+    public function unreachedgoal(){
+        return view('profile.mycampaign.unreachedgoal');
+    }
+
+    public function draft(){
+        return view('profile.mycampaign.draft');
+    }
+
 }

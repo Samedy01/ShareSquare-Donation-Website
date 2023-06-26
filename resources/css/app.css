@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 /* General */
+
 @font-face {
     font-family: public-sans-regular;
     src: url(/public/fonts/Public_Sans/static/PublicSans-Regular.ttf);
@@ -35,7 +36,6 @@
     margin: 0;
     box-sizing: border-box;
     font-family: public-sans-regular, serif;
-
 }
 
 .title {
@@ -51,7 +51,9 @@
     color: #43536D;
 }
 
+
 /* samedy - donation part (Campaign profile) */
+
 .clearfix::after {
     content: " ";
     clear: both;
@@ -81,9 +83,7 @@
     font-family: public-sans-semi-bold;
 }
 
-.donation-details {
-
-}
+.donation-details {}
 
 .donation-details .item .title {
     /* font-size: 36px; */
@@ -103,7 +103,9 @@
     color: #333238;
 }
 
+
 /* Pech */
+
 .background-image {
     width: 30px;
 }
@@ -150,4 +152,24 @@
 button:hover {
     /*background-color: #c53030;*/
     border-color: #c53030;
+}
+
+.follow-style {
+    /* Style for "Click me" button */
+    /* Add your desired styles here */
+    /* Example styles: */
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+}
+
+.follow-clicked-style {
+    /* Style for "Button clicked" button */
+    /* Add your desired styles here */
+    /* Example styles: */
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
 }

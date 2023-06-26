@@ -1,7 +1,6 @@
-@extends('layouts.profileheader')
+@extends('layouts.otherprofileheader')
 
-@section('profile_contents')
-
+@section('otherprofile_contents')
 <div class="w-screen px-10 py-5 mx-auto">
     <div class="w-full flex items-center justify-between mb-2">
         <div class="flex items-center">
@@ -21,8 +20,8 @@
 
     <div class="w-full flex flex-wrap items-center justify-between gap-3">
         <div class="inline-flex overflow-x-auto rounded-md shadow-sm" role="group">
-            <a href="{{route('allCampaign')}}" id="allCampaignLink"
-                class="inline-flex flex-shrink-0 items-center px-4 py-2 text-sm font-medium bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-red-700 {{request()->is('profile/mycampaign/allcampaign') ? 'text-red-700 focus:text-black' : 'text-promptTextColor'}}">
+            <a href="{{route('user_allCampaign')}}"
+                class="inline-flex flex-shrink-0 items-center px-4 py-2 text-sm font-medium bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-red-700 {{request()->is('otheruserprofile/usercampaign/allcampaign') ? 'text-red-700 focus:text-black' : 'text-promptTextColor'}}">
                 <svg aria-hidden="true" class="w-4 h-4 mr-2 fill-current" fill="currentColor" viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor">
                     <path
@@ -30,7 +29,7 @@
                 </svg>
                 All Campaign
             </a>
-            <a href="{{route('reachedgoal')}}"
+            <a href="{{route('user_reachedgoal')}}"
                 class="inline-flex flex-shrink-0 items-center px-4 py-2 text-sm font-medium bg-white border-t border-r border-b border-gray-200 hover:bg-gray-100 hover:text-red-700 {{request()->is('profile/mycampaign/reachedgoal') ? 'text-red-700 focus:text-black' : 'text-promptTextColor'}}">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20"
                     aria-hidden="true" class="w-4 h-4 mr-2 fill-current" fill="currentColor" zoomAndPan="magnify"
@@ -44,7 +43,7 @@
                 </svg>
                 Goal Reached
             </a>
-            <a href="{{route('unreachedgoal')}}"
+            <a href="{{route('user_unreachedgoal')}}"
                 class="inline-flex flex-shrink-0 items-center px-4 py-2 text-sm font-medium bg-white border-t border-r border-b border-gray-200 hover:bg-gray-100 hover:text-red-700 {{request()->is('profile/mycampaign/unreachedgoal') ? 'text-red-700 focus:text-black' : 'text-promptTextColor'}}">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20"
                     aria-hidden="true" class="w-4 h-4 mr-2 fill-current" fill="currentColor" zoomAndPan="magnify"
@@ -60,7 +59,7 @@
                 </svg>
                 Goal Unreached
             </a>
-            <a href="{{route('closedcampaign')}}"
+            <a href="{{route('user_closedcampaign')}}"
                 class="inline-flex flex-shrink-0 items-center px-4 py-2 text-sm font-medium bg-white border-t border-r border-b border-gray-200 hover:bg-gray-100 hover:text-red-700 {{request()->is('profile/mycampaign/closedcampaign') ? 'text-red-700 focus:text-black' : 'text-promptTextColor'}}">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20"
                     aria-hidden="true" class="w-4 h-4 mr-2 fill-current" fill="currentColor" zoomAndPan="magnify"
@@ -86,7 +85,7 @@
                 </svg>
                 Closed
             </a>
-            <a href="{{route('draft')}}"
+            <a href="{{route('user_draft')}}"
                 class="inline-flex items-center flex-shrink-0 px-4 py-2 text-sm font-medium bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-red-700 {{request()->is('profile/mycampaign/draft') ? 'text-red-700 focus:text-black' : 'text-promptTextColor'}}">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20"
                     aria-hidden="true" class="w-4 h-4 mr-2 fill-current" fill="currentColor" zoomAndPan="magnify"
@@ -197,9 +196,8 @@
 
     </div>
 
-    {{-- Added by Samedy, for dynamic --}}
 
-    @yield('mycampaign_contents')
+    @yield('usercampaign_contents')
 
 </div>
 
