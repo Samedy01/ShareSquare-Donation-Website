@@ -49,8 +49,8 @@ class ProfileController extends Controller
             {
                 @mkdir(public_path() . '/img/profiles');
             }
-            $targetPathImageProfile = public_path() . '/img/profiles';
-            $targetBasePathImageProfile = 'img/profiles';
+            $targetPathImageProfile = public_path() . '/img/upload/profile';
+            // $targetBasePathImageProfile = 'img/profiles';
             $imagesOfProfile = $request->file('profile_image');
             $extension = $imagesOfProfile->getClientOriginalExtension();
 //                dump($image);
@@ -58,10 +58,10 @@ class ProfileController extends Controller
             $imagesOfProfile->move($targetPathImageProfile, $imageName);
             $image = new Image();
             $image->name = 'profile';
-            $image->path = $targetBasePathImageProfile . DIRECTORY_SEPARATOR . $imageName;
+            $image->path = $imageName;
             $imageSave = Image::create($image->toArray());
 //            $campaign->image_thumbnail_path = $targetPathImageThumbnail.DIRECTORY_SEPARATOR.$imageName;
-            $user->image_profile_path = $targetBasePathImageProfile . DIRECTORY_SEPARATOR . $imageName;
+            $user->image_profile_path = $imageName;
             $user->image_profile_id = $imageSave->id;
         }
 //        dd($user->is_enable_profile_anonymous);
