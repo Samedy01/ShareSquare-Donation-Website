@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserFollowing;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OtherUserProfileController extends Controller{
 
@@ -11,8 +13,16 @@ class OtherUserProfileController extends Controller{
     public function overview($id){
 
         $user = User::find($id);
-
-        return view('otheruserprofile.overview', ['user' => $user]);
+        $isUserFollow = false;
+        $userFollow = UserFollowing::where('user_source_id','=',Auth::user()->id)
+            ->where('user_target_id','=',$id)->first();
+        if ($userFollow){
+            if($userFollow->is_following){
+                 $isUserFollow = true;
+            }
+        }
+//        dd($userFollow);
+        return view('otheruserprofile.overview', ['user' => $user,'lockFollow'=>$isUserFollow]);
     }
 
     public function campaign(){

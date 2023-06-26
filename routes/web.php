@@ -266,7 +266,7 @@ Route::middleware([Authenticate::class, Admin::class])->group(function () {
     Route::post('/admin/update_campaign_category/{campaign_category_id}',[AdminController::class,'updateCampaignCategory'])->name('admin.updateCampaignCategory');
 
     Route::post('/admin/delete_campaign_category/{campaign_category_id}',[AdminController::class,'deleteCampaignCategory'])->name('admin.deleteCampaignCategory');
-    
+
 
     //for item category
     Route::get('/admin/item_categories',[AdminController::class,'campaignItemCategories'])->name('admin.item_categories.index');
@@ -275,6 +275,8 @@ Route::middleware([Authenticate::class, Admin::class])->group(function () {
 });
 //////////////////////////////////////////////////////////////////////////////////////
 
+
+Route::post('/user/user_follow_to_other_user',[UserController::class,'userFollowToOtherUser'])->name('user.userFollowToOtherUser');
 
 
 

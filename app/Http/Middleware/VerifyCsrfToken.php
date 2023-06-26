@@ -14,6 +14,7 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         '/user/care_campaign',
         '/admin/approve_campaign',
-        '/admin/reject_campaign'
+        '/admin/reject_campaign',
+        '/user/user_follow_to_other_user'
     ];
 }

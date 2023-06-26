@@ -1,6 +1,9 @@
 @extends('layouts.layout')
 
 @section('contents')
+    {{--hidden input for follow--}}
+    <div class="hidden" id="hidden_data_follow" data-user-target-id="{{$user->id}}" data-follow-lock="{{ $lockFollow }}"></div>
+
 <div class="bg-white ">
     <div class="flex flex-col md:flex-row px-6 py-4 justify-center items-center">
         <div class="w-32 h-32 rounded-full overflow-hidden">
@@ -11,7 +14,7 @@
         <div class="md:ml-5"></div>
         <div class="ml-5 mt-4 md:mt-0 md:ml-5 space-y-3 ">
             <div class="text-center lg:text-left font-bold text-xl">{{$user->name}}</div>
-            <div class="text-center lg:text-left text-base text-promptTextColor">{{$user->email}} - 
+            <div class="text-center lg:text-left text-base text-promptTextColor">{{$user->email}} -
                 Member since
                 {{$user->created_at}}
             </div>
@@ -226,20 +229,6 @@
     @yield('otherprofile_contents')
 
 </div>
-
+@vite('resources/js/follow.js')
 
 @endsection
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('#followButton').click(function() {
-            var buttonText = $('#buttonText');
-            if (buttonText.text() === 'Follow') {
-                buttonText.text('Following');
-            } else {
-                buttonText.text('Follow');
-            }
-        });
-    });
-</script>
