@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Campaigns;
 
+use App\Models\CampaignDonatedCash;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -16,6 +17,7 @@ class Detail extends Component
     public function __construct(
         public Campaign $campaign,
         public User $user,
+        //public CampaignDonatedCash $topDonors,
         public int $currenttabindex = 0,
     )
     {

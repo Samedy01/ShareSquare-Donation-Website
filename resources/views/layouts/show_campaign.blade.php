@@ -68,7 +68,7 @@
                 @endif
 
                 {{-- options --}}
-                <div class="py-6 flex justify-between">
+                <div class="py-6 flex">
                     @php
                         $options = [
                             ['text' => 'Share', 'icon' => 'fa fa-share','class'=>'share-button'],
@@ -104,7 +104,7 @@
                         </div>
                     </div>
                     @if(!empty($isLoveCampaign))
-                        <div id="love-button" class="item love-button hover:cursor-pointer"  data-care-lock="{{$isLoveCampaign->is_love}}" data-campaign-id="{{$campaign->id}}" data-token="{{ csrf_token()  }}">
+                        <div id="love-button" class=" ml-2 item love-button hover:cursor-pointer"  data-care-lock="{{$isLoveCampaign->is_love}}" data-campaign-id="{{$campaign->id}}" data-token="{{ csrf_token()  }}">
                             <div class="py-2 px-5 shadow bg-white rounded-xl text-center">
                                 <i class="dark-blue-grey far fa-heart icon_button text-xl"></i>
                                 <div class="h-1"></div>
@@ -112,7 +112,7 @@
                             </div>
                         </div>
                     @else
-                        <div class="item love-button hover:cursor-pointer"  data-care-lock="0" data-campaign-id="{{$campaign->id}}" data-token="{{ csrf_token()  }}">
+                        <div class="ml-2 item love-button hover:cursor-pointer"  data-care-lock="0" data-campaign-id="{{$campaign->id}}" data-token="{{ csrf_token()  }}">
                             <div class="py-2 px-5 shadow bg-white rounded-xl text-center">
                                 <i class="dark-blue-grey far fa-heart icon_button text-xl"></i>
                                 <div class="h-1"></div>
