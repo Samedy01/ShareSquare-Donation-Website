@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class OtherUserProfileController extends Controller{
 
     // overview
-    public function overview(){
-        return view('otheruserprofile.overview');
+    public function overview($id){
+
+        $user = User::find($id);
+
+        return view('otheruserprofile.overview', ['user' => $user]);
     }
 
     public function campaign(){

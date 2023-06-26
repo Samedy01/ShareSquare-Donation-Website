@@ -7,8 +7,14 @@
     @else
         <div class="flex justify-between flex-wrap">
             @foreach ($campCashDonors as $item)
-                <a href="{{route('user_overview')}}">
 
+                {{-- <form action="{{route('user_overview')}}" method="GET">
+                    @csrf
+
+                        <x-campaigns.donator :campcashdonor="$item"></x-campaigns.donator>
+
+                </form> --}}
+                <a href="{{route('user_overview', ['id' => $item['donor'] == null ? -1 : $item['donor']->id])}}">
                     <x-campaigns.donator :campcashdonor="$item"></x-campaigns.donator>
                 </a>
             @endforeach

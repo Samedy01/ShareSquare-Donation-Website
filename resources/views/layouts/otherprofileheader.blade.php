@@ -10,10 +10,10 @@
         <!-- Spacing -->
         <div class="md:ml-5"></div>
         <div class="ml-5 mt-4 md:mt-0 md:ml-5 space-y-3 ">
-            <div class="text-center lg:text-left font-bold text-xl">Other User Name</div>
-            <div class="text-center lg:text-left text-base text-promptTextColor">Email -
+            <div class="text-center lg:text-left font-bold text-xl">{{$user->name}}</div>
+            <div class="text-center lg:text-left text-base text-promptTextColor">{{$user->email}} - 
                 Member since
-                March 14, 2023
+                {{$user->created_at}}
             </div>
             <div class="flex mt-4 space-x-3 md:mt-6 justify-center md:justify-start lg:justify-start">
                 <button id="followButton" type="button"
@@ -26,7 +26,7 @@
                     <span id="buttonText">Follow</span>
                 </button>
 
-                <a href="{{ route('user_overview') }}"
+                <a href="{{ route('user_overview', ['id' => $id]) }}"
                     class="{{ request()->is('otherprofile/overview')}}inline-flex items-center text-center px-4 py-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-mainColor focus:z-10 focus:ring-4 focus:ring-gray-200">Share
                     Profile</a>
             </div>
@@ -38,7 +38,7 @@
     <div class="border-b border-gray-100">
         <ul
             class="flex flex-wrap -mb-px text-sm font-medium text-center text-promptTextColor justify-center items-center">
-            <a href="{{ route('user_overview') }}"
+            <a href="{{ route('user_overview', ['id' => $id]) }}"
                 class="inline-flex p-4 border-b-2 rounded-t-lg  {{ request()->is('otherprofile/overview') ? 'text-mainColor border-mainColor' : 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group' }}"
                 aria-current="{{ Request::is('otherprofile/overview') ? 'page' : '' }}">
                 <svg aria-hidden="true"

@@ -105,7 +105,6 @@ Route::get('/campaigns/show/{campaign_id}/donators', function() {
 
 Route::get('/campaigns/show/{campaign_id}/donators', [CampaignDonatedCashController::class, 'index'])->name('campaigns.show.donators');
 
-
 Route::get('/campaigns/{user_id}')->name('campaigns.user.index'); // all campaings of a user
 
 Route::get('/campaigns/{user_id}/show/{campaign_id}', [CampaignController::class, 'show_user'])->name('campaigns.user.show'); // show the details of a campaign (campaign profile)
@@ -122,7 +121,6 @@ Route::post('/campaigns/{user_id}/update/{campaign_id}')->name('campaigns.update
 
 //Route::post('/campaigns/store',[CampaignController::class, 'store'])->name('create');
 Route::post('/campaigns/store', [CampaignController::class,'store'])->name('campaigns.store');
-
 
 
 // Vortey
@@ -151,7 +149,7 @@ Route::get('/profile/mycampaign/draft', [MyProfileController::class, 'draft'])->
 
 
 // Other Profile
-Route::get('/otherprofile/overview', [OtherUserProfileController::class, 'overview'])->name('user_overview');
+Route::get('/otherprofile/{id}/overview/', [OtherUserProfileController::class, 'overview'])->name('user_overview');
 
 Route::get('/otherprofile/campaign', [OtherUserProfileController::class, 'campaign'])->name('user_campaign');
 
