@@ -59,31 +59,29 @@ Route::get('/donations/campaign_profile', function () {
 
 
 // Panha
-Route::get('/browse', function () {
-    return view('browse');
-});
+// Route::get('/browse', function () {
+//     return view('browse');
+// });
 //Route::get('/create-new-campaign', function () {
 //    return view('campaigns.create');
 //});
 
-Route::get('/test_tailwind', function () {
-    return view('test_tailwind');
-});
+// Route::get('/test_tailwind', function () {
+//     return view('test_tailwind');
+// });
 
 
-Route::get('/tests', function () {
-    return view('test');
-});
-Route::get('/testGoogleMap', function () {
-    return view('tests.testGoogleMap');
-});
+// Route::get('/tests', function () {
+//     return view('test');
+// });
+// Route::get('/testGoogleMap', function () {
+//     return view('tests.testGoogleMap');
+// });
 
 Route::resource('item_categories', ItemCategoryController::class);
 Route::resource('campaign_categories', CampaignCategoryController::class);
 Route::resource('campaigns', CampaignController::class);
-Route::resource('admins',AdminController::class);
 
-Route::post('/admins/campaignDelete',[AdminController::class,'campaignDelete']);
 
 //Route::post('')
 
@@ -174,37 +172,31 @@ Route::get('/otherprofile/usercampaign/unreachedgoal', [OtherUserProfileControll
 Route::get('/otherprofile/usercampaign/draft', [OtherUserProfileController::class, 'draft'])->name('user_draft');
 
 
-
-
-
-
 // Samedy
 Route::get('/donations/campaign_profile', function () {
     return view('donations.campaign_profile');
 });
 
 
-
-
 // Saovty
-Route::get('/followers', function () {
-    return view('Notification.followers');
-});
-Route::get('/following', function () {
-    return view('Notification.following');
-});
-Route::get('/new_notification', function () {
-    return view('Notification.new_ntf');
-});
-Route::get('/setting', function () {
-    return view('setting');
-});
-Route::get('/done_donated', function () {
-    return view('Item_Donation.done_donated');
-});
-Route::get('/item_donation', function () {
-    return view('Item_Donation.item_donation');
-});
+// Route::get('/followers', function () {
+//     return view('Notification.followers');
+// });
+// Route::get('/following', function () {
+//     return view('Notification.following');
+// });
+// Route::get('/new_notification', function () {
+//     return view('Notification.new_ntf');
+// });
+// Route::get('/setting', function () {
+//     return view('setting');
+// });
+// Route::get('/done_donated', function () {
+//     return view('Item_Donation.done_donated');
+// });
+// Route::get('/item_donation', function () {
+//     return view('Item_Donation.item_donation');
+// });
 //saovty
 Route::get('/campaigns/donate_item/{campaign_id}',[CampaignDonatedItemController::class,'donateItem'])->name('campaigns.donate_item');
 
@@ -214,6 +206,7 @@ Route::get('/campaigns/donate_item/{campaign_id}',[CampaignDonatedItemController
 
 
 Route::get('/item_donation',[CampaignDonatedItemController::class, 'itemDonation']);
+
 Route::post('/campaign/perform_donate',[CampaignDonatedItemController::class,'performDonatedItem'])->name('compaigns.perform_donate_item');
 //Route::post('/done_donated_items',[CampaignDonatedItemController::class,'performDonatedItem'])->name('compaigns.perform_donate_item');
 
@@ -222,8 +215,11 @@ require __DIR__.'/auth.php';
 
 /*panha*/
 Route::get('/manage-campaign-list',[CampaignController::class,'manage']);
+
 Route::get('stripe',[StripePaymentController::class,'paymentStripe'])->name('donate_cash.paymentstripe');
+
 Route::get('stripe/paymentRequest',[StripePaymentController::class,'paymentRequest'])->name('paystripe');
+
 Route::get('/search',[SearchController::class,'searchUsersAndCampaigns'])->name('search');
 
 Route::get('/test_map_box',function (){
@@ -231,19 +227,27 @@ Route::get('/test_map_box',function (){
 });
 
 Route::get('/campaigns/cash_donation/{campaign_id}',[CampaignController::class,'donateCash'])->name('campaigns.donate_cash');
+
 Route::post('/campaigns/donate_now_with_cash',[CampaignController::class,'donateNowWithCash'])->name('campaign.donate_now_cash');
+
 Route::post('/user/care_campaign',[CampaignController::class,'userCareCampaign'])->name('campaign.user_care_campaign');
 
 
 Route::get('/users/profile/{user_id}',[UserController::class,'viewOtherProfile'])->name('users.view_other_user');
+
 Route::get('campaigns/comment/{campaign_id}',[CampaignController::class,'comment'])->name('campaigns.comment');
+
 Route::post('/campaigns/user/comment',[CampaignController::class,'userComment'])->name('campaigns.user.comment');
 
 
-
+///////////////////////////////////////////////////////////////////////////////
 // for admin part
 //
 Route::middleware([Authenticate::class, Admin::class])->group(function () {
+
+    Route::resource('admins',AdminController::class);
+
+    Route::post('/admins/campaignDelete',[AdminController::class,'campaignDelete']);
 
     Route::get('/admin/campaigns',[AdminController::class,'campaigns'])->name('admin.campaigns');
 
@@ -271,7 +275,7 @@ Route::middleware([Authenticate::class, Admin::class])->group(function () {
 
     Route::get('/admin/create_item_categories',[AdminController::class,'createItemCategory'])->name('admin.item_categories.create');
 });
-//////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
 
 
 
