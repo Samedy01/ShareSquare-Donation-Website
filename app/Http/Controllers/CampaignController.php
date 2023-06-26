@@ -300,10 +300,10 @@ class CampaignController extends Controller
             $campaign->summary = $request['campaign_summary'];
         }
         if (isset($request['campaign_purpose'])) {
-            $campaign->summary = $request['campaign_purpose'];
+            $campaign->purpose = $request['campaign_purpose'];
         }
         if (isset($request['campaign_goal'])) {
-            $campaign->summary = $request['campaign_goal'];
+            $campaign->goal = $request['campaign_goal'];
         }
         $campaign->campaign_category_id = $request['campaign_category'];
         $campaign->is_raising = false;

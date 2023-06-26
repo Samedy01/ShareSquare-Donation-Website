@@ -12,13 +12,13 @@
     </div>
 
     <div class="rounded-md clearfix">
-        <div class="float-left w-3/5 bg-yellow-300 relative" style="height: 600px">
+        <div class="float-left w-3/5 relative" style="height: 800px">
             <img src="/img/upload/campaign/{{$campaign->image_thumbnail_path}}" class="rounded-xl w-full h-3/4" alt="">
 
             <div class="py-3 flex justify-between">
-                @for ($i = 0; $i < 3; $i++)
+                {{-- @for ($i = 0; $i < 3; $i++)
                     <img class="w-1/4 flex rounded-lg" src="/img/upload/campaign/{{$campaign->image_thumbnail_path}}" style="height: 100px"></img>        
-                @endfor
+                @endfor --}}
 
             </div>
         </div>
@@ -33,7 +33,7 @@
                 {{-- progress slide bar --}}
                 <div class="clearfix py-5">
                     <div class="h-3 float-left rounded-l-full rounded-r-full bg-gray-300" style="width: 100%">
-                        <div class="h-3 primary-bg-color float-left rounded-l-full rounded-r-full" style="width: {{$campaign->raising_cash_amount_collected * 100 / $campaign->raising_cash_amount_goal}}%"></div>
+                        <div class="h-3 primary-bg-color float-left rounded-l-full rounded-r-full" style="width: {{$campaign->raising_cash_amount_goal > 0 ? $campaign->raising_cash_amount_collected * 100 / $campaign->raising_cash_amount_goal : 0}}%"></div>
 
                         {{-- <div class="h-3 primary-bg-color float-left rounded-l-full rounded-r-full" style="width: {{5000 * 100 / $campaign->raising_cash_amount_goal}}%"></div> --}}
                     </div>
