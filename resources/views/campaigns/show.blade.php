@@ -19,7 +19,14 @@
             </div>
         @endforeach
 
-        <div class=" border shadow-md sm:px-8 pt-4 mt-8 px-4  rounded">
+        <div class="title text-4xl pb-12">Contact Information</div>
+        <div>
+            <x-campaigns.contact-info></x-campaigns.contact-info>
+
+        </div>
+
+
+        {{-- <div class=" border shadow-md sm:px-8 pt-4 mt-8 px-4  rounded">
             <h2 class="font-bold">Donor Contact Information</h2>
             <div class="pt-4 pb-2 flex">
                 <span class="pt-3">
@@ -48,7 +55,7 @@
                     <p class="font-medium">@Saovtyy</p>
                 </span>
             </div>
-        </div>
+        </div> --}}
 
         <div class="p-3"></div>
     </div>
