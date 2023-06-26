@@ -12,7 +12,15 @@ class MyProfileController extends Controller
 
 
     public function overview(){
-        return view('profile.overview');
+        $user = Auth::user();
+        $numberOfCampaign = Campaign::where('user_id','=',$user->id)
+            ->where('status','=','success')
+            ->count();
+        $totalRaising = Campaign::where('user_id','=',$user->id)
+            ->where('status','=','success')
+            ->sum('raising_cash_amount_collected');
+        //dd($numberOfCampaign);
+        return view('profile.overview',compact('user','numberOfCampaign','totalRaising'));
     }
 
     public function myCampaign($user_id){
