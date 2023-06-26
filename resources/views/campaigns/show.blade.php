@@ -1,3 +1,5 @@
+{{-- Overview tab --}}
+
 <x-campaigns.detail :campaign="$campaign" :user="$user">
     <div class="pb-12"></div>
 

@@ -15,7 +15,7 @@
             <div class="text-center lg:text-left font-bold text-xl">{{Auth::user()->name}}</div>
             <div class="text-center lg:text-left text-base text-promptTextColor">{{Auth::user()->email}} -
                 Member since
-                March 14, 2023
+                {{Auth::user()->created_at}}
             </div>
             <div class="flex mt-4 space-x-3 md:mt-6 justify-center md:justify-start lg:justify-start">
                 <a href="{{ route('profile.edit') }}"
