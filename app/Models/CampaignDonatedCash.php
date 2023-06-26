@@ -18,4 +18,11 @@ class CampaignDonatedCash extends Model
         'payment_method',
         'is_successful',
     ];
+
+    public function user(){
+        return $this->belongsTo(User::class,'user_id');
+    }
+    public function campaign(){
+        return $this->belongsTo(Campaign::class,'campaign_id');
+    }
 }

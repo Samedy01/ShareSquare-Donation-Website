@@ -63,4 +63,7 @@ class Campaign extends Model
     public function dropOffLocation(){
         return $this->hasMany(CampaignDropOffLocation::class,'campaign_id');
     }
+    public function user(){
+        return $this->belongsTo(User::class,'user_id');
+    }
 }

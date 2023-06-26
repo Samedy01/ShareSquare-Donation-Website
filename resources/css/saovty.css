@@ -26,5 +26,7 @@ input[id="notification"]::before {
   input:checked:before {
     left: 1.25rem;
   }
+ 
+  
 
 

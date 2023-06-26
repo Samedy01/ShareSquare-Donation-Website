@@ -38,7 +38,7 @@ class ItemCategoryController extends Controller
         ]);
         ItemCategory::create($request->all());
 
-        return redirect()->route('item_categories.index')->with('success', 'Item category created successfully.');
+        return redirect()->route('admin.item_categories.index')->with('success', 'Item category created successfully.');
     }
 
     /**
@@ -54,7 +54,7 @@ class ItemCategoryController extends Controller
      */
     public function edit(ItemCategory $itemCategory)
     {
-        return view('item_categories.edit', compact('itemCategory'));
+        return view('admin.item_categories.edit', compact('itemCategory'));
     }
 
     /**
@@ -69,7 +69,7 @@ class ItemCategoryController extends Controller
 
         $itemCategory->update($request->all());
 
-        return redirect()->route('item_categories.index')->with('success', 'Item category updated successfully.');
+        return redirect()->route('admin.item_categories.index')->with('success', 'Item category updated successfully.');
     }
 
     /**
@@ -79,6 +79,6 @@ class ItemCategoryController extends Controller
     {
         $itemCategory->delete();
 
-        return redirect()->route('item_categories.index')->with('success', 'Item category deleted successfully.');
+        return redirect()->route('admin.item_categories.index')->with('success', 'Item category deleted successfully.');
     }
 }

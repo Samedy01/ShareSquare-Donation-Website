@@ -13,6 +13,7 @@ use App\Models\ItemCategory;
 use App\Models\User;
 use App\Models\CampaignAdditionalContact;
 
+use App\Models\UserCommentCampaign;
 use App\Models\UserLoveCampaign;
 use App\Models\UserViewCampaign;
 use Auth;
@@ -22,7 +23,6 @@ use Illuminate\Http\Request;
 use Stripe\Exception\ApiErrorException;
 use Stripe\Exception\CardException;
 use Stripe\StripeClient;
-use function Psy\debug;
 
 class CampaignController extends Controller
 {
@@ -46,7 +46,7 @@ class CampaignController extends Controller
         $selectedCampaignTypes = $request->input('campaign_type', []);
         $otherFilterTypes = $request->input('other_filter', []);
         $searchKey = $request->input('searchCampaignOrUser');
-
+        $today = date('Y-m-d');
 //        dd($searchKey);
         if(!empty($searchKey)){
             $selectedCategories = [];
@@ -57,6 +57,9 @@ class CampaignController extends Controller
             $campaigns = Campaign::with('campaignCategory')
                 ->where('is_raising', '=', 1)
                 ->where('title','LIKE','%'.$searchKey.'%')
+                ->where('status','=','success')
+                ->where('start_date', '<=', $today)
+                ->where('end_date', '>=', $today)
                 ->whereNotNull('campaign_category_id')
                 ->orderBy('created_at', 'desc')
                 ->paginate(10);
@@ -74,7 +77,10 @@ class CampaignController extends Controller
             $campaigns = Campaign::with('campaignCategory')
                 ->where('is_raising', '=', 1)
                 ->whereNotNull('campaign_category_id')
+                ->where('status','=','success')
                 ->whereIn('campaign_category_id', $selectedCategoriesInt)
+                ->where('start_date', '<=', $today)
+                ->where('end_date', '>=', $today)
                 ->orderBy('created_at', 'desc')
 //                ->limit(10)
                 ->paginate(10);
@@ -87,7 +93,10 @@ class CampaignController extends Controller
                     $campaigns = Campaign::with('campaignCategory')
                         ->where('is_raising', '=', 1)
                         ->whereNotNull('campaign_category_id')
+                        ->where('status','=','success')
                         ->whereIn('campaign_category_id', $selectedCategoriesInt)
+                        ->whereDate('start_date', '<=', $today)
+                        ->whereDate('end_date', '>=', $today)
                         ->where(function ($query) {
                             $query->where('is_cash', '=', 1)->orWhere('is_item', '=', 1);
                         })
@@ -102,8 +111,11 @@ class CampaignController extends Controller
 //                        dd('hi');
                         $campaigns = Campaign::with('campaignCategory')
                             ->where('is_raising', '=', 1)
+                            ->where('status','=','success')
                             ->whereNotNull('campaign_category_id')
                             ->whereIn('campaign_category_id', $selectedCategoriesInt)
+                            ->whereDate('start_date', '<=', $today)
+                            ->whereDate('end_date', '>=', $today)
                             ->where('is_cash', '=', 1)
                             ->orderBy('created_at', 'desc')
 //                            ->limit(10)
@@ -112,6 +124,9 @@ class CampaignController extends Controller
                         $campaigns = Campaign::with('campaignCategory', 'itemCategory')
                             ->where('is_raising', '=', 1)
                             ->whereNotNull('campaign_category_id')
+                            ->where('status','=','success')
+                            ->whereDate('start_date', '<=', $today)
+                            ->whereDate('end_date', '>=', $today)
                             ->whereIn('campaign_category_id', $selectedCategoriesInt)
                             ->where('is_item', '=', 1)
                             ->orderBy('created_at', 'desc')
@@ -126,6 +141,9 @@ class CampaignController extends Controller
             $campaigns = Campaign::with('campaignCategory')
                 ->whereNotNull('campaign_category_id')
                 ->orderBy('created_at', 'desc')
+                ->where('status','=','success')
+                ->where('start_date', '<=', $today)
+                ->where('end_date', '>=', $today)
 //                ->limit(5)
                 ->paginate(10);
             $diff = array_diff(['item', 'cash'], $selectedCampaignTypes);
@@ -134,6 +152,9 @@ class CampaignController extends Controller
                 $campaigns = Campaign::with('campaignCategory')
                     ->where('is_raising', '=', 1)
                     ->whereNotNull('campaign_category_id')
+                    ->where('status','=','success')
+                    ->whereDate('start_date', '<=', $today)
+                    ->whereDate('end_date', '>=', $today)
                     ->where(function ($query) {
                         $query->where('is_cash', '=', 1)->orWhere('is_item', '=', 1);
                     })
@@ -147,19 +168,25 @@ class CampaignController extends Controller
                     $campaigns = Campaign::with('campaignCategory')
                         ->where('is_raising', '=', 1)
                         ->whereNotNull('campaign_category_id')
+                        ->where('status','=','success')
+                        ->whereDate('start_date', '<=', $today)
+                        ->whereDate('end_date', '>=', $today)
                         ->where('is_cash', '=', 1)
                         ->orderBy('created_at', 'desc')
 //                            ->limit(10)
                         ->paginate(10);
                     if (!empty($otherFilterTypes)) {
-                        dump($otherFilterTypes);
+                        //dump($otherFilterTypes);
                         $otherFilterDiff = array_diff(['top_raising', 'new'], $otherFilterTypes);
 //                      dd(count($otherFilterDiff));
                         if (count($otherFilterDiff) == 0) {
                             $campaigns = Campaign::with('campaignCategory')
                                 ->where('is_raising', '=', 1)
                                 ->where('raising_cash_amount_collected', '>', 0)
+                                ->whereDate('start_date', '<=', $today)
+                                ->whereDate('end_date', '>=', $today)
                                 ->whereNotNull('campaign_category_id')
+                                ->where('status','=','success')
                                 ->orderBy('raising_cash_amount_collected', 'desc')
                                 ->orderBy('created_at', 'asc')
 //                                ->limit(20)
@@ -169,7 +196,10 @@ class CampaignController extends Controller
                             $campaigns = Campaign::with('campaignCategory')
                                 ->where('is_raising', '=', 1)
                                 ->where('raising_cash_amount_collected', '>', 0)
+                                ->whereDate('start_date', '<=', $today)
+                                ->whereDate('end_date', '>=', $today)
                                 ->whereNotNull('campaign_category_id')
+                                ->where('status','=','success')
                                 ->orderBy('raising_cash_amount_collected', 'desc')
 //                                ->orderBy('raising_cash_amount_collected','desc')
 //                                ->limit(20)
@@ -179,7 +209,10 @@ class CampaignController extends Controller
                 } else if ($selectedCampaignTypes[0] == 'item') {
                     $campaigns = Campaign::with('campaignCategory', 'itemCategory')
                         ->where('is_raising', '=', 1)
+                        ->whereDate('start_date', '<=', $today)
+                        ->whereDate('end_date', '>=', $today)
                         ->whereNotNull('campaign_category_id')
+                        ->where('status','=','success')
                         ->where('is_item', '=', 1)
                         ->orderBy('created_at', 'desc')
 //                            ->limit(10)
@@ -426,7 +459,7 @@ class CampaignController extends Controller
 
         /*temp data for dev*/
         //TODO change this when user role is done
-        $campaign->approved_by_sys_user_id = 2;
+        $campaign->approved_by_sys_user_id = null;
         $campaign->status = 'pending';
 
         //save campaign to DB
@@ -544,7 +577,7 @@ class CampaignController extends Controller
         }
         //dump($campaignSave->id);
 //        dd($request->all());
-        return response()->json(['success' => $isSuccess, 'message' => 'Data saved successfully']);
+        return response()->json(['success' => $isSuccess, 'message' => 'Data saved successfully','data'=>$campaign]);
     }
 
     protected function createSubTitleWithItsImage($request, $campaignSaveID, $subTitleName, $subTitleDetail, $subTitleOrder, $multipleImageInputName): bool
@@ -685,25 +718,35 @@ class CampaignController extends Controller
                 ]);
 //                dd($results);
 
+                $campaign = Campaign::findOrFail($campaignId);
+                //dd($campaign);
+                $campaignDonatedCash->payment_method = 'stripe';
                 if($results->status == 'succeeded'){
                     /*save it to database*/
                     // save payment ref id
                     // save ref n.o from stripe
-                    $campaignDonatedCash->payment_method = 'stripe';
                     $campaignDonatedCash->is_successful = true;
 
                     $saveCampaignDonatedCash = CampaignDonatedCash::create($campaignDonatedCash->toArray());
                     /*update data to campaigns table*/
-                    $campaign = Campaign::findOrFail($campaignId);
                     $amountCollected = $campaign->raising_cash_amount_collected;
                     $campaign->raising_cash_amount_collected = $amountCollected + ($donateAmount * 100);
+                    //dd($campaign->user);
+                    if($campaign->user){
+                        $userRaisingCashCollected = $campaign->user->total_cash_raising_amount;
+                        $campaign->user->total_cash_raising_amount = $campaign->raising_cash_amount_collected + $userRaisingCashCollected;
+                        $campaign->user->save();
+                    }
                     $campaign->save();
                     $data = [
                         'donate_amount' => $donateAmount,
                     ];
 
                     return response()->json(['success' => true, 'message' => 'Payment success', 'data'=>$data]);
-               }elseif($results->status == 'requires_action'){
+               }else{
+                    $campaignDonatedCash->is_successful = false;
+                    $campaign->save();
+                    //TODO update method method and status to
                     return response()->json(['success' => false, 'message' => 'transaction action required']);
                 }
             }catch (CardException $th) {
@@ -747,5 +790,62 @@ class CampaignController extends Controller
         }
         $campaign->save();
         return response()->json(['success'=>true,'message'=>'modified']);
+    }
+
+    public function comment($campaign_id){
+        $campaign = Campaign::findOrFail($campaign_id);
+
+        $this->__increaseNumOfView($campaign_id);
+        $user = User::findOrFail($campaign->user_id);
+        $isLoveCampaign = null;
+        if (Auth::user()){
+            $isLoveCampaign = UserLoveCampaign::where('user_id', '=',Auth::user()->id)
+                ->where('campaign_id','=',$campaign_id)
+                ->first();
+        }
+        $comments = UserCommentCampaign::with('user')
+            ->where('campaign_id' ,'=',$campaign_id)
+            ->orderBy('created_at','desc')
+            ->get();
+//        dd($comments);
+        $numberOfComment = $comments->count();
+        //dd($numberOfComment);
+        return view('campaigns.comment',[
+            'number_of_comment' => $numberOfComment,
+            'campaign' => $campaign,
+            'user' => $user,
+            'isLoveCampaign' => $isLoveCampaign,
+            'comments' => $comments
+        ]);
+    }
+
+    public function userComment(Request $request){
+
+        //dd($request->all());
+        $userCommentCampaign = new UserCommentCampaign();
+        $userCommentCampaign->user_id = $request['user_id'] == null? null: $request['user_id'];
+        $userCommentCampaign->campaign_id = $request['campaign_id'];
+        $userCommentCampaign->comment = $request['commentText'];
+
+        if ($request->hasFile('comment_image')) {
+            if (!is_dir(public_path() . '/img/comment_image')) ;
+            {
+                @mkdir(public_path() . '/img/comment_image');
+            }
+            $targetPanhaImageComment = public_path() . '/img/campaign_images';
+            $targetBasePathImageComment = 'img/campaign_images';
+            $imagesOfComment = $request->file('comment_image');
+            $extension = $imagesOfComment->getClientOriginalExtension();
+//                dump($image);
+            $imageName = pathinfo($imagesOfComment->getClientOriginalName(), PATHINFO_FILENAME) . '_' . time() . '.' . $extension;
+            $imagesOfComment->move($targetPanhaImageComment, $imageName);
+//            $campaign->image_thumbnail_path = $targetPathImageThumbnail.DIRECTORY_SEPARATOR.$imageName;
+            $userCommentCampaign->image_path = $targetBasePathImageComment . DIRECTORY_SEPARATOR . $imageName;
+        }
+        $userCommentCampaignSave = UserCommentCampaign::create($userCommentCampaign->toArray());
+        $campaign = Campaign::findOrFail($request['campaign_id']);
+        $campaign->number_of_comment += 1;
+        $campaign->save();
+        return response()->json(['success'=>true,'data'=>$userCommentCampaignSave]);
     }
 }

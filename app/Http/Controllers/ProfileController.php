@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\CampaignDonatedCash;
 use App\Models\Image;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -88,4 +89,5 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
 }

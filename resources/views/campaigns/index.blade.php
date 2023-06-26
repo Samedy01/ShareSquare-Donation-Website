@@ -432,7 +432,7 @@
                                         @if($campaign->is_item)
                                         <span
                                             class="ml-2 bg-green-200 text-green-500 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded border">
-                                            <span class="inline-block">Raising {{$campaign->itemCategory->name}}</span>
+                                            <span class="inline-block">Raising {{$campaign->itemCategory == null ? '': $campaign->itemCategory->name}}</span>
                                         </span>
                                         @else
                                             <span
