@@ -1,3 +1,13 @@
+@php
+
+        $action = Route::currentRouteAction();
+    //    dump($action);
+        $controllerAction = class_basename($action);
+    //    dump($action);
+    //    dd('hi');
+        list($controller, $method) = explode('@', $controllerAction);
+@endphp
+
 @extends('layouts.layout')
 
 @section('contents')
@@ -129,10 +139,10 @@
             {{-- class="inline-flex p-4 text-mainColor border-b-2 border-mainColor rounded-t-lg active group" --}}
             <li class="mr-2">
                 <a href="{{ route('mycampaign', ['user_id' => Auth::user()->id])}}"
-                    class="inline-flex p-4 border-b-2 rounded-t-lg  {{ request()->is('profile/mycampaign') ? 'text-mainColor border-mainColor' : 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group' }}"
+                    class="inline-flex p-4 border-b-2 rounded-t-lg  {{ $method == 'myCampaign' ? 'text-mainColor border-mainColor' : 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group' }}"
                     aria-current="page">
                     <svg aria-hidden="true"
-                        class="w-5 h-5 mr-2 {{ request()->is('profile/mycampaign') ? 'text-mainColor' : 'group-hover:text-gray-500 text-gray-400 dark:text-gray-500 dark:group-hover:text-gray-300' }} "
+                        class="w-5 h-5 mr-2 {{ $method == 'myCampaign' ? 'text-mainColor' : 'group-hover:text-gray-500 text-gray-400 dark:text-gray-500 dark:group-hover:text-gray-300' }} "
                         fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" width="16"
                         height="16" fill="currentColor">
                         <path

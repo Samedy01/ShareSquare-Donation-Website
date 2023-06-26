@@ -12,13 +12,25 @@ class MyProfileController extends Controller
 
 
     public function overview(){
-        return view('profile.overview');
+        $user = Auth::user();
+        $numberOfCampaign = Campaign::where('user_id','=',$user->id)
+            ->where('status','=','success')
+            ->count();
+        $totalRaising = Campaign::where('user_id','=',$user->id)
+            ->where('status','=','success')
+            ->sum('raising_cash_amount_collected');
+        //dd($numberOfCampaign);
+        return view('profile.overview',compact('user','numberOfCampaign','totalRaising'));
     }
 
     public function myCampaign($user_id){
-        $my_campaigns = Campaign::where('user_id', $user_id)->get();
+        $campaigns = Campaign::with('campaignCategory')
+            ->where('user_id', $user_id)
+//            ->where('status','=','success')
+            ->orderBy('created_at','desc')
+            ->get();
 
-        return view('profile.mycampaign', ['my_campaigns' => $my_campaigns]);
+        return view('profile.mycampaign', compact('campaigns'));
     }
 
     public function history(){
@@ -53,6 +65,7 @@ class MyProfileController extends Controller
 
     // My Campaign
     public function allCampaign(){
+
         return view('profile.mycampaign.allcampaign');
     }
 
