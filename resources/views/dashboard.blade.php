@@ -43,7 +43,7 @@
                             <div class="w-[360px] h-[54px] relative">
                                 <div class="w-[210px] h-[54px] px-4 py-[12px] left-[220px] top-[150px] absolute rounded border border-white justify-center items-center gap-2 inline-flex transition-all duration-200 border border-transparent hover:border-red-500">
                                     <div class="w-0 h-0 relative"></div>
-                                        <button class="text-right-[20px] text-white text-[18px] font-normal">
+                                        <button class="text-right-[20px] text-white text-[18px] font-normal" onclick="window.location='{{route('campaigns.create')}}'">
                                         <i class="fa-sharp fa-regular fa-plus"></i>
                                         Create Campaign</button>
                                     </div>
