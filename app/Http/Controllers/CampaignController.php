@@ -16,6 +16,7 @@ use App\Models\CampaignAdditionalContact;
 use App\Models\UserCommentCampaign;
 use App\Models\UserLoveCampaign;
 use App\Models\UserViewCampaign;
+use App\View\Components\TopDonorCard;
 use Auth;
 use Exception;
 use Illuminate\Cache\CacheManager;
@@ -67,7 +68,7 @@ class CampaignController extends Controller
             return view('campaigns.index',
                 compact('campaigns', 'campaignCategories','searchKey','selectedCategories','selectedCampaignTypes','otherFilterTypes'));
         }
-        
+
 //        dd($otherFilterTypes);
         if (!empty($selectedCategories)) {
 //            dd('hi');
@@ -242,17 +243,22 @@ class CampaignController extends Controller
                 ->where('campaign_id','=',$campaign_id)
                 ->first();
         }
-//        dd($isLoveCampaign);
+        /*Query get two person donate the most*/
+        $topDonors = CampaignDonatedCash::with('user')
+            ->orderBy('original_amount','desc')
+            ->limit(2)
+            ->get();
+
+//        dd($topDonors);
         return view('campaigns.show', [
-            'campaign' => $campaign,
-            'user' => $user,
-            'test_var1' => 'test message camp controlller',
+            'campaign'=>$campaign,
+            'user'=>$user,
+            'topDonors'=>$topDonors
         ]);
     }
 
     public function report($campaign_id) {
         $campaign = Campaign::findOrFail($campaign_id);
-
         $user = User::findOrFail($campaign->user_id);
 
         return view('campaigns.report', [
