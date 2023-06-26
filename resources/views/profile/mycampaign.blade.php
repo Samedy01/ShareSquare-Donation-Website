@@ -1,8 +1,9 @@
+
 @extends('layouts.profileheader')
 
 @section('profile_contents')
 
-<div class="w-screen px-10 py-5 mx-auto">
+<div class=" px-10 py-5 mx-auto">
     <div class="w-full flex items-center justify-between mb-2">
         <div class="flex items-center">
             <h1 class="text-2xl font-bold mr-2 text-primaryTextColor">Campaign </h1>
@@ -200,6 +201,73 @@
     {{-- Added by Samedy, for dynamic --}}
 
     @yield('mycampaign_contents')
+    <div class="overflow-x-auto mt-3">
+        <table class="min-w-full bg-white border border-gray-300">
+            <thead>
+            <tr>
+                <th class="py-3 px-4 font-semibold text-left bg-gray-100">
+
+                    <a href="">
+                        ID
+                    </a>
+                </th>
+                <th class="py-3 px-4 font-semibold text-left bg-gray-100">Title</th>
+                <th class="py-3 px-4 font-semibold text-left bg-gray-100 ">
+                    <a href="">
+                        Category
+                    </a>
+                </th>
+                <th class="py-3 px-4 font-semibold text-left bg-gray-100 ">
+                    <a href="">
+                        Status
+                    </a>
+                </th>
+                <th class="py-3 px-4 font-semibold text-left bg-gray-100">Raising type</th>
+                <th class="py-3 px-4 font-semibold text-left bg-gray-100">
+                    <a href="">
+                        Created at
+                    </a>
+                </th>
+                <th class="py-3 px-4 font-semibold text-left bg-gray-100">Actions</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($campaigns as $campaign)
+                <tr class="campaign_row hover:bg-gray-100 hover:cursor-pointer"
+                    data-route="{{route('admin.view_campaign',['campaign_id'=>$campaign->id])}}">
+                    <td class="py-4 px-6 border-b border-gray-300">{{ $campaign->id }}</td>
+                    <td class="py-4 px-6 border-b border-gray-300 truncate max-w-xs">{{ $campaign->title }}</td>
+                    <td class="py-4 px-6 border-b border-gray-300 truncate max-w-xs">{{ $campaign->campaignCategory == null ? '':$campaign->campaignCategory->name}}</td>
+                    @if($campaign->status == 'pending')
+                        <td class="py-4 px-6 border-b border-gray-300"><span class="px-1 pending_status rounded-lg">{{ $campaign->status }}</span></td>
+                    @elseif($campaign->status == 'success')
+                        <td class="py-4 px-6 border-b border-gray-300"><span class="px-1 success_status rounded-lg">{{ $campaign->status }}</span></td>
+                    @elseif($campaign->status == 'reject')
+                        <td class="py-4 px-6 border-b border-gray-300"><span class="px-1 reject_status rounded-lg">{{ $campaign->status }}</span></td>
+                    @endif
+                    @if(empty(!$campaign->itemCategory))
+                        <td class="py-4 px-6 border-b border-gray-300"><span class="px-1 bg-purple-100 text-purple-700 rounded-lg">{{$campaign->itemCategory->name}}</span></td>
+                    @else
+                        <td class="py-4 px-6 border-b border-gray-300"><span class="px-1 bg-green-100 text-green-700 rounded-lg">Cash</span></td>
+
+                    @endif
+                    <td class="py-4 px-6 border-b border-gray-300">{{ $campaign->created_at->format('M jS, Y H:i A') }}</td>
+                    <td class="py-4 px-6 border-b border-gray-300">
+                        <div class="flex items-center space-x-2">
+                            <form class="inline-block" action="/admins/campaignDelete" method="POST" onsubmit="return confirm('Are you sure?')">
+                                @csrf
+                                <input class="hidden" name="campaign_id" value="{{$campaign->id}}">
+                                <button type="submit" class="action_button text-red-500 hover:text-red-700 hover:bg-gray-200 rounded-lg px-1">Delete</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            @endforeach
+            <!-- Add more rows here -->
+            </tbody>
+        </table>
+    </div>
 
 </div>
 

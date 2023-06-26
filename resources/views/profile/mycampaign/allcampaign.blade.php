@@ -1,6 +1,9 @@
+@extends('layouts.layout')
+
 @extends('profile.mycampaign')
 
 @section('mycampaign_contents')
 
-<h1>This is My All Campaign Content</h1>
+<h1 class="">This is My All Campaign Content</h1>
+
 @endsection

@@ -40,7 +40,7 @@
                         </ul>
                     </div>
                 </div>
-                <h5 class="mt-3 mb-1 text-3xl font-extrabold tracking-tight text-gray-900 px-4">10</h5>
+                <h5 class="mt-3 mb-1 text-3xl font-extrabold tracking-tight text-gray-900 px-4">{{$numberOfCampaign}}</h5>
             </div>
         </div>
 
@@ -48,7 +48,7 @@
         <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow">
             <div class="p-5 justify-center items-center">
                 <a href="#">
-                    <h5 class="mb-3 text-xl font-medium tracking-tight text-gray-900 px-4">Total Donation (Dollar)</h5>
+                    <h5 class="mb-3 text-xl font-medium tracking-tight text-gray-900 px-4">Total Raising</h5>
                 </a>
                 <div class="relative inline-block text-left">
                     <button type="button"
@@ -76,82 +76,15 @@
                         </ul>
                     </div>
                 </div>
-                <h5 class="mt-3 mb-1 text-3xl font-extrabold tracking-tight text-gray-900 px-4">$44.56</h5>
+                <h5 class="mt-3 mb-1 text-3xl font-extrabold tracking-tight text-gray-900 px-4">${{ $totalRaising/100 }}</h5>
             </div>
         </div>
 
-        {{-- Total Donation (KHR) --}}
-        <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow">
-            <div class="p-5 justify-center items-center">
-                <a href="#">
-                    <h5 class="mb-3 text-xl font-medium tracking-tight text-gray-900 px-4">Total Donation (KHR)</h5>
-                </a>
-                <div class="relative inline-block text-left">
-                    <button type="button"
-                        class="w-56 mb-2 flex items-center justify-between text-gray-500 bg-white focus:ring-4 focus:outline-none focus:ring-secondaryColor font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex shadow"
-                        onclick="toggleDropdown('dropdownMenu3')">
-                        <span id="dropdownTitle3">All Time Donation</span>
-                        <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
-                            </path>
-                        </svg>
-                    </button>
-                    <div id="dropdownMenu3"
-                        class="absolute right-0 w-44 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-200 rounded-md shadow-lg focus:outline-none hidden">
-                        <ul class="py-1">
-                            <li><a href="#" onclick="selectItem('All Time Donation', 'dropdownTitle3')"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">All Time
-                                    Donation</a></li>
-                            <li><a href="#" onclick="selectItem('This Week', 'dropdownTitle3')"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">This Week</a></li>
-                            <li><a href="#" onclick="selectItem('Last Week', 'dropdownTitle3')"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Last Week</a></li>
-                            <li><a href="#" onclick="selectItem('Last Month', 'dropdownTitle3')"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Last Month</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <h5 class="mt-3 mb-1 text-3xl font-extrabold tracking-tight text-gray-900 px-4">KHR 200,000</h5>
-            </div>
-        </div>
-
-        <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow">
-            <div class="p-5 justify-center items-center">
-                <a href="#">
-                    <h5 class="mb-3 text-xl font-medium tracking-tight text-gray-900 px-4">Total Item Donation</h5>
-                </a>
-                <div class="relative inline-block text-left">
-                    <button type="button"
-                        class="w-56 mb-2 flex items-center justify-between text-gray-500 bg-white focus:ring-4 focus:outline-none focus:ring-secondaryColor font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex shadow"
-                        onclick="toggleDropdown('dropdownMenu4')">
-                        <span id="dropdownTitle4">All</span>
-                        <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
-                            </path>
-                        </svg>
-                    </button>
-                    <div id="dropdownMenu4"
-                        class="absolute right-0 w-44 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-200 rounded-md shadow-lg focus:outline-none hidden">
-                        <ul class="py-1">
-                            <li><a href="#" onclick="selectItem('All', 'dropdownTitle4')"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">All</a></li>
-                            <li><a href="#" onclick="selectItem('Donating', 'dropdownTitle4')"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Donating</a></li>
-                            <li><a href="#" onclick="selectItem('Raising', 'dropdownTitle4')"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Raising</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <h5 class="mt-3 mb-1 text-3xl font-extrabold tracking-tight text-gray-900 px-4">10</h5>
-            </div>
-        </div>
 
         <div id="accordion-arrow-icon" data-accordion="open" class="w-full mx-auto py-4">
-            <h2 id="accordion-arrow-icon-heading-1">
+            <h2 id="accordion-arrow-icon-heading-1" class="text-center">
                 <button type="button"
-                    class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-900 bg-gray-100 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    class="text-center flex items-center justify-between w-full p-5 font-medium  text-gray-900 bg-gray-100 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800"
                     data-accordion-target="#accordion-arrow-icon-body-1" aria-expanded="true"
                     aria-controls="accordion-arrow-icon-body-1">
                     <h5 class=" text-xl font-bold text-gray-900 dark:text-white">My contact information</h5>
@@ -180,66 +113,25 @@
                     <li class="mr-2">
                         <a href="#"
                             class="w-full sm:w-auto bg-white focus:outline-none text-primaryTextColor inline-flex items-center justify-center px-4 py-2.5">
-                            <svg fill="primaryTextColor" class="mr-3 w-7 h-7" aria-hidden="true" focusable="false"
-                                data-prefix="fab" data-icon="apple" xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 512 512">
-                                <path
-                                    d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z" />
-                            </svg>
+                            <i class="fas fa-phone text-3xl mr-2"></i>
 
                             <div class="text-left">
-                                <div class="mb-1 text-s text-promptTextColor">Email</div>
-                                <div class="-mt-1 font-sans text-base font-semibold">sovortey1403@gmail.com</div>
+                                <div class="mb-1 text-s text-promptTextColor">Phone number</div>
+                                <div class="-mt-1 font-sans text-base font-semibold">{{ $user->phone }}</div>
                             </div>
                         </a>
                     </li>
                     <li class="mr-2">
                         <a href="#"
                             class="w-full sm:w-auto bg-white focus:outline-none text-primaryTextColor inline-flex items-center justify-center px-4 py-2.5">
-                            <svg fill="primaryTextColor" class="mr-3 w-7 h-7" aria-hidden="true" focusable="false"
-                                data-prefix="fab" data-icon="apple" xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 512 512">
-                                <path
-                                    d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z" />
-                            </svg>
+                            <i class="fab fa-telegram text-3xl mr-2"></i>
 
                             <div class="text-left">
-                                <div class="mb-1 text-s text-promptTextColor">Email</div>
-                                <div class="-mt-1 font-sans text-base font-semibold">sovortey1403@gmail.com</div>
+                                <div class="mb-1 text-s text-promptTextColor">Telegram</div>
+                                <div class="-mt-1 font-sans text-base font-semibold">{{ $user->telegram }}</div>
                             </div>
                         </a>
                     </li>
-                    <li class="mr-2">
-                        <a href="#"
-                            class="w-full sm:w-auto bg-white focus:outline-none text-primaryTextColor inline-flex items-center justify-center px-4 py-2.5">
-                            <svg fill="primaryTextColor" class="mr-3 w-7 h-7" aria-hidden="true" focusable="false"
-                                data-prefix="fab" data-icon="apple" xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 512 512">
-                                <path
-                                    d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z" />
-                            </svg>
-
-                            <div class="text-left">
-                                <div class="mb-1 text-s text-promptTextColor">Email</div>
-                                <div class="-mt-1 font-sans text-base font-semibold">sovortey1403@gmail.com</div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="mr-2">
-                        <a href="#"
-                            class="w-full sm:w-auto bg-white focus:outline-none text-primaryTextColor inline-flex items-center justify-center px-4 py-2.5">
-                            <svg fill="primaryTextColor" class="mr-3 w-7 h-7" aria-hidden="true" focusable="false"
-                                data-prefix="fab" data-icon="apple" xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 512 512">
-                                <path
-                                    d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z" />
-                            </svg>
-
-                            <div class="text-left">
-                                <div class="mb-1 text-s text-promptTextColor">Email</div>
-                                <div class="-mt-1 font-sans text-base font-semibold">sovortey1403@gmail.com</div>
-                            </div>
-                        </a>
                 </ul>
             </div>
         </div>
@@ -251,7 +143,7 @@
             <div class="flex items-center">
                 <h1 class="text-2xl font-bold mr-2 text-primaryTextColor">Campaign </h1>
                 <span
-                    class="bg-secondaryColor text-mainColor text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">10</span>
+                    class="bg-secondaryColor text-mainColor text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">{{ $numberOfCampaign }}</span>
             </div>
             <button type="button"
                 class="text-primaryTextColor bg-white hover:underline font-medium text-sm px-5 py-2.5 text-center inline-flex items-center">
