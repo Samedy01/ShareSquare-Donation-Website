@@ -36,7 +36,7 @@
                             <link rel="stylesheet" href="app.css">
                         </head>
                         <body>
-                        <h1 class="my-title1 ">{{__('content.home')}}</h1>
+                        <h1 class="my-title1 ">Unleash Your Generosity</h1>
                         <h1 class="my-title2">Transform Lives: Join</h1>
                         <h1 class="my-title3">ShareSquare Today!</h1>
                         </body>
