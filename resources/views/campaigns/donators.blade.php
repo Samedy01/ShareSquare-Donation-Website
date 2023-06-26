@@ -7,7 +7,10 @@
     @else
         <div class="flex justify-between flex-wrap">
             @foreach ($campCashDonors as $item)
+                <a href="{{route('user_overview')}}">
+
                     <x-campaigns.donator :campcashdonor="$item"></x-campaigns.donator>
+                </a>
             @endforeach
         </div>
     @endif

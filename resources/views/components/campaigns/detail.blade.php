@@ -64,12 +64,34 @@
                 @endphp
                 @foreach ($options as $option)
                     <div class="item">
-                        <div class="py-2 px-5 shadow bg-white rounded-xl text-center">
-                            <i class="dark-blue-grey {{$option['icon']}} h-5"></i>
-                            <div class="h-1"></div>
-                            <p class="title-color text-xl font-medium">{{$option['text']}}</p>
-                        </div>
+                        <input type="text" value="{{url()->current()}}" class="hidden" id="copied_url">
+                        <button onclick="copyText()">
+                            <div class="py-2 px-5 shadow bg-white rounded-xl text-center">
+                                <i class="dark-blue-grey {{$option['icon']}} h-5"></i>
+                                <div class="h-1"></div>
+                                <p class="title-color text-xl font-medium">{{$option['text']}}</p>
+                            </div>
+                        </button>
                     </div>
+
+                    <script>
+                        function copyText() {
+                            // Get the text field
+                            var copyText = document.getElementById("copied_url");
+
+
+                            // Select the text field
+                            copyText.select();
+                            copyText.setSelectionRange(0, 99999); // For mobile devices
+
+                            // Copy the text inside the text field
+                            navigator.clipboard.writeText(copyText.value);
+
+                            // Alert the copied text
+                            alert("Copied the text: " + copyText.value);
+                            }
+                    </script>
+                    
                 @endforeach
 
                 {{-- love button --}}
