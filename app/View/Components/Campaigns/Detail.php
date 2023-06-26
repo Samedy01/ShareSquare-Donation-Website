@@ -16,6 +16,7 @@ class Detail extends Component
     public function __construct(
         public Campaign $campaign,
         public User $user,
+        public $topdonors,
         public int $currenttabindex = 0,
     )
     {

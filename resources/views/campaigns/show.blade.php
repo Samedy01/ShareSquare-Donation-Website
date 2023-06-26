@@ -1,6 +1,6 @@
 {{-- Overview tab --}}
 
-<x-campaigns.detail :campaign="$campaign" :user="$user">
+<x-campaigns.detail :campaign="$campaign" :user="$user" :topdonors="$top_donors">
     <div class="pb-12"></div>
 
     <div class="donation-details">

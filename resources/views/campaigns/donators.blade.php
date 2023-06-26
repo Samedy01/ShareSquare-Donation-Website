@@ -1,4 +1,4 @@
-<x-campaigns.detail :campaign="$campaign" :user="$user" :currenttabindex='3'>
+<x-campaigns.detail :campaign="$campaign" :user="$user" :currenttabindex='3' :topdonors="$top_donors">
 
     <div class=" my-10 text-primaryTextColor font-bold text-4xl">Donor List</div>
 
@@ -21,3 +21,4 @@
         </div>
     @endif
 </x-campaigns.detail>
+

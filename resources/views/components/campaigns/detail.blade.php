@@ -6,7 +6,7 @@
         <div class="h-8"></div>
         <div class="donation-subtitle text-3xl">
             <p class="donation-less-focus-text">
-                Created by <a href="{{route('user_overview', ['id' => -1234])}}"><span class="donation-more-focus-text">{{$user->name}}</span></a> • {{$campaign->created_at}}
+                Created by <a href="{{route('user_overview', ['id' => -12345])}}"><span class="donation-more-focus-text">{{$user->name}}</span></a> • {{$campaign->created_at}}
             </p>
         </div>
     </div>
@@ -120,17 +120,15 @@
                 <div class="">
 
                     {{-- mocking data --}}
-                    @php
-                        $top_donors = [
-                            ['name' => 'Robert', 'amount' => 'KHR 40,000', 'date' => '7 May 2023'],
-                            ['name' => 'Bob', 'amount' => 'KHR 20,000', 'date' => '7 May 2023'],
-                            ['name' => 'Jessica', 'amount' => 'KHR 10,000', 'date' => '7 May 2023'],
-                        ];
-                    @endphp
 
                     {{-- top donor card component --}}
-                    @foreach ($top_donors as $item)
-                        <x-top-donor-card :name="$item['name']" :date="$item['date']" :amount="$item['amount']"></x-top-donor-card>
+                    @foreach ($topdonors as $item)
+                        <x-top-donor-card 
+                            :donor="$item->user"
+                            :name="$item->user->name" 
+                            :date="$item->created_at->format('F d, Y')" 
+                            :amount="$item->original_amount / 100">
+                        </x-top-donor-card>
                     @endforeach
                 </div>
             </div>

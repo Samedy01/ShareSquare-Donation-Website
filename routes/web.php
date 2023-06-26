@@ -99,9 +99,7 @@ Route::get('/campaigns/show/{campaign_id}/report', [CampaignController::class, '
 
 Route::get('/campaigns/show/{campaign_id}/comments', [CampaignController::class, 'comments'])->name('campaigns.show.comments');
 
-Route::get('/campaigns/show/{campaign_id}/donators', function() {
-    return 'hello';
-})->name('campaigns.show.donators');
+Route::get('/campaigns/show/{campaign_id}/donators', [CampaignController::class, 'donators'])->name('campaigns.show.donators');
 
 Route::get('/campaigns/show/{campaign_id}/donators', [CampaignDonatedCashController::class, 'index'])->name('campaigns.show.donators');
 

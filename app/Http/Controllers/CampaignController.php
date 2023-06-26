@@ -230,12 +230,23 @@ class CampaignController extends Controller
         ));
     }
 
+    private function __get_top_donors($campaign_id) {
+        return CampaignDonatedCash::with('user')
+        ->where('campaign_id', $campaign_id)
+        ->orderBy('total_amount', 'desc')
+        ->limit(2)
+        ->get();
+    }
+
     public function show($campaign_id)
     {
         $campaign = Campaign::findOrFail($campaign_id);
 
         $this->__increaseNumOfView($campaign_id);
         $user = User::findOrFail($campaign->user_id);
+        $users = User::all();
+        $top_donors = $this->__get_top_donors($campaign_id);
+
         $isLoveCampaign = null;
         if (Auth::user()){
             $isLoveCampaign = UserLoveCampaign::where('user_id', '=',Auth::user()->id)
@@ -246,6 +257,7 @@ class CampaignController extends Controller
         return view('campaigns.show', [
             'campaign' => $campaign,
             'user' => $user,
+            'top_donors' => $top_donors,
             'test_var1' => 'test message camp controlller',
         ]);
     }
@@ -258,6 +270,7 @@ class CampaignController extends Controller
         return view('campaigns.report', [
             'campaign' => $campaign,
             'user' => $user,
+            'top_donors' => $this->__get_top_donors($campaign_id),
         ]);
     }
 
@@ -269,6 +282,7 @@ class CampaignController extends Controller
         return view('campaigns.comments', [
             'campaign' => $campaign,
             'user' => $user,
+            'top_donors' => $this->__get_top_donors($campaign_id),
         ]);
     }
 
@@ -281,6 +295,8 @@ class CampaignController extends Controller
             'campaign' => $campaign,
             'user' => $user,
             // 'isLoveCampaign' => $isLoveCampaign,
+            'top_donors' => $this->__get_top_donors($campaign_id),
+
         ]);
     }
 

@@ -1,4 +1,4 @@
-<div class="p-3 shadow text-center">
+{{-- <div class="p-3 shadow text-center">
 
     <div class="inline-block clearfix">
         @php
@@ -16,4 +16,4 @@
         @endforeach
 
     </div>
-</div>
+</div> --}}

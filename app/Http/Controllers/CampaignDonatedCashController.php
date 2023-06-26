@@ -10,6 +10,15 @@ use Illuminate\Http\Request;
 class CampaignDonatedCashController extends Controller
 {
     //
+
+    private function __get_top_donors($campaign_id) {
+        return CampaignDonatedCash::with('user')
+        ->where('campaign_id', $campaign_id)
+        ->orderBy('total_amount', 'desc')
+        ->limit(2)
+        ->get();
+    }
+
     public function index($campaign_id) {
         error_log('campaign_id: '.$campaign_id);
 
@@ -41,6 +50,7 @@ class CampaignDonatedCashController extends Controller
             'user' => $user,
             'campaignDonatedCashs' => $campCashs,
             'campCashDonors' => $campCashs_donors,
+            'top_donors' => $this->__get_top_donors($campaign_id),
         ]);
     }
 }
