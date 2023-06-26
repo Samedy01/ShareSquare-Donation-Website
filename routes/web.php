@@ -18,6 +18,8 @@ use App\Http\Controllers\CampaignDonatedCashController;
 use App\Http\Controllers\UserController;
 use App\Models\CampaignDonatedCash;
 use App\Http\Controllers\OtherUserProfileController;
+use App\Http\Middleware\Admin;
+use App\Http\Middleware\Authenticate;
 
 /*
 |--------------------------------------------------------------------------
@@ -233,27 +235,43 @@ Route::post('/campaigns/donate_now_with_cash',[CampaignController::class,'donate
 Route::post('/user/care_campaign',[CampaignController::class,'userCareCampaign'])->name('campaign.user_care_campaign');
 
 
-
-Route::get('/admin/campaigns',[AdminController::class,'campaigns'])->name('admin.campaigns');
-Route::get('admin/view_campaign/{campaign_id}',[AdminController::class,'viewCampaign'])->name('admin.view_campaign');
-Route::post('/admin/approve_campaign',[AdminController::class,'approveCampaign']);
-Route::post('/admin/reject_campaign',[AdminController::class,'rejectCampaign']);
-Route::get('/admin/campaign_categories',[AdminController::class,'campaignCategories'])->name('admin.campaignCategories');
-Route::get('/admin/edit_campaign_category/{campaign_category_id}',[AdminController::class,'editCampaignCategory'])->name('admin.editCampainCategory');
-Route::get('/admin/create_campaign_category',[AdminController::class,'campaignCategoryCreate'])->name('admin.createCampaignCategory');
-Route::post('/admin/store_campaign_category',[AdminController::class,'storeCampaignCategory'])->name('admin.storeCampaignCategory');
-Route::post('/admin/update_campaign_category/{campaign_category_id}',[AdminController::class,'updateCampaignCategory'])->name('admin.updateCampaignCategory');
-Route::post('/admin/delete_campaign_category/{campaign_category_id}',[AdminController::class,'deleteCampaignCategory'])->name('admin.deleteCampaignCategory');
-
-//for item category
-Route::get('/admin/item_categories',[AdminController::class,'campaignItemCategories'])->name('admin.item_categories.index');
-Route::get('/admin/create_item_categories',[AdminController::class,'createItemCategory'])->name('admin.item_categories.create');
-
 Route::get('/users/profile/{user_id}',[UserController::class,'viewOtherProfile'])->name('users.view_other_user');
 Route::get('campaigns/comment/{campaign_id}',[CampaignController::class,'comment'])->name('campaigns.comment');
 Route::post('/campaigns/user/comment',[CampaignController::class,'userComment'])->name('campaigns.user.comment');
 
 
+
+// for admin part
+//
+Route::middleware([Authenticate::class, Admin::class])->group(function () {
+
+    Route::get('/admin/campaigns',[AdminController::class,'campaigns'])->name('admin.campaigns');
+
+    Route::get('admin/view_campaign/{campaign_id}',[AdminController::class,'viewCampaign'])->name('admin.view_campaign');
+
+    Route::post('/admin/approve_campaign',[AdminController::class,'approveCampaign']);
+
+    Route::post('/admin/reject_campaign',[AdminController::class,'rejectCampaign']);
+
+    Route::get('/admin/campaign_categories',[AdminController::class,'campaignCategories'])->name('admin.campaignCategories');
+
+    Route::get('/admin/edit_campaign_category/{campaign_category_id}',[AdminController::class,'editCampaignCategory'])->name('admin.editCampainCategory');
+
+    Route::get('/admin/create_campaign_category',[AdminController::class,'campaignCategoryCreate'])->name('admin.createCampaignCategory');
+
+    Route::post('/admin/store_campaign_category',[AdminController::class,'storeCampaignCategory'])->name('admin.storeCampaignCategory');
+
+    Route::post('/admin/update_campaign_category/{campaign_category_id}',[AdminController::class,'updateCampaignCategory'])->name('admin.updateCampaignCategory');
+
+    Route::post('/admin/delete_campaign_category/{campaign_category_id}',[AdminController::class,'deleteCampaignCategory'])->name('admin.deleteCampaignCategory');
+    
+
+    //for item category
+    Route::get('/admin/item_categories',[AdminController::class,'campaignItemCategories'])->name('admin.item_categories.index');
+
+    Route::get('/admin/create_item_categories',[AdminController::class,'createItemCategory'])->name('admin.item_categories.create');
+});
+//////////////////////////////////////////////////
 
 
 
