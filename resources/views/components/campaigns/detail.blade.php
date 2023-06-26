@@ -17,7 +17,7 @@
 
             <div class="py-3 flex justify-between">
                 {{-- @for ($i = 0; $i < 3; $i++)
-                    <img class="w-1/4 flex rounded-lg" src="/img/upload/campaign/{{$campaign->image_thumbnail_path}}" style="height: 100px"></img>        
+                    <img class="w-1/4 flex rounded-lg" src="/img/upload/campaign/{{$campaign->image_thumbnail_path}}" style="height: 100px"></img>
                 @endfor --}}
 
             </div>
@@ -54,7 +54,7 @@
             </div>
 
             {{-- options --}}
-            <div class="pb-6 flex justify-between">
+            <div class="pb-6 flex mr-2">
                 @php
                     $options = [
                         ['text' => 'Share', 'icon' => 'fa fa-share'],
@@ -91,7 +91,7 @@
                             alert("Copied the text: " + copyText.value);
                             }
                     </script>
-                    
+
                 @endforeach
 
                 {{-- love button --}}
@@ -149,7 +149,7 @@
                 $tabs = ['Overview', 'Report', 'Comments', 'Donators'];
                 $routes = ['campaigns.show', 'campaigns.show.report', 'campaigns.show.comments', 'campaigns.show.donators'];
             @endphp
-    
+
             @foreach($tabs as $tab)
                 @php
                     $focus = 'more-focus';
@@ -157,24 +157,24 @@
                 @if ($loop->index != $currenttabindex)
                     @php
                         $focus = 'less-focus';
-                    @endphp 
+                    @endphp
                 @endif
                 @php $current_route = $routes[$loop->index]; @endphp
 
-                <a class="item {{$focus}} inline-block float-left py-3 px-8 border-r text-xl font-medium" href="{{route("$current_route", 
+                <a class="item {{$focus}} inline-block float-left py-3 px-8 border-r text-xl font-medium" href="{{route("$current_route",
                 ['campaign' => $campaign, 'campaign_id' => $campaign->id])}}">
                 {{$tab}}
                 </a>
             @endforeach
-    
+
         </div>
     </div>
-    
+
 
     <div>
         {{$slot}}
     </div>
-    
+
 </div>
 @vite('resources/js/panha.js')
 @endsection
