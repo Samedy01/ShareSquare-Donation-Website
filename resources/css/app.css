@@ -1,0 +1,175 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* General */
+
+@font-face {
+    font-family: public-sans-regular;
+    src: url(/public/fonts/Public_Sans/static/PublicSans-Regular.ttf);
+}
+
+@font-face {
+    font-family: public-sans-bold;
+    src: url(/public/fonts/Public_Sans/static/PublicSans-Bold.ttf);
+}
+
+@font-face {
+    font-family: public-sans-semi-bold;
+    src: url(/public/fonts/Public_Sans/static/PublicSans-SemiBold.ttf);
+}
+
+.primary-text-color {
+    color: #FF4238;
+}
+
+.primary-bg-color {
+    background-color: #FF4238;
+}
+
+.primary-border-color {
+    border-color: #FF4238;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: public-sans-regular, serif;
+}
+
+.title {
+    color: #333238;
+    font-family: public-sans-bold, serif;
+}
+
+.title-color {
+    color: #333238;
+}
+
+.dark-blue-grey {
+    color: #43536D;
+}
+
+
+/* samedy - donation part (Campaign profile) */
+
+.clearfix::after {
+    content: " ";
+    clear: both;
+    display: table;
+}
+
+/* .donation {
+    padding: 150px 70px;
+} */
+
+.donation-title {
+    color: #333238;
+    font-family: public-sans-bold;
+    line-height: normal;
+}
+
+.donation-subtitle {
+    font-size: 30px;
+}
+
+.donation-less-focus-text {
+    color: #7B8794;
+}
+
+.donation-more-focus-text {
+    color: #43536D;
+    font-family: public-sans-semi-bold;
+}
+
+.donation-details {}
+
+.donation-details .item .title {
+    /* font-size: 36px; */
+    font-family: public-sans-bold;
+}
+
+.donation-details .item .content {
+    font-size: 20px;
+    color: #333238;
+}
+
+.campaign-profile .less-focus {
+    color: #7B8794;
+}
+
+.campaign-profile .more-focus {
+    color: #333238;
+}
+
+
+/* Pech */
+
+.background-image {
+    width: 30px;
+}
+.my-title1 {
+    position: absolute;
+    width: 812px;
+    height: 931px;
+    left: 105px;
+    top: 125px;
+    font-family: 'Nunito Sans';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 64px;
+    line-height: 100%;
+    color: #E8EBF0;
+}
+.my-title2 {
+    position: absolute;
+    width: 812px;
+    height: 931px;
+    left: 105px;
+    top: 125px;
+    font-family: 'Nunito Sans';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 64px;
+    line-height: 330%;
+    color: #E8EBF0;
+}
+.my-title3 {
+    position: absolute;
+    width: 812px;
+    height: 931px;
+    left: 105px;
+    top: 125px;
+    font-family: 'Nunito Sans';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 64px;
+    line-height: 550%;
+    color: #ffffff;
+}
+/* Hover styles for button */
+button:hover {
+    /*background-color: #c53030;*/
+    border-color: #c53030;
+}
+
+.follow-style {
+    /* Style for "Click me" button */
+    /* Add your desired styles here */
+    /* Example styles: */
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+}
+
+.follow-clicked-style {
+    /* Style for "Button clicked" button */
+    /* Add your desired styles here */
+    /* Example styles: */
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+}

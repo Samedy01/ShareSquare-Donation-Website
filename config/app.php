@@ -1,4 +1,5 @@
 <?php
+//require_once ('constants.php');
 
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
@@ -168,6 +169,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -183,6 +185,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
+        'Stripe' => Cartalyst\Stripe\Laravel\Facades\Stripe::class,
     ])->toArray(),
 
 ];
