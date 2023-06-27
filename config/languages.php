@@ -1,6 +1,6 @@
 <?php
 return [
     'en' => 'English',
-    'kh' => 'Khmer',
+    'kh' => 'ខ្មែរ',
     
 ];

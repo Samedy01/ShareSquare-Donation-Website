@@ -58,9 +58,9 @@
 
                     </div>
                 <div class="w-[1304px] h-[150px] p-[35px] left-[0px] justify-between items-center gap-[22px] inline-flex">
-                    <div class="left-[0px] top-[330px] text-right text-white text-[18px] font-semibold">100 campaign created</div>
+                    <div class="left-[0px] top-[330px] text-right text-white text-[18px] font-semibold">{{ __("content.100 campaign created") }}</div>
                     <div class="w-[659.50px] h-[0px] border border-neutral-200 backdrop-blur-[30px]"></div>
-                    <div class="text-right text-white text-[18px] font-semibold">58 donations collected</div>
+                    <div class="text-right text-white text-[18px] font-semibold">{{ __("content.58 donations collected") }}</div>
                 </div>
             </section>
         </div>
@@ -71,9 +71,9 @@
     <div class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 bg-gray-100">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-10 py-20">
             <div class="flex flex-col justify-start items-start space-y-10">
-                <div class="text-cyan-900 text-2xl font-bold uppercase tracking-widest">_______ What we do</div>
-                <div class="text-cyan-900 text-4xl font-bold leading-tight">Empowering Positive Change: Discover the Mission of ShareSquare</div>
-                <div class="text-gray-700 text-lg font-normal leading-relaxed">ShareSquare is a purpose-driven platform dedicated to empowering individuals and organizations to create and support impactful fundraising campaigns. Our mission is to provide a user-friendly space where generosity meets social causes, fostering a community that drives positive change. Join us as we strive to make a meaningful difference in education, health, disaster relief, and more through collective action and shared values.</div>
+                <div class="text-cyan-900 text-2xl font-bold uppercase tracking-widest">_______ {{ __("content.What we do") }}</div>
+                <div class="text-cyan-900 text-4xl font-bold leading-tight">{{ __("content.Empowering Positive Change: Discover the Mission of ShareSquare") }}</div>
+                <div class="text-gray-700 text-lg font-normal leading-relaxed">{{ __("content.ShareSquare is a purpose-driven platform dedicated to empowering individuals and organizations to create and support impactful fundraising campaigns. Our mission is to provide a user-friendly space where generosity meets social causes, fostering a community that drives positive change. Join us as we strive to make a meaningful difference in education, health, disaster relief, and more through collective action and shared values.") }}</div>
             </div>
             <div class="flex justify-center items-center">
                 <img class="max-w-full h-auto rounded-2xl" src="{{ asset('images/charity-unsplash.jpg') }}" alt="Charity Unsplash" />
@@ -86,8 +86,8 @@
         <div class="container px-5 py-24 mx-auto">
             <div class="flex flex-wrap -m-4">
                 <div class=" items-start text-right my-0 ml-20 sm:ml-10">
-                    <div class="text-cyan-900 text-lg md:text-2xl lg:text-[20px] font-bold uppercase tracking-widest mb-10">_______ Featured Donation Campaign</div>
-                    <div class="w-full sm:w-auto text-cyan-900 text-base md:text-lg lg:text-[48px] font-bold leading-10 mb-10">We are all about creating a place where girls can thrive</div>
+                    <div class="text-cyan-900 text-lg md:text-2xl lg:text-[20px] font-bold uppercase tracking-widest mb-10">{{ __("content._______ Featured Donation Campaign") }}</div>
+                    <div class="w-full sm:w-auto text-cyan-900 text-base md:text-lg lg:text-[48px] font-bold leading-10 mb-10">{{ __("content.We are all about creating a place where girls can thrive") }}</div>
                 </div>
                 <div class="p-5 md:w-1/3 hover:bg-gray-200">
                     <div class="relative h-full rounded-lg overflow-hidden">
@@ -95,10 +95,10 @@
                             <img src="{{ asset('images/charity-unsplash.jpg') }}" alt="Background image" class="w-full h-full object-cover object-center">
                         </div>
                         <div class="w-full md:w-96 h-80 md:h-96 bg-black bg-opacity-50 flex flex-col justify-center items-start space-y-4 p-4 rounded-lg relative z-10">
-                            <div class="text-white text-xl md:text-2xl lg:text-3xl font-bold leading-tight">Mission smile 1k: Outdoor charity</div>
+                            <div class="text-white text-xl md:text-2xl lg:text-3xl font-bold leading-tight">{{ __("content.Mission smile 1k: Outdoor charity") }}</div>
                             <div class="text-white text-base md:text-lg lg:text-xl font-normal leading-relaxed">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros.</div>
                             <div class="px-4 py-2 bg-white rounded backdrop-blur-[80px] flex justify-center items-center space-x-2 hover:bg-gray-200">
-                                <button class="text-red-500 text-base md:text-lg lg:text-xl font-bold">Donate Now</button>
+                                <button class="text-red-500 text-base md:text-lg lg:text-xl font-bold">{{ __("content.Donate Now") }}</button>
                                 <a class="text-red-500 inline-flex items-center md:mb-2 lg:mb-0">
                                     <svg class="w-4 h-4 ml-0" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M5 12h14"></path>
@@ -115,10 +115,10 @@
                            <img src="{{ asset('images/charity-unsplash.jpg') }}" alt="Background image" class="w-full h-full object-cover object-center">
                         </div>
                         <div class="relative w-full md:w-96 h-80 md:h-96 bg-black bg-opacity-50 flex flex-col justify-center items-start space-y-4 p-4 rounded-lg">
-                            <div class="text-white text-xl md:text-2xl lg:text-3xl font-bold leading-tight">Mission smile 1k: Outdoor charity</div>
+                            <div class="text-white text-xl md:text-2xl lg:text-3xl font-bold leading-tight">{{ __("content.Mission smile 1k: Outdoor charity") }}</div>
                             <div class="text-white text-base md:text-lg lg:text-xl font-normal leading-relaxed">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros.</div>
                             <div class="px-4 py-2 bg-white rounded backdrop-blur-[80px] flex justify-center items-center space-x-2 hover:bg-gray-200">
-                                <button class="text-red-500 text-base md:text-lg lg:text-xl font-bold">Donate Now</button>
+                                <button class="text-red-500 text-base md:text-lg lg:text-xl font-bold">{{ __("content.Donate Now") }}</button>
                                 <a class="text-red-500 inline-flex items-center md:mb-2 lg:mb-0">
                                     <svg class="w-4 h-4 ml-0" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M5 12h14"></path>
@@ -135,10 +135,10 @@
                             <img src="{{ asset('images/charity-unsplash.jpg') }}" alt="Background image" class="w-full h-full object-cover object-center">
                         </div>
                         <div class="relative w-full md:w-96 h-80 md:h-96 bg-black bg-opacity-50 flex flex-col justify-center items-start space-y-4 p-4 rounded-lg">
-                            <div class="text-white text-xl md:text-2xl lg:text-3xl font-bold leading-tight">Mission smile 1k: Outdoor charity</div>
+                            <div class="text-white text-xl md:text-2xl lg:text-3xl font-bold leading-tight">{{ __("content.Mission smile 1k: Outdoor charity") }}</div>
                             <div class="text-white text-base md:text-lg lg:text-xl font-normal leading-relaxed">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros.</div>
                             <div class="px-4 py-2 bg-white rounded backdrop-blur-[80px] flex justify-center items-center space-x-2 hover:bg-gray-200">
-                                <button class="text-red-500 text-base md:text-lg lg:text-xl font-bold">Donate Now</button>
+                                <button class="text-red-500 text-base md:text-lg lg:text-xl font-bold">{{ __("content.Donate Now") }}</button>
                                 <a class="text-red-500 inline-flex items-center md:mb-2 lg:mb-0">
                                     <svg class="w-4 h-4 ml-0" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M5 12h14"></path>
@@ -160,8 +160,8 @@
             <div class="flex flex-wrap -m-4">
 
                 <div class=" items-start text-left my-0 ml-4">
-                    <div class="text-cyan-900 text-lg md:text-xl lg:text-xl font-bold uppercase tracking-widest mb-10">Featured Item Donation Campaign _______</div>
-                    <div class="w-full sm:w-auto text-cyan-900 text-base md:text-lg lg:text-[48px] font-bold leading-10 mb-10">We are all about creating a place where girls can thrive</div>
+                    <div class="text-cyan-900 text-lg md:text-xl lg:text-xl font-bold uppercase tracking-widest mb-10">{{ __("content.Featured Item Donation Campaign _______") }}  </div>
+                    <div class="w-full sm:w-auto text-cyan-900 text-base md:text-lg lg:text-[48px] font-bold leading-10 mb-10">{{ __("content.We are all about creating a place where girls can thrive") }}</div>
                 </div>
                 <div class="p-5 md:w-1/3 hover:bg-gray-100">
                     <div class="relative h-full rounded-lg overflow-hidden">
@@ -169,10 +169,10 @@
                             <img src="{{ asset('images/item-donation.jpg') }}" alt="Background image" class="w-full h-full object-cover object-center">
                         </div>
                         <div class="w-full md:w-96 h-80 md:h-96 bg-black bg-opacity-50 flex flex-col justify-center items-start space-y-4 p-4 rounded-lg relative z-10">
-                            <div class="text-white text-xl md:text-2xl lg:text-3xl font-bold leading-tight">Mission smile 1k: Outdoor charity</div>
+                            <div class="text-white text-xl md:text-2xl lg:text-3xl font-bold leading-tight">{{ __("content.Mission smile 1k: Outdoor charity") }}</div>
                             <div class="text-white text-base md:text-lg lg:text-xl font-normal leading-relaxed">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros.</div>
                             <div class="px-4 py-2 bg-white rounded backdrop-blur-[80px] flex justify-center items-center space-x-2 hover:bg-gray-200">
-                                <button class="text-red-500 text-base md:text-lg lg:text-xl font-bold">Claim Now</button>
+                                <button class="text-red-500 text-base md:text-lg lg:text-xl font-bold">{{ __("content.Claim Now") }}</button>
                                 <a class="text-red-500 inline-flex items-center md:mb-2 lg:mb-0">
                                     <svg class="w-4 h-4 ml-0" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M5 12h14"></path>
@@ -189,10 +189,10 @@
                             <img src="{{ asset('images/item-donation.jpg') }}" alt="Background image" class="w-full h-full object-cover object-center">
                         </div>
                         <div class="w-full md:w-96 h-80 md:h-96 bg-black bg-opacity-50 flex flex-col justify-center items-start space-y-4 p-4 rounded-lg relative z-10">
-                            <div class="text-white text-xl md:text-2xl lg:text-3xl font-bold leading-tight">Mission smile 1k: Outdoor charity</div>
+                            <div class="text-white text-xl md:text-2xl lg:text-3xl font-bold leading-tight">{{ __("content.Mission smile 1k: Outdoor charity") }}</div>
                             <div class="text-white text-base md:text-lg lg:text-xl font-normal leading-relaxed">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros.</div>
                             <div class="px-4 py-2 bg-white rounded backdrop-blur-[80px] flex justify-center items-center space-x-2 hover:bg-gray-200">
-                                <button class="text-red-500 text-base md:text-lg lg:text-xl font-bold">Claim Now</button>
+                                <button class="text-red-500 text-base md:text-lg lg:text-xl font-bold">{{ __("content.Claim Now") }}</button>
                                 <a class="text-red-500 inline-flex items-center md:mb-2 lg:mb-0">
                                     <svg class="w-4 h-4 ml-0" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M5 12h14"></path>
@@ -209,10 +209,10 @@
                             <img src="{{ asset('images/item-donation.jpg') }}" alt="Background image" class="w-full h-full object-cover object-center">
                         </div>
                         <div class="w-full md:w-96 h-80 md:h-96 bg-black bg-opacity-50 flex flex-col justify-center items-start space-y-4 p-4 rounded-lg relative z-10">
-                            <div class="text-white text-xl md:text-2xl lg:text-3xl font-bold leading-tight">Mission smile 1k: Outdoor charity</div>
+                            <div class="text-white text-xl md:text-2xl lg:text-3xl font-bold leading-tight">{{ __("content.Mission smile 1k: Outdoor charity") }}</div>
                             <div class="text-white text-base md:text-lg lg:text-xl font-normal leading-relaxed">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros.</div>
                             <div class="px-4 py-2 bg-white rounded backdrop-blur-[80px] flex justify-center items-center space-x-2 hover:bg-gray-200">
-                                <button class="text-red-500 text-base md:text-lg lg:text-xl font-bold">Claim Now</button>
+                                <button class="text-red-500 text-base md:text-lg lg:text-xl font-bold">{{ __("content.Claim Now") }}</button>
                                 <a class="text-red-500 inline-flex items-center md:mb-2 lg:mb-0">
                                     <svg class="w-4 h-4 ml-0" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M5 12h14"></path>
@@ -239,9 +239,9 @@
                 <div class="flex flex-col mb-10 lg:items-start items-center">
                     <div class="w-[543px] p-[0px] flex-col justify-start items-end gap-[45px] inline-flex">
                         <div class="p-[0px] justify-start items-center gap-6 inline-flex">
-                            <div class="text-cyan-900 text-[20px] font-bold uppercase tracking-widest">_______ What we do</div>
+                            <div class="text-cyan-900 text-[20px] font-bold uppercase tracking-widest">_______ {{ __("content.What we do") }}</div>
                         </div>
-                        <div class="w-[575px] text-right text-cyan-900 text-[48px] font-bold leading-10">Some services we provide for our girls</div>
+                        <div class="w-[575px] text-right text-cyan-900 text-[48px] font-bold leading-10">{{ __("content.Some services we provide for our girls") }}</div>
                     </div>
 
                     <div class="p-[0px] justify-start items-start gap-[20px] inline-flex">
@@ -261,8 +261,8 @@
                         </div>
                     </div>
                     <div class="flex-grow">
-                        <h2 class="text-gray-900 text-lg title dark-blue-grey font-medium mb-0">Fundraising Campaign Creation</h2>
-                        <p class="leading-relaxed text-base">We empower users to create fundraising campaigns easily, enabling them to raise funds for diverse social initiatives.</p>
+                        <h2 class="text-gray-900 text-lg title dark-blue-grey font-medium mb-0">{{ __("content.Fundraising Campaign Creation") }}</h2>
+                        <p class="leading-relaxed text-base">{{ __("content.We empower users to create fundraising campaigns easily, enabling them to raise funds for diverse social initiatives.") }}</p>
                     </div>
                 </div>
                 <div class="flex flex-col mb-10 lg:items-start items-center">
@@ -275,8 +275,8 @@
                         </div>
                     </div>
                     <div class="flex-grow">
-                        <h2 class="text-gray-900 text-lg title dark-blue-grey font-medium mb-3">Monetary Donations</h2>
-                        <p class="leading-relaxed text-base">We allow users to make monetary donations to support the campaigns created on the platform.</p>
+                        <h2 class="text-gray-900 text-lg title dark-blue-grey font-medium mb-3">{{ __("content.Monetary Donations") }}</h2>
+                        <p class="leading-relaxed text-base">{{ __("content.We allow users to make monetary donations to support the campaigns created on the platform.") }}</p>
                     </div>
                 </div>
                 <div class="flex flex-col mb-10 lg:items-start items-center">
@@ -289,8 +289,8 @@
                         </div>
                     </div>
                     <div class="flex-grow">
-                        <h2 class="text-gray-900 text-lg title dark-blue-grey font-medium mb-3">Item Donations</h2>
-                        <p class="leading-relaxed text-base">We also facilitates the donation of physical items.</p>
+                        <h2 class="text-gray-900 text-lg title dark-blue-grey font-medium mb-3">{{ __("content.Item Donations") }}</h2>
+                        <p class="leading-relaxed text-base">{{ __("content.We also facilitates the donation of physical items.") }}</p>
                     </div>
                 </div>
                 <div class="flex flex-col mb-10 lg:items-start items-center">
@@ -303,8 +303,8 @@
                         </div>
                     </div>
                     <div class="flex-grow">
-                        <h2 class="text-gray-900 text-lg title dark-blue-grey font-medium mb-3">Item Claiming and Requesting</h2>
-                        <p class="leading-relaxed text-base">We enable users to browse and search for donated items that meet their needs.</p>
+                        <h2 class="text-gray-900 text-lg title dark-blue-grey font-medium mb-3">{{ __("content.Item Claiming and Requesting") }}</h2>
+                        <p class="leading-relaxed text-base">{{ __("content.We enable users to browse and search for donated items that meet their needs.") }}</p>
                     </div>
                 </div>
             </div>
@@ -321,17 +321,17 @@
     <div class="flex justify-center bg-no-repeat bg-cover h-full md:bg-center" style="background-image:url('{{ asset('images/charity-unsplash.jpg') }}'); filter: brightness(90%)">
         <div class="flex flex-col items-center">
             <div class="flex flex-col justify-center items-center text-center max-w-7xl my-8 py-10 px-10 rounded-lg border-4 border-white overflow-hidden backdrop-blur-lg">
-                <h1 class="text-base text-white font-medium tracking-wider">Welcome to ShareSquare</h1>
+                <h1 class="text-base text-white font-medium tracking-wider">{{ __("content.Welcome to ShareSquare") }}</h1>
                 <span class="underline underline-offset-2 text-white-700-mt-3 mb-10">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;</span>
                 <div class="flex flex-col text-gray-700 mt-5">
-                    <h1 class="text-4xl text-white md:text-[50px] font-semibold mb-10">Be the Catalyst for Change:</h1>
-                    <h1 class="text-4xl md:text-[50px] text-white font-semibold mb-10">Donate Now and Make an Impact!</h1>
-                    <p class="text-xl text-white mt-2 md:mt-4 tracking-wide mb-5">Donate - Support - Make a Difference</p>
+                    <h1 class="text-4xl text-white md:text-[50px] font-semibold mb-10">{{ __("content.Be the Catalyst for Change:") }}</h1>
+                    <h1 class="text-4xl md:text-[50px] text-white font-semibold mb-10">{{ __("content.Donate Now and Make an Impact!") }}</h1>
+                    <p class="text-xl text-white mt-2 md:mt-4 tracking-wide mb-5">{{ __("content.Donate - Support - Make a Difference") }}</p>
                 </div>
                 <p class="mt-4 text-sm md:w-[52%] tracking-wide leading-7"></p>
                 <div class="flex justify-center mb-10">
-                    <button class="inline-flex text-white bg-red-600 border-0 py-2 px-6 focus:outline-none hover:bg-red-800 rounded text-lg">Donate Now</button>
-                    <button class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">Create Campaign</button>
+                    <button class="inline-flex text-white bg-red-600 border-0 py-2 px-6 focus:outline-none hover:bg-red-800 rounded text-lg">{{ __("content.Donate Now") }}</button>
+                    <button class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">{{ __("content.Create Campaign") }}</button>
                 </div>
             </div>
         </div>

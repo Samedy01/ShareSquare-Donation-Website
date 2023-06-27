@@ -112,12 +112,12 @@
                 <li>
                     <a href="{{ route('dashboard') }}"
                         class="block py-2 pl-3 pr-4 bg-mainColor rounded md:bg-transparent {{ $controller == 'HomeController' && $method == 'index' ? 'text-mainColor' : 'text-primaryTextColor' }} md:p-0 md:dark:mainColor"
-                        aria-current="page">Home</a>
+                        aria-current="page">{{ __("content.Home") }}</a>
                 </li>
                 <li>
                     <a href="{{ route('campaigns.index') }}"
-                        class="block py-2 pl-3 pr-4 {{ $controller == 'CampaignController' ? 'text-mainColor' : 'text-primaryTextColor' }} rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-mainColor md:p-0">All
-                        Campaign</a>
+                        class="block py-2 pl-3 pr-4 {{ $controller == 'CampaignController' ? 'text-mainColor' : 'text-primaryTextColor' }} rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-mainColor md:p-0">
+                        {{ __("content.All Campaign") }}</a>
                 </li>
                 {{-- Language Switching --}}
                 {{-- <div class="hidden sm:flex sm:items-center sm:ml-6 text-base" >

@@ -1,7 +1,9 @@
 <?php
 
 return [
-    'home' => 'Home',
+    'Home' => 'Home',
+    'English' => '',
+    'All Campaign' => 'All Campaign',
     "You're logged in!" => "You're logged in!",
     "Unleash Your Generosity" => "Unleash Your Generosity",
     "Transform Lives: Join" => "Transform Lives: Join",
@@ -30,6 +32,6 @@ return [
     "Welcome to ShareSquare" => " Welcome to ShareSquare",
     "Be the Catalyst for Change:" => " Be the Catalyst for Change:",
     "Donate Now and Make an Impact!" => " Donate Now and Make an Impact!",
-
+    "Donate - Support - Make a Difference" => "Donate - Support - Make a Difference",
 
 ];
