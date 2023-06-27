@@ -21,6 +21,7 @@ use App\Http\Controllers\OtherUserProfileController;
 use App\Http\Middleware\Admin;
 use App\Http\Middleware\Authenticate;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,7 +35,7 @@ use App\Http\Middleware\Authenticate;
 
 
 // Default
-
+Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'App\Http\Controllers\LanguageController@switchLang']);
 
 
 // Pech
@@ -47,7 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/donations/campaign_profile', function () {
+    Route::get('/donations/campaign_profile', function () {
     return view('donations.campaign_profile');
 });
 
@@ -194,6 +195,7 @@ Route::get('/donations/campaign_profile', function () {
 //     return view('Item_Donation.item_donation');
 // });
 //saovty
+
 Route::get('/campaigns/donate_item/{campaign_id}',[CampaignDonatedItemController::class,'donateItem'])->name('campaigns.donate_item');
 
 /*Route::get('/', function(){
@@ -221,6 +223,14 @@ Route::get('/search',[SearchController::class,'searchUsersAndCampaigns'])->name(
 Route::get('/test_map_box',function (){
     return view('tests.testMapBox');
 });
+//saovty
+Route::get('/comment_tab', function(){
+    return view('comment');
+});
+Route::get('/item_donation',[CampaignDonatedItemController::class, 'itemDonation']);
+Route::post('/done_donated_items',[CampaignDonatedItemController::class,'performDonatedItem'])->name('compaigns.perform_donate_item');
+
+require __DIR__.'/auth.php';
 
 Route::get('/campaigns/cash_donation/{campaign_id}',[CampaignController::class,'donateCash'])->name('campaigns.donate_cash');
 

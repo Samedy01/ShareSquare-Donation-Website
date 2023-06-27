@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\App;
 class HomeController extends Controller
 {
     public function index(){
-        App::setLocale('kh');
+        // App::setLocale('kh');
         return view('dashboard');
     }
 }

@@ -1,3 +1,4 @@
+/* @import '~flag-icon-css/sass/flag-icon'; */
 input[type="checkbox"]:checked + .w-8 .tick-icon {
     display: block;
 }
