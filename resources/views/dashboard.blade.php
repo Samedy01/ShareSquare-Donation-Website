@@ -33,7 +33,7 @@
                             <link rel="stylesheet" href="app.css">
                         </head>
                         <body>
-                        <h1 class="my-title1 ">"Unleash Your Generosity"</h1>
+                        <h1 class="my-title1 ">Unleash Your Generosity</h1>
                         <h1 class="my-title2">Transform Lives: Join</h1>
                         <h1 class="my-title3">ShareSquare Today!</h1>
                         </body>
@@ -42,10 +42,10 @@
                                     <div class="w-0 h-0 relative"></div>
                                         <button class="text-right-[20px] text-white text-[18px] font-normal">
                                         <i class="fa-sharp fa-regular fa-plus"></i>
-                                        Create Campaign</button>
+                                        {{ __("content.Create Campaign") }}</button>
                                     </div>
                                 <div class="w-[196px] h-[54px] px-8 py-4 left-[3px] top-[150px] absolute bg-red-600 rounded backdrop-blur-[80px] justify-center items-center gap-[10px] inline-flex transition-all duration-200 border border-transparent hover:bg-red-700 hover:border-red-500">
-                                    <button class="text-right text-white text-[18px] font-semibold">Donate Now</button>
+                                    <button class="text-right text-white text-[18px] font-semibold">{{ __("content.Donate Now") }}</button>
                                 </div>
                             </div>
                     </div>
